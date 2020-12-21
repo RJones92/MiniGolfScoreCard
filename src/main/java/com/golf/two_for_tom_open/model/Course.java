@@ -1,6 +1,9 @@
 package com.golf.two_for_tom_open.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,9 +14,11 @@ import javax.persistence.Table;
 import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table(name = "courses")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
+@Entity@Table(name = "courses")
 public class Course extends BaseEntity {
 
     @Column
