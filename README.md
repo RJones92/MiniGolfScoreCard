@@ -5,5 +5,6 @@ The app's purpose is to record annual mini golf tournament scores, and draw up s
 
 ## When developming
 Run the Java Spring application on port 8080
+
 Run the React frontend
 
