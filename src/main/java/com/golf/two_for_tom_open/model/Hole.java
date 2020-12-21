@@ -13,7 +13,8 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Data
 @Builder
-@Entity@Table(name = "holes")
+@Entity
+@Table(name = "holes")
 public class Hole extends BaseEntity {
 
     @Column

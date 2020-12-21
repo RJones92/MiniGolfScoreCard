@@ -15,11 +15,11 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
-    public List<Player> getPlayers() {
+    public List<Player> getAll() {
         return playerRepository.findAll();
     }
 
-    public Player savePlayer(Player player) {
+    public Player save(Player player) {
         return playerRepository.save(player);
     }
 }

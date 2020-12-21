@@ -22,7 +22,7 @@ public class IndexController {
     @RequestMapping(value = "/players", method = RequestMethod.GET)
     public ResponseEntity<?> getPlayers(){
 
-        List<Player> players = playerService.getPlayers();
+        List<Player> players = playerService.getAll();
         return ResponseEntity.ok(players);
     }
 
