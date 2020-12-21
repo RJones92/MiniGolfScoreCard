@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.golf.two_for_tom_open;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
