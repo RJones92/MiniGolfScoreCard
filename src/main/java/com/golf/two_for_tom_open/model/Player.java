@@ -1,5 +1,6 @@
 package com.golf.two_for_tom_open.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "players")
 @Data
+@Builder
 public class Player extends BaseEntity {
 
     @Column
