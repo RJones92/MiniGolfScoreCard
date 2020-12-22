@@ -25,7 +25,7 @@ public class Course extends BaseEntity {
     private String courseName;
 
     @Column
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Hole> holes;
 
     @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
