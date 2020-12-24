@@ -3,10 +3,11 @@ package com.golf.two_for_tom_open.dataInitialiser;
 import com.golf.two_for_tom_open.model.Course;
 import com.golf.two_for_tom_open.model.Hole;
 import com.golf.two_for_tom_open.model.Player;
+import com.golf.two_for_tom_open.model.Score;
 import com.golf.two_for_tom_open.model.Tournament;
 import com.golf.two_for_tom_open.service.CourseService;
-import com.golf.two_for_tom_open.service.HoleService;
 import com.golf.two_for_tom_open.service.PlayerService;
+import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,14 +21,14 @@ public class DataInitialiser implements CommandLineRunner {
 
     private final PlayerService playerService;
     private final CourseService courseService;
-    private final HoleService holeService;
+    private final ScoreService scoreService;
     private final TournamentService tournamentService;
 
-    public DataInitialiser(PlayerService playerService, CourseService courseService, HoleService holeService,
-                           TournamentService tournamentService) {
+    public DataInitialiser(PlayerService playerService, CourseService courseService,
+                           ScoreService scoreService, TournamentService tournamentService) {
         this.playerService = playerService;
         this.courseService = courseService;
-        this.holeService = holeService;
+        this.scoreService = scoreService;
         this.tournamentService = tournamentService;
     }
 
@@ -39,44 +40,41 @@ public class DataInitialiser implements CommandLineRunner {
     private void loadData() {
 
         // +++++ Players +++++
-        Player playerA = Player.builder()
-                .firstName("Player")
-                .lastName("A")
-                .build();
-
-        Player playerB = Player.builder()
-                .firstName("Player")
-                .lastName("B")
-                .build();
+        Player playerA = Player.builder().firstName("Player").lastName("A").build();
+        Player playerB = Player.builder().firstName("Player").lastName("B").build();
 
         playerService.save(playerA);
         playerService.save(playerB);
 
-        // +++++ Courses +++++
+        // +++++ Holes +++++
         List<Hole> holesForCourseA = Arrays.asList(
-                Hole.builder().holeNumber((byte) 1).par((byte) 3).build(),
-                Hole.builder().holeNumber((byte) 2).par((byte) 2).build(),
-                Hole.builder().holeNumber((byte) 3).par((byte) 3).build(),
-                Hole.builder().holeNumber((byte) 4).par((byte) 3).build(),
-                Hole.builder().holeNumber((byte) 5).par((byte) 4).build()
+                Hole.builder().holeNumber(1).par(3).build(),
+                Hole.builder().holeNumber(2).par(2).build(),
+                Hole.builder().holeNumber(3).par(3).build(),
+                Hole.builder().holeNumber(4).par(3).build(),
+                Hole.builder().holeNumber(5).par(4).build()
         );
+        List<Hole> holesForCourseB = Arrays.asList(
+                Hole.builder().holeNumber(1).par(2).build(),
+                Hole.builder().holeNumber(2).par(2).build(),
+                Hole.builder().holeNumber(3).par(3).build(),
+                Hole.builder().holeNumber(4).par(3).build(),
+                Hole.builder().holeNumber(5).par(4).build()
+        );
+
+        // +++++ Courses +++++
         Course courseA = Course.builder()
                 .courseName("Course A")
                 .holes(holesForCourseA)
                 .build();
-        courseService.save(courseA);
 
-        List<Hole> holesForCourseB = Arrays.asList(
-                Hole.builder().holeNumber((byte) 1).par((byte) 2).build(),
-                Hole.builder().holeNumber((byte) 2).par((byte) 2).build(),
-                Hole.builder().holeNumber((byte) 3).par((byte) 3).build(),
-                Hole.builder().holeNumber((byte) 4).par((byte) 3).build(),
-                Hole.builder().holeNumber((byte) 5).par((byte) 4).build()
-        );
         Course courseB = Course.builder()
                 .courseName("Course B")
                 .holes(holesForCourseB)
                 .build();
+
+        //cascade type all, so holes save too
+        courseService.save(courseA);
         courseService.save(courseB);
 
         // +++++ Tournaments +++++
@@ -87,5 +85,22 @@ public class DataInitialiser implements CommandLineRunner {
                 .build();
         tournamentService.save(tournament2015);
 
+        // +++++ Scores +++++
+        Hole courseAHole1 = courseA.getHoleByCourseHoleNumber(1).orElse(null);
+        Hole courseAHole2 = courseA.getHoleByCourseHoleNumber(2).orElse(null);
+
+        scoreService.save(createScore(3, tournament2015, courseAHole1, playerA));
+        scoreService.save(createScore(6, tournament2015, courseAHole1, playerB));
+        scoreService.save(createScore(3, tournament2015, courseAHole2, playerA));
+        scoreService.save(createScore(2, tournament2015, courseAHole2, playerB));
+
+    }
+
+    private Score createScore(int strokes, Tournament tournament, Hole hole, Player player) {
+        Score score = Score.builder().strokes(strokes).build();
+        hole.addScore(score);
+        tournament.addScore(score);
+        player.addScore(score);
+        return score;
     }
 }
