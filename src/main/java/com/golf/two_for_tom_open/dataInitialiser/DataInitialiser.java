@@ -97,10 +97,12 @@ public class DataInitialiser implements CommandLineRunner {
     }
 
     private Score createScore(int strokes, Tournament tournament, Hole hole, Player player) {
-        Score score = Score.builder().strokes(strokes).build();
+        Score score = Score.builder()
+                .strokes(strokes)
+                .player(player)
+                .build();
         hole.addScore(score);
         tournament.addScore(score);
-        player.addScore(score);
         return score;
     }
 }

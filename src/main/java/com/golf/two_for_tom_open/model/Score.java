@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,8 +21,9 @@ import javax.persistence.Table;
 @Table(name = "scores")
 public class Score extends BaseEntity {
 
-    //bidirectional
+    //unidirectional
     @ManyToOne
+    @JoinColumn(name = "player_id")
     private Player player;
 
     //bidirectional

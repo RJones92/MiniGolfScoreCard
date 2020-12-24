@@ -6,15 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,21 +28,11 @@ public class Player extends BaseEntity {
     @NotNull
     private String lastName;
 
-    @ManyToMany(mappedBy = "players")
-    private Set<Tournament> tournaments;
-
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL)
-    @Builder.Default
-    private Set<Score> scores = new HashSet<>();
-
-    public void addScore(Score score) {
-        scores.add(score);
-        score.setPlayer(this);
+    @Override
+    public String toString() {
+        return "Player{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
-
-    public void removeScore(Score score) {
-        scores.remove(score);
-        score.setPlayer(null);
-    }
-
 }

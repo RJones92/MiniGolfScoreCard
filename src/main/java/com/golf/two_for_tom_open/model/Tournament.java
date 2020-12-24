@@ -40,7 +40,7 @@ public class Tournament extends BaseEntity {
     @Builder.Default
     private List<Course> courses = new ArrayList<>();
 
-    //bidirectional
+    //unidirectional
     @ManyToMany
     @JoinTable(name = "tournament_players",
             joinColumns = @JoinColumn(name = "tournament_id"),
@@ -52,15 +52,6 @@ public class Tournament extends BaseEntity {
     @Builder.Default
     private Set<Score> scores = new HashSet<>();
 
-    public void addPlayer(Player player) {
-        players.add(player);
-        player.getTournaments().add(this);
-    }
-
-    public void removePlayer(Player player) {
-        players.remove(player);
-        player.getTournaments().remove(this);
-    }
 
     public void addScore(Score score) {
         scores.add(score);
