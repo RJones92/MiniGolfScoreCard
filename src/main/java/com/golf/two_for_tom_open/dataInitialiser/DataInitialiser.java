@@ -100,9 +100,9 @@ public class DataInitialiser implements CommandLineRunner {
         Score score = Score.builder()
                 .strokes(strokes)
                 .player(player)
+                .tournament(tournament)
                 .build();
         hole.addScore(score);
-        tournament.addScore(score);
         return score;
     }
 }
