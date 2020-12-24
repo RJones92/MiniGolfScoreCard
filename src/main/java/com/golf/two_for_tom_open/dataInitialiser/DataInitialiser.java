@@ -101,8 +101,8 @@ public class DataInitialiser implements CommandLineRunner {
                 .strokes(strokes)
                 .player(player)
                 .tournament(tournament)
+                .hole(hole)
                 .build();
-        hole.addScore(score);
         return score;
     }
 }

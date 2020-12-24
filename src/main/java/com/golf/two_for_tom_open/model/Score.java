@@ -31,8 +31,9 @@ public class Score extends BaseEntity {
     @JoinColumn(name = "tournament_id")
     private Tournament tournament;
 
-    //bidirectional
+    //unidirectional
     @ManyToOne
+    @JoinColumn(name = "hole_id")
     private Hole hole;
 
     @Column
