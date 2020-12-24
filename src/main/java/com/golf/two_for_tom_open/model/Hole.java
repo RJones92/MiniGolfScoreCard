@@ -2,10 +2,10 @@ package com.golf.two_for_tom_open.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,19 +15,20 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "holes")
 public class Hole extends BaseEntity {
 
     @Column
-    private byte par;
+    private int par;
 
     @Column
-    private byte holeNumber;
+    private int holeNumber;
 
-    @OneToMany(mappedBy = "hole", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hole")
     @Builder.Default
     private Set<Score> scores = new HashSet<>();
 
