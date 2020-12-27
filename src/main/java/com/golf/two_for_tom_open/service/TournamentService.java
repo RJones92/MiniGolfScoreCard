@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TournamentService {
+public class TournamentService implements BaseService<Tournament> {
 
     private TournamentRepository tournamentRepository;
 
@@ -15,10 +15,12 @@ public class TournamentService {
         this.tournamentRepository = tournamentRepository;
     }
 
+    @Override
     public List<Tournament> getAll() {
         return tournamentRepository.findAll();
     }
 
+    @Override
     public Tournament save(Tournament tournament) {
         return tournamentRepository.save(tournament);
     }

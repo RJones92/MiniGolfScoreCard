@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PlayerService {
+public class PlayerService implements BaseService<Player> {
 
     private PlayerRepository playerRepository;
 
@@ -15,10 +15,12 @@ public class PlayerService {
         this.playerRepository = playerRepository;
     }
 
+    @Override
     public List<Player> getAll() {
         return playerRepository.findAll();
     }
 
+    @Override
     public Player save(Player player) {
         return playerRepository.save(player);
     }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CourseService {
+public class CourseService implements BaseService<Course> {
 
     private CourseRepository courseRepository;
 
@@ -15,10 +15,12 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
+    @Override
     public List<Course> getAll() {
         return courseRepository.findAll();
     }
 
+    @Override
     public Course save(Course course) {
         return courseRepository.save(course);
     }

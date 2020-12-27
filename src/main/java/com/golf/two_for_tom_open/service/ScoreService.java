@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
-public class ScoreService {
+public class ScoreService implements BaseService<Score>{
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -23,16 +23,17 @@ public class ScoreService {
         this.scoreRepository = scoreRepository;
     }
 
+    @Override
     public List<Score> getAll() {
         return scoreRepository.findAll();
     }
 
+    @Override
     public Score save(Score score) {
         return scoreRepository.save(score);
     }
 
-    public List<Score> getScoresForPlayerId(int playerId) {
-        //docs: https://www.baeldung.com/intro-to-querydsl
+    public List<Score> getScoresForPlayerById(int playerId) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
         QScore qScore = QScore.score;
         QPlayer qPlayer = QPlayer.player;
@@ -44,7 +45,7 @@ public class ScoreService {
         return scores;
     }
 
-    public List<Score> getScoresForPlayerName(String firstName, String lastName) {
+    public List<Score> getScoresForPlayerByName(String firstName, String lastName) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
         QScore qScore = QScore.score;
         QPlayer qPlayer = QPlayer.player;
