@@ -35,4 +35,18 @@ public class ScoreController {
         }
     }
 
+    @RequestMapping(value = "/player")
+    public ResponseEntity<?> getScoresForPlayerName(@RequestParam String firstName,
+                                                    @RequestParam String lastName) {
+        List<Score> scores = scoreService.getScoresForPlayerName(firstName, lastName);
+
+        if (!scores.isEmpty()) {
+            logger.info("There are {} results returned for player {} {}.", scores.size(), firstName, lastName);
+            return ResponseEntity.ok(scores);
+        } else {
+            logger.info("There are no results for player {} {}.", firstName, lastName);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
 }

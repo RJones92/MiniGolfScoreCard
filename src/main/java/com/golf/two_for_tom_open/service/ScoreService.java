@@ -41,6 +41,18 @@ public class ScoreService {
                 .innerJoin(qScore.player, qPlayer)
                 .on(qPlayer.id.eq(playerId))
                 .fetch();
+        return scores;
+    }
+
+    public List<Score> getScoresForPlayerName(String firstName, String lastName) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        QScore qScore = QScore.score;
+        QPlayer qPlayer = QPlayer.player;
+
+        List<Score> scores = queryFactory.selectFrom(qScore)
+                .innerJoin(qScore.player, qPlayer)
+                .on(qPlayer.firstName.equalsIgnoreCase(firstName), qPlayer.lastName.equalsIgnoreCase(lastName))
+                .fetch();
 
         return scores;
     }
