@@ -1,6 +1,6 @@
 package com.golf.two_for_tom_open.repository;
 
-import com.golf.two_for_tom_open.model.Player;
+import com.golf.two_for_tom_open.model.entity.Player;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;

@@ -1,6 +1,6 @@
 package com.golf.two_for_tom_open.controller;
 
-import com.golf.two_for_tom_open.model.Player;
+import com.golf.two_for_tom_open.model.entity.Player;
 import com.golf.two_for_tom_open.service.PlayerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

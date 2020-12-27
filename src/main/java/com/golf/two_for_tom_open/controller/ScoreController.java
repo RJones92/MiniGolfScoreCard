@@ -1,6 +1,6 @@
 package com.golf.two_for_tom_open.controller;
 
-import com.golf.two_for_tom_open.model.Score;
+import com.golf.two_for_tom_open.model.entity.Score;
 import com.golf.two_for_tom_open.service.ScoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

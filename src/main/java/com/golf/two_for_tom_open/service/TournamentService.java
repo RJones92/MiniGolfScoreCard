@@ -1,6 +1,6 @@
 package com.golf.two_for_tom_open.service;
 
-import com.golf.two_for_tom_open.model.Tournament;
+import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.repository.TournamentRepository;
 import org.springframework.stereotype.Service;
 

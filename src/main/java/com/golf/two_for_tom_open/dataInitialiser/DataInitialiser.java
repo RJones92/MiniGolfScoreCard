@@ -1,10 +1,10 @@
 package com.golf.two_for_tom_open.dataInitialiser;
 
-import com.golf.two_for_tom_open.model.Course;
-import com.golf.two_for_tom_open.model.Hole;
-import com.golf.two_for_tom_open.model.Player;
-import com.golf.two_for_tom_open.model.Score;
-import com.golf.two_for_tom_open.model.Tournament;
+import com.golf.two_for_tom_open.model.entity.Course;
+import com.golf.two_for_tom_open.model.entity.Hole;
+import com.golf.two_for_tom_open.model.entity.Player;
+import com.golf.two_for_tom_open.model.entity.Score;
+import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.service.CourseService;
 import com.golf.two_for_tom_open.service.PlayerService;
 import com.golf.two_for_tom_open.service.ScoreService;

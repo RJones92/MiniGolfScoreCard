@@ -1,8 +1,8 @@
 package com.golf.two_for_tom_open.service;
 
-import com.golf.two_for_tom_open.model.QPlayer;
-import com.golf.two_for_tom_open.model.QScore;
-import com.golf.two_for_tom_open.model.Score;
+import com.golf.two_for_tom_open.model.entity.QPlayer;
+import com.golf.two_for_tom_open.model.entity.QScore;
+import com.golf.two_for_tom_open.model.entity.Score;
 import com.golf.two_for_tom_open.repository.ScoreRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;

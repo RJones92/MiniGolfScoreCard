@@ -1,4 +1,4 @@
-package com.golf.two_for_tom_open.model;
+package com.golf.two_for_tom_open.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
