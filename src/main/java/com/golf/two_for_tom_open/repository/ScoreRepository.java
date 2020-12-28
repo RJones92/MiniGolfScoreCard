@@ -7,5 +7,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface ScoreRepository extends JpaRepository<Score, Integer>, JpaSpecificationExecutor<Score>, QuerydslPredicateExecutor<Score> {
+public interface ScoreRepository extends JpaRepository<Score, Integer>, ScoreRepositoryCustom, JpaSpecificationExecutor<Score>, QuerydslPredicateExecutor<Score> {
 }
