@@ -1,14 +1,7 @@
 package com.golf.two_for_tom_open.dataInitialiser;
 
-import com.golf.two_for_tom_open.model.entity.Course;
-import com.golf.two_for_tom_open.model.entity.Hole;
-import com.golf.two_for_tom_open.model.entity.Player;
-import com.golf.two_for_tom_open.model.entity.Score;
-import com.golf.two_for_tom_open.model.entity.Tournament;
-import com.golf.two_for_tom_open.service.CourseService;
-import com.golf.two_for_tom_open.service.PlayerService;
-import com.golf.two_for_tom_open.service.ScoreService;
-import com.golf.two_for_tom_open.service.TournamentService;
+import com.golf.two_for_tom_open.model.entity.*;
+import com.golf.two_for_tom_open.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
