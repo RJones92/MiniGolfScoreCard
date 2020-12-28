@@ -13,5 +13,6 @@ import java.util.List;
 @Component
 public class ScoresDto {
 
+    private int id;
     private List<ScoreDto> scores;
 }

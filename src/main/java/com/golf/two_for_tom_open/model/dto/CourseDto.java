@@ -14,6 +14,7 @@ import java.util.List;
 @Component
 public class CourseDto {
 
+    private int id;
     private String courseName;
     private List<Hole> holes;
 

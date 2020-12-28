@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScoreDto {
 
+    private int id;
     private Player player;
     private Tournament tournament;
     private Hole hole;

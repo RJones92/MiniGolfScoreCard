@@ -13,6 +13,7 @@ import java.util.List;
 @Component
 public class CoursesDto {
 
+    private int id;
     private List<CourseDto> courses;
 
 }

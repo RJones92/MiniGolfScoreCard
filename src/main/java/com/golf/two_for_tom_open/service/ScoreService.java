@@ -42,6 +42,7 @@ public class ScoreService implements BaseService<Score>{
                 .innerJoin(qScore.player, qPlayer)
                 .on(qPlayer.id.eq(playerId))
                 .fetch();
+
         return scores;
     }
 

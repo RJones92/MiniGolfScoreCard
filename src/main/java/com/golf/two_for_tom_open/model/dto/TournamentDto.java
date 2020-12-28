@@ -16,6 +16,7 @@ import java.util.List;
 @Component
 public class TournamentDto {
 
+    private int id;
     private Year year;
     private List<Course> courses;
     private List<Player> players;
