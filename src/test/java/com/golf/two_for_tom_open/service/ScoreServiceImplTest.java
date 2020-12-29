@@ -43,17 +43,17 @@ class ScoreServiceImplTest {
 
     @Test
     void getAll() {
-        when(scoreRepository.findAll()).thenReturn(Arrays.asList(score1ForPlayerX));
-        List<Score> result = scoreService.getAll();
-        assertThat(result, contains(score1ForPlayerX));
-        assertThat(result, hasSize(1));
+        when(scoreRepository.findAll()).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
+        List<Score> scores = scoreService.getAll();
+        assertThat(scores, contains(score1ForPlayerX, score2ForPlayerX));
+        assertThat(scores, hasSize(2));
     }
 
     @Test
     void save() {
         when(scoreRepository.save(score1ForPlayerX)).thenReturn(score1ForPlayerX);
-        Score result = scoreService.save(score1ForPlayerX);
-        assertThat(result, is(score1ForPlayerX));
+        Score score = scoreService.save(score1ForPlayerX);
+        assertThat(score, is(score1ForPlayerX));
     }
 
     @Test
