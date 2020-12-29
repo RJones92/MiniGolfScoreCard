@@ -4,8 +4,7 @@ import com.golf.two_for_tom_open.model.entity.Score;
 
 import java.util.List;
 
-public interface ScoreRepositoryCustom {
-    //TODO probably rename this interface
+public interface ScoreRepositoryCustomQueries {
 
     List<Score> findScoresForPlayerById(int playerId);
 

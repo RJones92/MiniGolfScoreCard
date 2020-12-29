@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public class ScoreRepositoryCustomImpl implements ScoreRepositoryCustom {
+public class ScoreRepositoryCustomQueriesImpl implements ScoreRepositoryCustomQueries {
 
     @PersistenceContext
     private EntityManager entityManager;
