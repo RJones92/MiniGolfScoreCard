@@ -8,11 +8,11 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
 public class TournamentsDto {
 
-    private int id;
     private List<TournamentDto> tournaments;
 }

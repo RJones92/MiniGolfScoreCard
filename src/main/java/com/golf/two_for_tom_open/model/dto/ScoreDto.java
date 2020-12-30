@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
