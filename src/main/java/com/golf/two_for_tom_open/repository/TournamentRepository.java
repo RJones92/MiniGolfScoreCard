@@ -7,5 +7,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface TournamentRepository extends JpaRepository<Tournament, Integer>, JpaSpecificationExecutor<Tournament>, QuerydslPredicateExecutor<Tournament> {
+public interface TournamentRepository extends JpaRepository<Tournament, Integer>, TournamentRepositoryCustomQueries, JpaSpecificationExecutor<Tournament>, QuerydslPredicateExecutor<Tournament> {
 }

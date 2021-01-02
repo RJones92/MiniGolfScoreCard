@@ -1,12 +1,11 @@
 package com.golf.two_for_tom_open.repository;
 
-import com.golf.two_for_tom_open.model.entity.QPlayer;
-import com.golf.two_for_tom_open.model.entity.QScore;
-import com.golf.two_for_tom_open.model.entity.Score;
+import com.golf.two_for_tom_open.model.entity.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.Year;
 import java.util.List;
 
 public class ScoreRepositoryCustomQueriesImpl implements ScoreRepositoryCustomQueries {
@@ -41,4 +40,33 @@ public class ScoreRepositoryCustomQueriesImpl implements ScoreRepositoryCustomQu
 
         return scores;
     }
+
+    @Override
+    public List<Score> findScoresForTournament(Tournament tournament) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        QScore qScore = QScore.score;
+        QTournament qTournament = QTournament.tournament;
+
+        List<Score> scores = queryFactory.selectFrom(qScore)
+                .innerJoin(qScore.tournament, qTournament)
+                .on(qTournament.eq(tournament))
+                .fetch();
+
+        return scores;
+    }
+
+    @Override
+    public List<Score> findScoresForTournamentByYear(Year year) {
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        QScore qScore = QScore.score;
+        QTournament qTournament = QTournament.tournament;
+
+        List<Score> scores = queryFactory.selectFrom(qScore)
+                .innerJoin(qScore.tournament, qTournament)
+                .on(qTournament.year.eq(year))
+                .fetch();
+
+        return scores;
+    }
+
 }
