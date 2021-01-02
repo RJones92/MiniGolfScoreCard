@@ -1,8 +1,5 @@
 package com.golf.two_for_tom_open.model.dto;
 
-import com.golf.two_for_tom_open.model.entity.Hole;
-import com.golf.two_for_tom_open.model.entity.Player;
-import com.golf.two_for_tom_open.model.entity.Tournament;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +13,8 @@ import org.springframework.stereotype.Component;
 public class ScoreDto {
 
     private int id;
-    private Player player;
-    private Tournament tournament;
-    private Hole hole;
+    private PlayerDto player;
+    private TournamentDto tournament;
+    private HoleDto hole;
     private int strokes;
 }

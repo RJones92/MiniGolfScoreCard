@@ -1,7 +1,5 @@
 package com.golf.two_for_tom_open.model.dto;
 
-import com.golf.two_for_tom_open.model.entity.Course;
-import com.golf.two_for_tom_open.model.entity.Player;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +16,8 @@ public class TournamentDto {
 
     private int id;
     private Year year;
-    private List<Course> courses;
-    private List<Player> players;
+    private List<CourseDto> courses;
+    private List<PlayerDto> players;
+
+    private PlayerDto winner;
 }
