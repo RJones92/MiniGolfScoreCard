@@ -1,15 +1,16 @@
 package com.golf.two_for_tom_open.service;
 
-import com.golf.two_for_tom_open.model.dto.ScoresDto;
 import com.golf.two_for_tom_open.model.entity.Player;
 import com.golf.two_for_tom_open.model.entity.Score;
+import com.golf.two_for_tom_open.model.mapper.ScoreMapper;
 import com.golf.two_for_tom_open.repository.ScoreRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,23 +19,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ScoreServiceImplTest {
 
-    @TestConfiguration
-    static class ScoreServiceImplTestContextConfiguration {
+    @InjectMocks
+    ScoreService scoreService = new ScoreServiceImpl();
 
-        @Bean
-        public ScoreService scoreService() {
-            return new ScoreServiceImpl();
-        }
-    }
+    @Mock
+    ScoreRepository scoreRepository;
 
-    @Autowired
-    private ScoreService scoreService;
-
-    @MockBean
-    private ScoreRepository scoreRepository;
+    @Spy
+    ScoreMapper scoreMapper = Mappers.getMapper(ScoreMapper.class);
 
     private static final String PLAYER_X_FIRST_NAME = "John";
     private static final String PLAYER_X_LAST_NAME = "Smith";
@@ -62,29 +57,29 @@ class ScoreServiceImplTest {
         int playerId = 0;
         when(scoreRepository.findScoresForPlayerById(playerId)).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
 
-        ScoresDto scores = scoreService.getScoresForPlayerById(playerId);
+        List<Score> scores = scoreService.getScoresForPlayerById(playerId);
 
-        assertThat(scores.getScores(), hasSize(2));
-        assertThat(scores.getScores().get(0).getStrokes(), is(score1ForPlayerX.getStrokes()));
-        assertThat(scores.getScores().get(0).getPlayer().getFirstName(), is(score1ForPlayerX.getPlayer().getFirstName()));
-        assertThat(scores.getScores().get(0).getPlayer().getLastName(), is(score1ForPlayerX.getPlayer().getLastName()));
-        assertThat(scores.getScores().get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
-        assertThat(scores.getScores().get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
-        assertThat(scores.getScores().get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
+        assertThat(scores, hasSize(2));
+        assertThat(scores.get(0).getStrokes(), is(score1ForPlayerX.getStrokes()));
+        assertThat(scores.get(0).getPlayer().getFirstName(), is(score1ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(0).getPlayer().getLastName(), is(score1ForPlayerX.getPlayer().getLastName()));
+        assertThat(scores.get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
+        assertThat(scores.get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
     }
 
     @Test
     void getScoresForPlayerByName() {
         when(scoreRepository.findScoresForPlayerByName(PLAYER_X_FIRST_NAME, PLAYER_X_LAST_NAME)).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
 
-        ScoresDto scores = scoreService.getScoresForPlayerByName(PLAYER_X_FIRST_NAME, PLAYER_X_LAST_NAME);
+        List<Score> scores = scoreService.getScoresForPlayerByName(PLAYER_X_FIRST_NAME, PLAYER_X_LAST_NAME);
 
-        assertThat(scores.getScores(), hasSize(2));
-        assertThat(scores.getScores().get(0).getStrokes(), is(score1ForPlayerX.getStrokes()));
-        assertThat(scores.getScores().get(0).getPlayer().getFirstName(), is(score1ForPlayerX.getPlayer().getFirstName()));
-        assertThat(scores.getScores().get(0).getPlayer().getLastName(), is(score1ForPlayerX.getPlayer().getLastName()));
-        assertThat(scores.getScores().get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
-        assertThat(scores.getScores().get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
-        assertThat(scores.getScores().get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
+        assertThat(scores, hasSize(2));
+        assertThat(scores.get(0).getStrokes(), is(score1ForPlayerX.getStrokes()));
+        assertThat(scores.get(0).getPlayer().getFirstName(), is(score1ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(0).getPlayer().getLastName(), is(score1ForPlayerX.getPlayer().getLastName()));
+        assertThat(scores.get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
+        assertThat(scores.get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
     }
 }

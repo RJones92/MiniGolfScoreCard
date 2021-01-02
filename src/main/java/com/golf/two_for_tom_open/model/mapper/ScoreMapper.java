@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ScoreMapper {
-    ScoreDto scoreEntityToScoreDto(Score scoreEntity);
+    ScoreDto scoreEntityToDto(Score scoreEntity);
 }

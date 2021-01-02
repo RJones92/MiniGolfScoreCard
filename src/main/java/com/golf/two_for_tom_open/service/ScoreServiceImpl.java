@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ScoreServiceImpl implements ScoreService {
@@ -40,13 +39,9 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public ScoresDto getScoresForPlayerById(int playerId) {
+    public List<Score> getScoresForPlayerById(int playerId) {
         try {
-            List<Score> scoreEntities = scoreRepository.findScoresForPlayerById(playerId);
-            List<ScoreDto> scoreDtos = scoreEntities.stream()
-                    .map(scoreEntity -> scoreMapper.scoreEntityToScoreDto(scoreEntity))
-                    .collect(Collectors.toList());
-            return ScoresDto.builder().scores(scoreDtos).build();
+            return scoreRepository.findScoresForPlayerById(playerId);
         } catch (Exception e) {
             logger.error("Error retrieving scores for player ID: {}", playerId);
             logger.info("Error message thrown is: {}", e.getMessage());
@@ -56,13 +51,9 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public ScoresDto getScoresForPlayerByName(String firstName, String lastName) {
+    public List<Score> getScoresForPlayerByName(String firstName, String lastName) {
         try {
-            List<Score> scoreEntities = scoreRepository.findScoresForPlayerByName(firstName, lastName);
-            List<ScoreDto> scoreDtos = scoreEntities.stream()
-                    .map(scoreEntity -> scoreMapper.scoreEntityToScoreDto(scoreEntity))
-                    .collect(Collectors.toList());
-            return ScoresDto.builder().scores(scoreDtos).build();
+            return scoreRepository.findScoresForPlayerByName(firstName, lastName);
         } catch (Exception e) {
             logger.error("Error retrieving scores for player name: {} {}", firstName, lastName);
             logger.info("Error message thrown is: {}", e.getMessage());

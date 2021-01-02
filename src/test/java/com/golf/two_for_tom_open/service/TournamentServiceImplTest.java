@@ -3,11 +3,10 @@ package com.golf.two_for_tom_open.service;
 import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.repository.TournamentRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Year;
 import java.util.Arrays;
@@ -18,22 +17,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = TournamentServiceImpl.class)
+@ExtendWith(MockitoExtension.class)
 class TournamentServiceImplTest {
 
-    @TestConfiguration
-    static class TournamentServiceImplTestContextConfiguration {
+    @InjectMocks
+    TournamentService tournamentService = new TournamentServiceImpl();
 
-        @Bean
-        public TournamentService tournamentService() {
-            return new TournamentServiceImpl();
-        }
-    }
-
-    @Autowired
-    TournamentService tournamentService;
-
-    @MockBean
+    @Mock
     TournamentRepository tournamentRepository;
 
     private final Tournament tournament2015 = Tournament.builder()
