@@ -18,22 +18,20 @@ function Table(props) {
   }
 
   return (
-    <div class="table-responsive-md">
-      <table class="table">
-        <thead>
-          <tr>
-            {props.columnHeaders.map((headerName) => (
-              <th scope="col">{headerName}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {tableRows.map((row) => (
-            <tr>{row}</tr>
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          {props.columnHeaders.map((headerName) => (
+            <th scope="col">{headerName}</th>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        {tableRows.map((row) => (
+          <tr>{row}</tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
