@@ -78,6 +78,13 @@ public class DataInitialiser implements CommandLineRunner {
                 .build();
         tournamentService.save(tournament2015);
 
+        Tournament tournament2016 = Tournament.builder()
+                .year(Year.of(2016))
+                .courses(Arrays.asList(courseA, courseB))
+                .players(Arrays.asList(playerA, playerB))
+                .build();
+        tournamentService.save(tournament2016);
+
         // +++++ Scores +++++
         Hole courseAHole1 = courseA.getHoleByCourseHoleNumber(1).orElse(null);
         Hole courseAHole2 = courseA.getHoleByCourseHoleNumber(2).orElse(null);
