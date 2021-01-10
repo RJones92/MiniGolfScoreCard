@@ -8,27 +8,31 @@ function Table(props) {
   createRows();
 
   function createRows() {
-    props.rows.forEach((row) => {
+    props.rows.forEach((row, index) => {
       let tableDataElements = [];
       for (const colValue in row) {
-        tableDataElements.push(<td>{row[colValue]}</td>);
+        tableDataElements.push(
+          <td key={index + row[colValue]}>{row[colValue]}</td>
+        );
       }
       tableRows.push(tableDataElements);
     });
   }
 
   return (
-    <table class="table mt-4">
+    <table className="table mt-4">
       <thead>
-        <tr>
+        <tr key="columnHeaders">
           {props.columnHeaders.map((headerName) => (
-            <th scope="col">{headerName}</th>
+            <th key={headerName} scope="col">
+              {headerName}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {tableRows.map((row) => (
-          <tr>{row}</tr>
+        {tableRows.map((row, index) => (
+          <tr key={index}>{row}</tr>
         ))}
       </tbody>
     </table>

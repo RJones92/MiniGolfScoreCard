@@ -1,19 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./Table";
+import { getAllTournaments } from "../services/tournamentService";
 
-function HomePage(props) {
-  let rows = dummyRowDataGeneration();
-  let cols = ["Tournament", "Winner"];
+function HomePage() {
+  const [formattedRowObjects, setFormattedRowObjects] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
+  const columnHeaders = ["Tournament", "Winner"];
 
-  return (
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <Table columnHeaders={cols} rows={rows} />
+  useEffect(() => {
+    getAllTournaments().then(
+      (response) => {
+        setIsLoaded(true);
+        createRows(response.tournaments);
+      },
+      (error) => {
+        setIsLoaded(true);
+        setError(error);
+      }
+    );
+
+    function createRows(tournaments) {
+      tournaments.forEach((tournament) => {
+        let newRow = {
+          year: tournament.year,
+          winner: tournament.winner.firstName,
+        };
+        setFormattedRowObjects((formattedRowObjects) => [
+          ...formattedRowObjects,
+          newRow,
+        ]);
+      });
+    }
+  }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-6">
+            <Table columnHeaders={columnHeaders} rows={formattedRowObjects} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function dummyRowDataGeneration() {

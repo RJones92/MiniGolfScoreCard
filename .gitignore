@@ -21,6 +21,7 @@ target/
 
 ### VS Code ###
 .vscode/
+*.eslintcache
 
 ### Java ###
 # Compiled class file

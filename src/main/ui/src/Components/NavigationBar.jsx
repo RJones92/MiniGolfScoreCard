@@ -2,10 +2,10 @@ import React from "react";
 
 function NavigationBar() {
   return (
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand">Two For Tom Open</a>
+    <nav className="navbar navbar-expand-md navbar-light bg-light">
+      <a className="navbar-brand">Two For Tom Open</a>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
@@ -13,24 +13,24 @@ function NavigationBar() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
+      <div className="collapse navbar-collapse" id="navbarNav">
+        <ul className="navbar-nav">
+          <li className="nav-item active">
+            <a className="nav-link" href="#">
               Home
             </a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
               Tournaments
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li className="nav-item">
+            <a className="nav-link" href="#">
               Players
             </a>
           </li>
