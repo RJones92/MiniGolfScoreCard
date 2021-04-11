@@ -1,7 +1,6 @@
 package com.golf.two_for_tom_open.controller;
 
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
-import com.golf.two_for_tom_open.model.dto.TournamentsDto;
 import com.golf.two_for_tom_open.model.enricher.TournamentDtoEnricher;
 import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.model.mapper.TournamentMapper;
@@ -46,6 +45,6 @@ public class TournamentController {
                 .collect(Collectors.toList());
 
         logger.info("All tournaments received and being returned to consumer");
-        return ResponseEntity.ok(TournamentsDto.builder().tournaments(tournamentDtos).build());
+        return ResponseEntity.ok(tournamentDtos);
     }
 }
