@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HoleDto {
 
+    private int id;
     private int par;
     private int holeNumber;
 

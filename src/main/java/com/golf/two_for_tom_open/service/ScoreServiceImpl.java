@@ -46,7 +46,6 @@ public class ScoreServiceImpl implements ScoreService {
             logger.info("Error message thrown is: {}", e.getMessage());
             return null;
         }
-
     }
 
     @Override
