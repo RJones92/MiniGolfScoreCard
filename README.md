@@ -3,8 +3,13 @@ An app that will have a java backend talking to an SQL DB and serving data to a 
 
 The app's purpose is to record annual mini golf tournament scores, and draw up statistics for each participant.
 
-## When developming
-Run the Java Spring application on port 8080
+## Run the program in developer mode
+Run the Java Spring application on port 8080:
+- mvn clean install
+- run programme in your IDE or command line
 
-Run the React frontend
+Run the React frontend:
+- cd /src/main/ui
+- npm start
+
 
