@@ -14,6 +14,7 @@ function TournamentPage(props) {
       ([allTournaments, allScores]) => {
         setIsLoaded(true);
         let tableObjects = [];
+        console.log(allTournaments);
 
         const tournamentKeys = Object.keys(allTournaments);
         tournamentKeys.forEach((key) => {
@@ -32,11 +33,12 @@ function TournamentPage(props) {
 
     function createTournamentTable(tournament, allScores) {
       let players = tournament.players;
+      let tableName = tournament.year;
       let tableHeaders = createTableHeaders(players);
       let tableRows = tournament.courses.map((course) =>
         createCourseRow(course, players, allScores)
       );
-      return { headers: tableHeaders, rows: tableRows };
+      return { tableName: tableName, headers: tableHeaders, rows: tableRows };
     }
 
     function createTableHeaders(players) {
@@ -98,13 +100,17 @@ function TournamentPage(props) {
     return (
       <div className="container-fluid">
         {tournamentTableObjects.map((tournamentTableObject, index) => (
-          <div className="row">
-            <div className="col-md-6">
-              <div key={index}>
-                <Table
-                  columnHeaders={tournamentTableObject.headers}
-                  rows={tournamentTableObject.rows}
-                />
+          <div>
+            <h2>{tournamentTableObject.tableName}</h2>
+            <div className="row">
+              <div className="col-md-6">
+                <div key={index}>
+                  <Table
+                    columnHeaders={tournamentTableObject.headers}
+                    rows={tournamentTableObject.rows}
+                    tableHeader={tournamentTableObject.year}
+                  />
+                </div>
               </div>
             </div>
           </div>
