@@ -1,6 +1,7 @@
 package com.golf.two_for_tom_open.service;
 
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.enricher.TournamentDtoEnricher;
 import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.model.mapper.TournamentMapper;
 import com.golf.two_for_tom_open.repository.TournamentRepository;
@@ -14,10 +15,12 @@ public class TournamentServiceImpl implements TournamentService {
 
     private final TournamentRepository tournamentRepository;
     private final TournamentMapper tournamentMapper;
+    private final TournamentDtoEnricher tournamentDtoEnricher;
 
-    public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentMapper tournamentMapper) {
+    public TournamentServiceImpl(TournamentRepository tournamentRepository, TournamentMapper tournamentMapper, TournamentDtoEnricher tournamentDtoEnricher) {
         this.tournamentRepository = tournamentRepository;
         this.tournamentMapper = tournamentMapper;
+        this.tournamentDtoEnricher = tournamentDtoEnricher;
     }
 
     @Override
@@ -28,18 +31,18 @@ public class TournamentServiceImpl implements TournamentService {
     @Override
     public List<TournamentDto> getAllTournamentDto() {
         List<Tournament> tournaments = this.getAll();
-        return convertListTournamentToListTournamentDto(tournaments);
+        return tournaments.stream()
+                .map(tournament -> {
+                    TournamentDto tournamentDto = tournamentMapper.tournamentEntityToDto(tournament);
+                    tournamentDtoEnricher.enrich(tournamentDto);
+                    return tournamentDto;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public Tournament save(Tournament tournament) {
         return tournamentRepository.save(tournament);
-    }
-
-    private List<TournamentDto> convertListTournamentToListTournamentDto(List<Tournament> tournaments) {
-        return tournaments.stream()
-                .map(tournamentMapper::tournamentEntityToDto)
-                .collect(Collectors.toList());
     }
 
 }

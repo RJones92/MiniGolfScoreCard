@@ -1,5 +1,6 @@
 package com.golf.two_for_tom_open.service;
 
+import com.golf.two_for_tom_open.model.enricher.TournamentDtoEnricher;
 import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.model.mapper.TournamentMapper;
 import com.golf.two_for_tom_open.repository.TournamentRepository;
@@ -27,6 +28,8 @@ class TournamentServiceImplTest {
     TournamentService tournamentService;
     @Mock
     TournamentRepository tournamentRepository;
+    @Mock
+    TournamentDtoEnricher tournamentDtoEnricher;
     TournamentMapper tournamentMapper = Mappers.getMapper(TournamentMapper.class);
 
 
@@ -43,7 +46,7 @@ class TournamentServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        tournamentService = new TournamentServiceImpl(tournamentRepository, tournamentMapper);
+        tournamentService = new TournamentServiceImpl(tournamentRepository, tournamentMapper, tournamentDtoEnricher);
     }
 
     @Test

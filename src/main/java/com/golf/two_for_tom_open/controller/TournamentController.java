@@ -2,7 +2,6 @@ package com.golf.two_for_tom_open.controller;
 
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
 import com.golf.two_for_tom_open.model.enricher.TournamentDtoEnricher;
-import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.model.mapper.TournamentMapper;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/tournaments")
@@ -35,16 +33,9 @@ public class TournamentController {
         logger.info("Request to retrieve all tournaments received.");
         //TODO test me
 
-        List<Tournament> tournaments = tournamentService.getAll();
-        List<TournamentDto> tournamentDtos = tournaments.stream()
-                .map(tournament -> {
-                    TournamentDto tournamentDto = tournamentMapper.tournamentEntityToDto(tournament);
-                    tournamentDtoEnricher.enrich(tournamentDto);
-                    return tournamentDto;
-                })
-                .collect(Collectors.toList());
+        List<TournamentDto> tournaments = tournamentService.getAllTournamentDto();
 
         logger.info("All tournaments received and being returned to consumer");
-        return ResponseEntity.ok(tournamentDtos);
+        return ResponseEntity.ok(tournaments);
     }
 }
