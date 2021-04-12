@@ -12,8 +12,6 @@ function HomePage() {
     getAllTournaments().then(
       (allTournaments) => {
         setIsLoaded(true);
-        let tableObjects = [];
-
         createRows(allTournaments);
       },
       (error) => {
