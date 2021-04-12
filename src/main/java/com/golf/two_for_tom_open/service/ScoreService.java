@@ -13,4 +13,6 @@ public interface ScoreService extends BaseService<Score> {
 
     List<Score> getScoresForTournamentByYear(Year tournamentYear);
 
+    List<Score> getScoresForTournamentById(int tournamentId);
+
     }

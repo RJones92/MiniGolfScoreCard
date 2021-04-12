@@ -43,7 +43,7 @@ public class ScoreServiceImpl implements ScoreService {
             return scoreRepository.findScoresForPlayerById(playerId);
         } catch (Exception e) {
             logger.error("Error retrieving scores for player ID: {}", playerId);
-            logger.info("Error message thrown is: {}", e.getMessage());
+            logger.error("Error message thrown is: {}", e.getMessage());
             return null;
         }
     }
@@ -72,5 +72,16 @@ public class ScoreServiceImpl implements ScoreService {
 
     }
 
-
+    @Override
+    public List<Score> getScoresForTournamentById(int tournamentId) {
+        //TODO implement me
+        try {
+            List<Score> scores = scoreRepository.findAllByTournamentId(tournamentId);
+            return scores;
+        } catch (Exception e) {
+            logger.error("Error retrieving scores for tournament ID: {}", tournamentId);
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
 }
