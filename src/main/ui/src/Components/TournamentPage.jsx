@@ -14,7 +14,7 @@ function TournamentPage(props) {
       ([allTournaments, allScores]) => {
         setIsLoaded(true);
         let tableObjects = [];
-        console.log(allTournaments);
+        console.log(allScores);
 
         const tournamentKeys = Object.keys(allTournaments);
         tournamentKeys.forEach((key) => {
@@ -36,7 +36,7 @@ function TournamentPage(props) {
       let tableName = tournament.year;
       let tableHeaders = createTableHeaders(players);
       let tableRows = tournament.courses.map((course) =>
-        createCourseRow(course, players, allScores)
+        createCourseRow(tournament, course, players, allScores)
       );
       return { tableName: tableName, headers: tableHeaders, rows: tableRows };
     }
@@ -55,11 +55,13 @@ function TournamentPage(props) {
       return columnHeaders;
     }
 
-    function createCourseRow(course, players, allScores) {
+    function createCourseRow(tournament, course, players, allScores) {
       let newRow = { courseName: course.courseName };
 
       players.forEach((player) => {
+        // need to account for tournament year
         let playerScoreForCourse = getScoreForCourseForPlayer(
+          tournament,
           player,
           course,
           allScores
@@ -71,7 +73,7 @@ function TournamentPage(props) {
       return newRow;
     }
 
-    function getScoreForCourseForPlayer(player, course, allScores) {
+    function getScoreForCourseForPlayer(tournament, player, course, allScores) {
       const allHolesForCourse = course.holes;
       let totalCourseScoreForPlayer = 0;
 
@@ -81,7 +83,8 @@ function TournamentPage(props) {
           let score = allScores[key];
           if (
             courseHole.id === score.hole.id &&
-            player.id === score.player.id
+            player.id === score.player.id &&
+            tournament.id === score.tournament.id
           ) {
             totalCourseScoreForPlayer += score.strokes;
           }
