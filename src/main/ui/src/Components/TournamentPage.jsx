@@ -14,7 +14,6 @@ function TournamentPage(props) {
       ([allTournaments, allScores]) => {
         setIsLoaded(true);
         let tableObjects = [];
-        console.log(allScores);
 
         const tournamentKeys = Object.keys(allTournaments);
         tournamentKeys.forEach((key) => {
@@ -22,7 +21,6 @@ function TournamentPage(props) {
           tableObjects.push(createTournamentTable(tournament, allScores));
         });
 
-        console.log(tableObjects);
         setTournamentTableObjects(tableObjects);
       },
       (error) => {
