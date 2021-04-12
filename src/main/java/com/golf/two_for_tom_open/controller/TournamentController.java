@@ -7,11 +7,10 @@ import com.golf.two_for_tom_open.model.mapper.TournamentMapper;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,16 +20,17 @@ import java.util.stream.Collectors;
 public class TournamentController {
     private static Logger logger = LoggerFactory.getLogger(TournamentController.class);
 
-    @Autowired
-    private TournamentService tournamentService;
+    private final TournamentService tournamentService;
+    private final TournamentMapper tournamentMapper;
+    private final TournamentDtoEnricher tournamentDtoEnricher;
 
-    @Autowired
-    private TournamentMapper tournamentMapper;
+    public TournamentController(TournamentService tournamentService, TournamentMapper tournamentMapper, TournamentDtoEnricher tournamentDtoEnricher) {
+        this.tournamentService = tournamentService;
+        this.tournamentMapper = tournamentMapper;
+        this.tournamentDtoEnricher = tournamentDtoEnricher;
+    }
 
-    @Autowired
-    private TournamentDtoEnricher tournamentDtoEnricher;
-
-    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+    @GetMapping(value = {"/", ""})
     public ResponseEntity<?> getAllTournaments() {
         logger.info("Request to retrieve all tournaments received.");
         //TODO test me
