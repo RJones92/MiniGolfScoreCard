@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BaseService<T> {
 
-    public List<T> getAll();
-    public T save(T object);
+    List<T> getAll();
+    T save(T object);
 
 }

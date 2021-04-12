@@ -1,5 +1,6 @@
 package com.golf.two_for_tom_open.service;
 
+import com.golf.two_for_tom_open.model.dto.ScoreDto;
 import com.golf.two_for_tom_open.model.entity.Score;
 
 import java.time.Year;
@@ -7,12 +8,14 @@ import java.util.List;
 
 public interface ScoreService extends BaseService<Score> {
 
-    List<Score> getScoresForPlayerById(int playerId);
+    List<ScoreDto> getScoresForPlayerById(int playerId);
 
-    List<Score> getScoresForPlayerByName(String firstName, String lastName);
+    List<ScoreDto> getScoresForPlayerByName(String firstName, String lastName);
 
-    List<Score> getScoresForTournamentByYear(Year tournamentYear);
+    List<ScoreDto> getScoresForTournamentByYear(Year tournamentYear);
 
-    List<Score> getScoresForTournamentById(int tournamentId);
+    List<ScoreDto> getScoresForTournamentById(int tournamentId);
+
+    List<ScoreDto> getAllScoreDto();
 
     }

@@ -1,7 +1,6 @@
 package com.golf.two_for_tom_open.controller;
 
 import com.golf.two_for_tom_open.model.dto.ScoreDto;
-import com.golf.two_for_tom_open.model.entity.Score;
 import com.golf.two_for_tom_open.model.mapper.ScoreMapper;
 import com.golf.two_for_tom_open.service.ScoreService;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Year;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/scores")
@@ -27,45 +25,31 @@ public class ScoreController {
 
     @GetMapping(value = {"/", ""})
     public ResponseEntity<?> getScores() {
-        List<Score> scores = scoreService.getAll();
-
-        List<ScoreDto> scoresDto = scores.stream()
-                .map(scoreMapper::scoreEntityToDto)
-                .collect(Collectors.toList());
-
-        return getResponseEntityFromListOfScores(scoresDto, " all scores");
+        List<ScoreDto> scores = scoreService.getAllScoreDto();
+        return getResponseEntityFromListOfScores(scores, " all scores");
     }
 
     @GetMapping(value = "/player/{playerId}")
     public ResponseEntity<?> getScoresForPlayerId(@PathVariable int playerId) {
 
-        List<Score> scores = scoreService.getScoresForPlayerById(playerId);
-        List<ScoreDto> scoresDto = scores.stream()
-                .map(scoreMapper::scoreEntityToDto)
-                .collect(Collectors.toList());
+        List<ScoreDto> scores = scoreService.getScoresForPlayerById(playerId);
 
-        return getResponseEntityFromListOfScores(scoresDto, "player ID " + playerId);
+        return getResponseEntityFromListOfScores(scores, "player ID " + playerId);
     }
 
     @GetMapping(value = "/player")
     public ResponseEntity<?> getScoresForPlayerName(@RequestParam String firstName, @RequestParam String lastName) {
 
-        List<Score> scores = scoreService.getScoresForPlayerByName(firstName, lastName);
-        List<ScoreDto> scoresDto = scores.stream()
-                .map(scoreMapper::scoreEntityToDto)
-                .collect(Collectors.toList());
+        List<ScoreDto> scores = scoreService.getScoresForPlayerByName(firstName, lastName);
 
-        return getResponseEntityFromListOfScores(scoresDto, "player " + firstName + " " + lastName);
+        return getResponseEntityFromListOfScores(scores, "player " + firstName + " " + lastName);
     }
 
     @GetMapping(value = "/tournaments/{tournamentYear}")
     public ResponseEntity<?> getScoresForTournamentYear(@PathVariable int tournamentYear) {
-        List<Score> scores = scoreService.getScoresForTournamentByYear(Year.of(tournamentYear));
-        List<ScoreDto> scoresDto = scores.stream()
-                .map(scoreMapper::scoreEntityToDto)
-                .collect(Collectors.toList());
+        List<ScoreDto> scores = scoreService.getScoresForTournamentByYear(Year.of(tournamentYear));
 
-        return getResponseEntityFromListOfScores(scoresDto, "tournament year " + tournamentYear);
+        return getResponseEntityFromListOfScores(scores, "tournament year " + tournamentYear);
 
     }
 
