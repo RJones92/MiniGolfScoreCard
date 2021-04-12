@@ -10,9 +10,11 @@ function HomePage() {
 
   useEffect(() => {
     getAllTournaments().then(
-      (response) => {
+      (allTournaments) => {
         setIsLoaded(true);
-        createRows(response.tournaments);
+        let tableObjects = [];
+
+        createRows(allTournaments);
       },
       (error) => {
         setIsLoaded(true);
@@ -21,11 +23,16 @@ function HomePage() {
     );
 
     function createRows(tournaments) {
-      tournaments.forEach((tournament) => {
+      let tournamentKeys = Object.keys(tournaments);
+      tournamentKeys.forEach((key) => {
+        let tournament = tournaments[key];
+        let winner =
+          tournament.winner.firstName + " " + tournament.winner.lastName;
         let newRow = {
           year: tournament.year,
-          winner: tournament.winner.firstName,
+          winner: winner,
         };
+
         setFormattedRowObjects((formattedRowObjects) => [
           ...formattedRowObjects,
           newRow,
@@ -43,7 +50,11 @@ function HomePage() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-6">
-            <Table columnHeaders={columnHeaders} rows={formattedRowObjects} />
+            <Table
+              columnHeaders={columnHeaders}
+              rows={formattedRowObjects}
+              tableHeader="testing"
+            />
           </div>
         </div>
       </div>
