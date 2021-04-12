@@ -1,7 +1,10 @@
 package com.golf.two_for_tom_open.dataInitialiser;
 
 import com.golf.two_for_tom_open.model.entity.*;
-import com.golf.two_for_tom_open.service.*;
+import com.golf.two_for_tom_open.service.CourseService;
+import com.golf.two_for_tom_open.service.PlayerService;
+import com.golf.two_for_tom_open.service.ScoreService;
+import com.golf.two_for_tom_open.service.TournamentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +14,22 @@ import java.util.List;
 
 @Component
 public class DataInitialiser implements CommandLineRunner {
+    private static final String COURSE_A = "Course A";
+    private static final String COURSE_B = "Course B";
 
     private final PlayerService playerService;
     private final CourseService courseService;
     private final ScoreService scoreService;
     private final TournamentService tournamentService;
+
+    Player playerA;
+    Player playerB;
+
+    Course courseA;
+    Course courseB;
+
+    Tournament tournament2015;
+    Tournament tournament2016;
 
     public DataInitialiser(PlayerService playerService, CourseService courseService,
                            ScoreService scoreService, TournamentService tournamentService) {
@@ -33,55 +47,25 @@ public class DataInitialiser implements CommandLineRunner {
     private void loadData() {
 
         // +++++ Players +++++
-        Player playerA = Player.builder().firstName("Player").lastName("A").build();
-        Player playerB = Player.builder().firstName("Player").lastName("B").build();
-
-        playerService.save(playerA);
-        playerService.save(playerB);
-
-        // +++++ Holes +++++
-        List<Hole> holesForCourseA = Arrays.asList(
-                Hole.builder().holeNumber(1).par(3).build(),
-                Hole.builder().holeNumber(2).par(2).build(),
-                Hole.builder().holeNumber(3).par(3).build(),
-                Hole.builder().holeNumber(4).par(3).build(),
-                Hole.builder().holeNumber(5).par(4).build()
-        );
-        List<Hole> holesForCourseB = Arrays.asList(
-                Hole.builder().holeNumber(1).par(2).build(),
-                Hole.builder().holeNumber(2).par(2).build(),
-                Hole.builder().holeNumber(3).par(3).build(),
-                Hole.builder().holeNumber(4).par(3).build(),
-                Hole.builder().holeNumber(5).par(4).build()
-        );
+        List<Player> players = createPlayers();
+        savePlayers(players);
 
         // +++++ Courses +++++
-        Course courseA = Course.builder()
-                .courseName("Course A")
-                .holes(holesForCourseA)
-                .build();
-
-        Course courseB = Course.builder()
-                .courseName("Course B")
-                .holes(holesForCourseB)
-                .build();
-
-        //cascade type all, so holes save too
-        courseService.save(courseA);
-        courseService.save(courseB);
+        List<Course> courses = createCourses();
+        saveCourses(courses);
 
         // +++++ Tournaments +++++
-        Tournament tournament2015 = Tournament.builder()
+        tournament2015 = Tournament.builder()
                 .year(Year.of(2015))
-                .courses(Arrays.asList(courseA, courseB))
-                .players(Arrays.asList(playerA, playerB))
+                .courses(courses)
+                .players(players)
                 .build();
         tournamentService.save(tournament2015);
 
-        Tournament tournament2016 = Tournament.builder()
+        tournament2016 = Tournament.builder()
                 .year(Year.of(2016))
-                .courses(Arrays.asList(courseA, courseB))
-                .players(Arrays.asList(playerA, playerB))
+                .courses(courses)
+                .players(players)
                 .build();
         tournamentService.save(tournament2016);
 
@@ -89,10 +73,20 @@ public class DataInitialiser implements CommandLineRunner {
         Hole courseAHole1 = courseA.getHoleByCourseHoleNumber(1).orElse(null);
         Hole courseAHole2 = courseA.getHoleByCourseHoleNumber(2).orElse(null);
 
+        Hole courseBHole1 = courseB.getHoleByCourseHoleNumber(1).orElse(null);
+        Hole courseBHole2 = courseB.getHoleByCourseHoleNumber(2).orElse(null);
+
+        //Player A's scores
         scoreService.save(createScore(3, tournament2015, courseAHole1, playerA));
-        scoreService.save(createScore(6, tournament2015, courseAHole1, playerB));
         scoreService.save(createScore(3, tournament2015, courseAHole2, playerA));
+        scoreService.save(createScore(1, tournament2015, courseBHole1, playerA));
+        scoreService.save(createScore(8, tournament2015, courseBHole2, playerA));
+
+        //Player B's scores
+        scoreService.save(createScore(6, tournament2015, courseAHole1, playerB));
         scoreService.save(createScore(2, tournament2015, courseAHole2, playerB));
+        scoreService.save(createScore(11, tournament2015, courseBHole1, playerB));
+        scoreService.save(createScore(12, tournament2015, courseBHole2, playerB));
 
     }
 
@@ -104,5 +98,56 @@ public class DataInitialiser implements CommandLineRunner {
                 .hole(hole)
                 .build();
         return score;
+    }
+
+    private List<Player> createPlayers() {
+        playerA = Player.builder().firstName("Player").lastName("A").build();
+        playerB = Player.builder().firstName("Player").lastName("B").build();
+        return Arrays.asList(playerA, playerB);
+    }
+
+    private void savePlayers(List<Player> players) {
+        for (Player player : players) {
+            playerService.save(player);
+        }
+    }
+
+    private List<Course> createCourses() {
+        courseA = createCourse(COURSE_A, createHolesForCourseA());
+        courseB = createCourse(COURSE_B, createHolesForCourseB());
+        return Arrays.asList(courseA, courseB);
+    }
+
+    private List<Hole> createHolesForCourseA() {
+        return Arrays.asList(
+                Hole.builder().holeNumber(1).par(3).build(),
+                Hole.builder().holeNumber(2).par(2).build(),
+                Hole.builder().holeNumber(3).par(3).build(),
+                Hole.builder().holeNumber(4).par(3).build(),
+                Hole.builder().holeNumber(5).par(4).build()
+        );
+    }
+
+    private List<Hole> createHolesForCourseB() {
+        return Arrays.asList(
+                Hole.builder().holeNumber(1).par(2).build(),
+                Hole.builder().holeNumber(2).par(2).build(),
+                Hole.builder().holeNumber(3).par(3).build(),
+                Hole.builder().holeNumber(4).par(3).build(),
+                Hole.builder().holeNumber(5).par(4).build()
+        );
+    }
+
+    private Course createCourse(String courseName, List<Hole> holesForCourse) {
+        return Course.builder()
+                .courseName(courseName)
+                .holes(holesForCourse)
+                .build();
+    }
+
+    private void saveCourses(List<Course> courses) {
+        for (Course course : courses) {
+            courseService.save(course);
+        }
     }
 }
