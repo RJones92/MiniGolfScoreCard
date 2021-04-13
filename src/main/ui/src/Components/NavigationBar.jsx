@@ -9,7 +9,9 @@ function NavigationBar() {
     <div>
       <HashRouter>
         <nav className="navbar navbar-expand-md navbar-light bg-light">
-          <a className="navbar-brand">Two For Tom Open</a>
+          <a href="/" className="navbar-brand">
+            Two For Tom Open
+          </a>
           <button
             className="navbar-toggler"
             type="button"
@@ -24,7 +26,7 @@ function NavigationBar() {
 
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item active">
+              <li className="nav-item">
                 <NavLink className="nav-link" exact to="/">
                   Home
                 </NavLink>
