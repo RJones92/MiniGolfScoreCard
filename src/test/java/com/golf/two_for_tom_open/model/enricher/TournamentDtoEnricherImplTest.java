@@ -27,9 +27,6 @@ class TournamentDtoEnricherImplTest {
     @InjectMocks
     TournamentDtoEnricherImpl tournamentEnricher;
 
-    CourseDto course1;
-    CourseDto course2;
-    CourseDto course3;
     HoleDto hole1;
     HoleDto hole2;
     HoleDto hole3;
@@ -44,14 +41,8 @@ class TournamentDtoEnricherImplTest {
     PlayerDto playerB;
     PlayerDto playerC;
 
-    //Scenario's to test:
-    //1. clear winner: each course has a clear winner with lowest number of strokes
-    //2. a course equal lowest strokes, but with a hole-in-one winner
-
-
     @BeforeEach
     void setUp() {
-        coursesSetUp();
         holeSetUp();
         playersSetUp();
     }
@@ -59,14 +50,14 @@ class TournamentDtoEnricherImplTest {
     @Test
     void testSettingWinner() {
         //GIVEN
+        CourseDto course1 = CourseDto.builder().courseName("Course 1").holes(Arrays.asList(hole1, hole2, hole3)).build();
+        CourseDto course2 = CourseDto.builder().courseName("Course 2").holes(Arrays.asList(hole4, hole5, hole6)).build();
+        CourseDto course3 = CourseDto.builder().courseName("Course 3").holes(Arrays.asList(hole8, hole8, hole9)).build();
+
         TournamentDto tournament = TournamentDto.builder()
                 .courses(Arrays.asList(course1, course2, course3))
                 .players(Arrays.asList(playerA, playerB, playerC))
                 .build();
-
-        course1.setHoles(Arrays.asList(hole1, hole2, hole3));
-        course2.setHoles(Arrays.asList(hole4, hole5, hole6));
-        course3.setHoles(Arrays.asList(hole7, hole8, hole9));
 
         List<ScoreDto> scores = Arrays.asList(
                 //Course 1
@@ -122,6 +113,8 @@ class TournamentDtoEnricherImplTest {
     @Test
     void testPlayersWithEqualStrokesOnACourse() {
         //GIVEN
+        CourseDto course1 = CourseDto.builder().courseName("Course 1").holes(Arrays.asList(hole1, hole2, hole3)).build();
+
         TournamentDto tournament = TournamentDto.builder()
                 .courses(Arrays.asList(course1))
                 .players(Arrays.asList(playerA, playerB))
@@ -147,13 +140,6 @@ class TournamentDtoEnricherImplTest {
         //THEN
         assertThat(tournament.getWinner(), equalTo(playerB));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
-
-    }
-
-    private void coursesSetUp() {
-        course1 = CourseDto.builder().build();
-        course2 = CourseDto.builder().build();
-        course3 = CourseDto.builder().build();
     }
 
     private void holeSetUp() {
