@@ -1,14 +1,11 @@
 package com.golf.two_for_tom_open.model.enricher;
 
-import com.golf.two_for_tom_open.model.dto.PlayerDto;
-import com.golf.two_for_tom_open.model.dto.ScoreDto;
-import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.dto.*;
 import com.golf.two_for_tom_open.service.ScoreService;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class TournamentDtoEnricherImpl implements TournamentDtoEnricher {
@@ -25,24 +22,103 @@ public class TournamentDtoEnricherImpl implements TournamentDtoEnricher {
     }
 
     private void setWinner(TournamentDto tournament) {
-        List<ScoreDto> scoresForTournament = scoreService.getScoresForTournamentByYear(tournament.getYear());
+        List<ScoreDto> scoresForTournament = scoreService.getScoresForTournamentById(tournament.getId());
 
-        PlayerDto winner = calculatePlayerWithLowestStrokes(tournament.getPlayers(), scoresForTournament);
+        PlayerDto winner = calculateTournamentWinner(tournament, scoresForTournament);
 
         tournament.setWinner(winner);
     }
 
-    private PlayerDto calculatePlayerWithLowestStrokes(List<PlayerDto> players, List<ScoreDto> scores) {
-        return players.stream()
-                .min(Comparator.comparing(player -> totalStrokesForPlayer(player, scores)))
-                .orElseThrow(NoSuchElementException::new);
+    private PlayerDto calculateTournamentWinner (TournamentDto tournament, List<ScoreDto> tournamentScores) {
+        Map<PlayerDto, Integer> numberOfCoursesWonForEachPlayer = calculateNumberOfCoursesWonForEachPlayer(tournament, tournamentScores);
+
+        return numberOfCoursesWonForEachPlayer.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .get().getKey();
     }
 
-    private int totalStrokesForPlayer(PlayerDto player, List<ScoreDto> scores) {
+    private Map<PlayerDto, Integer> calculateNumberOfCoursesWonForEachPlayer(TournamentDto tournament, List<ScoreDto> tournamentScores) {
+        Map<PlayerDto, Integer> numberOfPlayerCourseWins = new HashMap<>();
+        tournament.getPlayers().forEach(player -> numberOfPlayerCourseWins.put(player, 0));
+
+        tournament.getCourses().forEach(course -> {
+            List<ScoreDto> courseScores = getCourseScores(course, tournamentScores);
+            PlayerDto courseWinner = calculateCourseWinner(course, courseScores, tournament.getPlayers());
+            Integer currentScoreForCourseWinner = numberOfPlayerCourseWins.get(courseWinner);
+            numberOfPlayerCourseWins.put(courseWinner, currentScoreForCourseWinner + 1);
+        });
+
+        return numberOfPlayerCourseWins;
+    }
+
+    private List<ScoreDto> getCourseScores(CourseDto course, List<ScoreDto> scores) {
+        List<HoleDto> courseHoles = course.getHoles();
         return scores.stream()
-                .filter(score -> player.getId() == score.getPlayer().getId())
-                .map(ScoreDto::getStrokes)
-                .mapToInt(Integer::intValue)
-                .sum();
+                .filter(score -> courseHoles.contains(score.getHole()))
+                .collect(Collectors.toList());
+    }
+
+    private PlayerDto calculateCourseWinner(CourseDto course, List<ScoreDto> courseScores, List<PlayerDto> tournamentPlayers) {
+
+        Map<PlayerDto, Integer> countOfStrokesForEachPlayer = setStrokesPerPlayer(courseScores, tournamentPlayers);
+
+        List<PlayerDto> lowestStrokePlayers = findPlayersWithLowestStroke(countOfStrokesForEachPlayer);
+        if (isMoreThanOnePlayerWithLowestStrokes(lowestStrokePlayers)) {
+            return playerWithMostHolesInOne(course, courseScores, lowestStrokePlayers);
+        } else {
+            return lowestStrokePlayers.get(0);
+        }
+
+    }
+
+    private Map<PlayerDto, Integer> setStrokesPerPlayer(List<ScoreDto> courseScores, List<PlayerDto> tournamentPlayers) {
+        Map<PlayerDto, Integer> countOfStrokesForEachPlayer = new HashMap<>();
+        tournamentPlayers.forEach(player -> countOfStrokesForEachPlayer.put(player, 0));
+
+        courseScores.forEach(score -> {
+            int currentStrokesForPlayer = countOfStrokesForEachPlayer.get(score.getPlayer());
+            int newNumberOfStrokesForPlayer = currentStrokesForPlayer + score.getStrokes();
+            countOfStrokesForEachPlayer.put(score.getPlayer(), newNumberOfStrokesForPlayer);
+        });
+
+        return countOfStrokesForEachPlayer;
+    }
+
+    private List<PlayerDto> findPlayersWithLowestStroke(Map<PlayerDto, Integer> countOfStrokesForEachPlayer) {
+
+        int lowestNumberOfStrokes = countOfStrokesForEachPlayer.entrySet().stream()
+                .min(Map.Entry.comparingByValue())
+                .get()
+                .getValue();
+
+        return countOfStrokesForEachPlayer.entrySet().stream()
+                .filter(entry -> entry.getValue() == lowestNumberOfStrokes)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+    }
+
+    private boolean isMoreThanOnePlayerWithLowestStrokes(List<PlayerDto> players) {
+        return players.size() > 1;
+    }
+
+    private PlayerDto playerWithMostHolesInOne(CourseDto course, List<ScoreDto> courseScores, List<PlayerDto> players) {
+
+        Map<PlayerDto, Long> countOfHolesInOneForPlayers = new HashMap<>();
+
+        for (PlayerDto player : players) {
+            Long countOfHoleInOneForPlayer = courseScores.stream()
+                    .filter(score -> score.getPlayer() == player)
+                    .filter(score -> score.getStrokes() == 1)
+                    .count();
+
+            countOfHolesInOneForPlayers.put(player, countOfHoleInOneForPlayer);
+        }
+
+        return countOfHolesInOneForPlayers.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .get();
+
     }
 }
