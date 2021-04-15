@@ -5,7 +5,6 @@ import { getAllScores } from "../services/scoreService";
 
 function TournamentPage(props) {
   const [tournamentTableObjects, setTournamentTableObjects] = useState([]);
-  //[{colHeader1, colHeader2, colHeader3}, {rowVal1, rowVal2, rowVal3}, {rowVal1, rowVal2, rowVal3}]
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
 
@@ -32,11 +31,18 @@ function TournamentPage(props) {
     function createTournamentTable(tournament, allScores) {
       let players = tournament.players;
       let tableName = tournament.year;
+      let tournamentWinner =
+        tournament.winner.firstName + " " + tournament.winner.lastName;
       let tableHeaders = createTableHeaders(players);
       let tableRows = tournament.courses.map((course) =>
         createCourseRow(tournament, course, players, allScores)
       );
-      return { tableName: tableName, headers: tableHeaders, rows: tableRows };
+      return {
+        tableName: tableName,
+        headers: tableHeaders,
+        rows: tableRows,
+        tournamentWinner: tournamentWinner,
+      };
     }
 
     function createTableHeaders(players) {
@@ -103,6 +109,7 @@ function TournamentPage(props) {
         {tournamentTableObjects.map((tournamentTableObject, index) => (
           <div>
             <h2>{tournamentTableObject.tableName}</h2>
+            <p>Winner: {tournamentTableObject.tournamentWinner}</p>
             <div className="row">
               <div className="col-md-6">
                 <div key={index}>
