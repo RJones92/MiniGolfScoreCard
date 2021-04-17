@@ -1,6 +1,6 @@
 package com.golf.two_for_tom_open.service;
 
-import com.golf.two_for_tom_open.model.enricher.TournamentDtoEnricher;
+import com.golf.two_for_tom_open.model.enricher.DtoEnricher;
 import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.golf.two_for_tom_open.model.mapper.TournamentMapper;
 import com.golf.two_for_tom_open.repository.TournamentRepository;
@@ -12,8 +12,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,19 +29,19 @@ class TournamentServiceImplTest {
     @Mock
     TournamentRepository tournamentRepository;
     @Mock
-    TournamentDtoEnricher tournamentDtoEnricher;
+    DtoEnricher tournamentDtoEnricher;
     TournamentMapper tournamentMapper = Mappers.getMapper(TournamentMapper.class);
 
 
     private final Tournament tournament2015 = Tournament.builder()
             .year(Year.of(2015))
-            .courses(Collections.EMPTY_LIST)
-            .players(Collections.EMPTY_LIST)
+            .courses(new ArrayList<>())
+            .players(new ArrayList<>())
             .build();
     private final Tournament tournament2016 = Tournament.builder()
             .year(Year.of(2016))
-            .courses(Collections.EMPTY_LIST)
-            .players(Collections.EMPTY_LIST)
+            .courses(new ArrayList<>())
+            .players(new ArrayList<>())
             .build();
 
     @BeforeEach

@@ -20,12 +20,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TournamentDtoEnricherImplTest {
+class TournamentDtoEnricherTest {
 
     @Mock
     ScoreService scoreService;
     @InjectMocks
-    TournamentDtoEnricherImpl tournamentEnricher;
+    TournamentDtoEnricher tournamentEnricher;
 
     HoleDto hole1;
     HoleDto hole2;
@@ -48,7 +48,7 @@ class TournamentDtoEnricherImplTest {
     }
 
     @Test
-    void testSettingWinner() {
+    void testSettingWinnersWithOneTournamentAndThreeCourse() {
         //GIVEN
         CourseDto course1 = CourseDto.builder().courseName("Course 1").holes(Arrays.asList(hole1, hole2, hole3)).build();
         CourseDto course2 = CourseDto.builder().courseName("Course 2").holes(Arrays.asList(hole4, hole5, hole6)).build();
@@ -74,30 +74,30 @@ class TournamentDtoEnricherImplTest {
                 buildScore(tournament, playerC, hole3, 8),
 
                 //Course 2
-                buildScore(tournament, playerA, hole1, 8),
-                buildScore(tournament, playerA, hole2, 8),
-                buildScore(tournament, playerA, hole3, 8),
+                buildScore(tournament, playerA, hole4, 8),
+                buildScore(tournament, playerA, hole5, 8),
+                buildScore(tournament, playerA, hole6, 8),
 
-                buildScore(tournament, playerB, hole1, 1),
-                buildScore(tournament, playerB, hole2, 1),
-                buildScore(tournament, playerB, hole3, 1),
+                buildScore(tournament, playerB, hole4, 1),
+                buildScore(tournament, playerB, hole5, 1),
+                buildScore(tournament, playerB, hole6, 1),
 
-                buildScore(tournament, playerC, hole1, 8),
-                buildScore(tournament, playerC, hole2, 8),
-                buildScore(tournament, playerC, hole3, 8),
+                buildScore(tournament, playerC, hole4, 8),
+                buildScore(tournament, playerC, hole5, 8),
+                buildScore(tournament, playerC, hole6, 8),
 
                 //Course 3
-                buildScore(tournament, playerA, hole1, 8),
-                buildScore(tournament, playerA, hole2, 8),
-                buildScore(tournament, playerA, hole3, 8),
+                buildScore(tournament, playerA, hole7, 8),
+                buildScore(tournament, playerA, hole8, 8),
+                buildScore(tournament, playerA, hole9, 8),
 
-                buildScore(tournament, playerB, hole1, 1),
-                buildScore(tournament, playerB, hole2, 1),
-                buildScore(tournament, playerB, hole3, 1),
+                buildScore(tournament, playerB, hole7, 1),
+                buildScore(tournament, playerB, hole8, 1),
+                buildScore(tournament, playerB, hole9, 1),
 
-                buildScore(tournament, playerC, hole1, 8),
-                buildScore(tournament, playerC, hole2, 8),
-                buildScore(tournament, playerC, hole3, 8)
+                buildScore(tournament, playerC, hole7, 8),
+                buildScore(tournament, playerC, hole8, 8),
+                buildScore(tournament, playerC, hole9, 8)
         );
 
         when(scoreService.getScoresForTournamentById(anyInt())).thenReturn(scores);
@@ -106,12 +106,15 @@ class TournamentDtoEnricherImplTest {
         tournamentEnricher.enrich(tournament);
 
         //THEN
+        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerA));
+        assertThat(course2.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerB));
+        assertThat(course3.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerB));
         assertThat(tournament.getWinner(), equalTo(playerB));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
     }
 
     @Test
-    void testPlayersWithEqualStrokesOnACourse() {
+    void testSettingTournamentWinnerWhenPlayersHaveEqualStrokesOnACourse() {
         //GIVEN
         CourseDto course1 = CourseDto.builder().courseName("Course 1").holes(Arrays.asList(hole1, hole2, hole3)).build();
 
@@ -138,6 +141,7 @@ class TournamentDtoEnricherImplTest {
         tournamentEnricher.enrich(tournament);
 
         //THEN
+        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerB));
         assertThat(tournament.getWinner(), equalTo(playerB));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
     }
@@ -155,9 +159,9 @@ class TournamentDtoEnricherImplTest {
     }
 
     private void playersSetUp() {
-        playerA = PlayerDto.builder().build();
-        playerB = PlayerDto.builder().build();
-        playerC = PlayerDto.builder().build();
+        playerA = PlayerDto.builder().firstName("Player").lastName("A").build();
+        playerB = PlayerDto.builder().firstName("Player").lastName("B").build();
+        playerC = PlayerDto.builder().firstName("Player").lastName("C").build();
     }
 
     private ScoreDto buildScore(TournamentDto tournament, PlayerDto player, HoleDto hole, int strokes) {

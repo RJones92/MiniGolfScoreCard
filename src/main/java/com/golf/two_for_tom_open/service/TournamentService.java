@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TournamentService extends BaseService<Tournament> {
 
-    List<TournamentDto> getAllTournamentDto();
+    List<TournamentDto> getAllTournamentDtos();
 }

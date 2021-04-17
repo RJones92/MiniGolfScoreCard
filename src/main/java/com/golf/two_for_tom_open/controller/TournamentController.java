@@ -26,7 +26,7 @@ public class TournamentController {
     public ResponseEntity<?> getAllTournaments() {
         logger.info("Request to retrieve all tournaments received.");
 
-        List<TournamentDto> tournaments = tournamentService.getAllTournamentDto();
+        List<TournamentDto> tournaments = tournamentService.getAllTournamentDtos();
 
         logger.info("All tournaments received and being returned to consumer");
         return ResponseEntity.ok(tournaments);
