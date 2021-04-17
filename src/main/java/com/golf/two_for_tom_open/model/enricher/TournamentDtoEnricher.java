@@ -72,7 +72,7 @@ public class TournamentDtoEnricher implements DtoEnricher {
 
         int lowestNumberOfStrokes = countOfStrokesForEachPlayer.entrySet().stream()
                 .min(Map.Entry.comparingByValue())
-                .get()
+                .orElseThrow()
                 .getValue();
 
         return countOfStrokesForEachPlayer.entrySet().stream()
@@ -102,7 +102,7 @@ public class TournamentDtoEnricher implements DtoEnricher {
         return countOfHolesInOneForPlayers.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
-                .get();
+                .orElseThrow();
 
     }
 
@@ -124,7 +124,7 @@ public class TournamentDtoEnricher implements DtoEnricher {
 
         return numberOfCoursesWonForEachPlayer.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
-                .get().getKey();
+                .orElseThrow().getKey();
     }
 
     private Map<PlayerDto, Integer> calculateNumberOfCoursesWonForEachPlayer(TournamentDto tournament) {
