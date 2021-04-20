@@ -14,4 +14,24 @@ public class PlayerDto {
     private int id;
     private String firstName;
     private String lastName;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlayerDto playerDto = (PlayerDto) o;
+
+        if (id != playerDto.id) return false;
+        if (firstName != null ? !firstName.equals(playerDto.firstName) : playerDto.firstName != null) return false;
+        return lastName != null ? lastName.equals(playerDto.lastName) : playerDto.lastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
+    }
 }

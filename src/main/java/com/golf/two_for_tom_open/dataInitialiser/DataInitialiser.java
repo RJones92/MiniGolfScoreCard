@@ -121,20 +121,14 @@ public class DataInitialiser implements CommandLineRunner {
     private List<Hole> createHolesForCourseA() {
         return Arrays.asList(
                 Hole.builder().holeNumber(1).par(3).build(),
-                Hole.builder().holeNumber(2).par(2).build(),
-                Hole.builder().holeNumber(3).par(3).build(),
-                Hole.builder().holeNumber(4).par(3).build(),
-                Hole.builder().holeNumber(5).par(4).build()
+                Hole.builder().holeNumber(2).par(2).build()
         );
     }
 
     private List<Hole> createHolesForCourseB() {
         return Arrays.asList(
                 Hole.builder().holeNumber(1).par(2).build(),
-                Hole.builder().holeNumber(2).par(2).build(),
-                Hole.builder().holeNumber(3).par(3).build(),
-                Hole.builder().holeNumber(4).par(3).build(),
-                Hole.builder().holeNumber(5).par(4).build()
+                Hole.builder().holeNumber(2).par(2).build()
         );
     }
 

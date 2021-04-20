@@ -106,9 +106,9 @@ class TournamentDtoEnricherTest {
         tournamentEnricher.enrich(tournament);
 
         //THEN
-        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerA));
-        assertThat(course2.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerB));
-        assertThat(course3.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerB));
+        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerA.getId()));
+        assertThat(course2.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerB.getId()));
+        assertThat(course3.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerB.getId()));
         assertThat(tournament.getWinner(), equalTo(playerB));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
     }
@@ -141,8 +141,8 @@ class TournamentDtoEnricherTest {
         tournamentEnricher.enrich(tournament);
 
         //THEN
-        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()), equalTo(playerB));
-        assertThat(tournament.getWinner(), equalTo(playerB));
+        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerB.getId()));
+        assertThat(tournament.getWinner().getId(), equalTo(playerB.getId()));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
     }
 
@@ -159,9 +159,9 @@ class TournamentDtoEnricherTest {
     }
 
     private void playersSetUp() {
-        playerA = PlayerDto.builder().firstName("Player").lastName("A").build();
-        playerB = PlayerDto.builder().firstName("Player").lastName("B").build();
-        playerC = PlayerDto.builder().firstName("Player").lastName("C").build();
+        playerA = PlayerDto.builder().id(1).firstName("Player").lastName("A").build();
+        playerB = PlayerDto.builder().id(2).firstName("Player").lastName("B").build();
+        playerC = PlayerDto.builder().id(3).firstName("Player").lastName("C").build();
     }
 
     private ScoreDto buildScore(TournamentDto tournament, PlayerDto player, HoleDto hole, int strokes) {
