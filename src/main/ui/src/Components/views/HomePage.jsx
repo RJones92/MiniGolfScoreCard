@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Table from "./Table";
-import { getAllTournaments } from "../services/tournamentService";
+import Table from "../commonComponents/Table";
+import { getAllTournaments } from "../../services/tournamentService";
 
 function HomePage() {
   const [formattedRowObjects, setFormattedRowObjects] = useState([]);

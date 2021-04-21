@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Table from "./Table";
-import { getAllTournaments } from "../services/tournamentService";
-import { getAllScores } from "../services/scoreService";
+import Table from "../commonComponents/Table";
+import { getAllTournaments } from "../../services/tournamentService";
+import { getAllScores } from "../../services/scoreService";
 
 function TournamentPage(props) {
   const [tournamentTableObjects, setTournamentTableObjects] = useState([]);
