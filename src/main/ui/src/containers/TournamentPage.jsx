@@ -78,16 +78,13 @@ function TournamentPage(props) {
 
       const tournamentId = tournament.id;
       const winner = Object.keys(course.winnersByTournamentId)
-        .filter((key) => key == tournamentId)
+        .filter((key) => parseInt(key) === tournamentId)
         .reduce(
           (accumulator, key) =>
             (accumulator[key] = course.winnersByTournamentId[key]),
           {}
         );
-      console.log(winner);
       newRow["courseWinner"] = winner.firstName + " " + winner.lastName;
-      //TODO - does this work?
-      //I doubt it, the 'winner' is a full object. Really need to take their first and last name first
 
       return newRow;
     }
@@ -122,13 +119,14 @@ function TournamentPage(props) {
     return (
       <div className="container-fluid">
         {tournamentTableObjects.map((tournamentTableObject, index) => (
-          <div>
+          <div key={index}>
             <h2>{tournamentTableObject.tableName}</h2>
             <p>Winner: {tournamentTableObject.tournamentWinner}</p>
             <div className="row">
               <div className="col-md-6">
-                <div key={index}>
+                <div>
                   <Table
+                    key={tournamentTableObject.tableName}
                     columnHeaders={tournamentTableObject.headers}
                     rows={tournamentTableObject.rows}
                     tableHeader={tournamentTableObject.year}
