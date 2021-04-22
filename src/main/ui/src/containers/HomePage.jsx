@@ -60,20 +60,4 @@ function HomePage() {
   }
 }
 
-function dummyRowDataGeneration() {
-  let row1 = {
-    val1: "2016",
-    val2: "Rhys",
-  };
-  let row2 = {
-    val1: "2017",
-    val2: "Tom",
-  };
-  let row3 = {
-    val1: "2018",
-    val2: "Jamie",
-  };
-  return [row1, row2, row3];
-}
-
 export default HomePage;

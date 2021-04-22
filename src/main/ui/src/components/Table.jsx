@@ -10,11 +10,12 @@ function Table(props) {
   function createRows() {
     props.rows.forEach((row, index) => {
       let tableDataElements = [];
-      for (const colValue in row) {
-        tableDataElements.push(
-          <td key={index + row[colValue]}>{row[colValue]}</td>
-        );
-      }
+
+      const keys = Object.keys(row);
+      keys.forEach((key, columnIndex) => {
+        tableDataElements.push(<td key={index + columnIndex}>{row[key]}</td>);
+      });
+
       tableRows.push(tableDataElements);
     });
   }
