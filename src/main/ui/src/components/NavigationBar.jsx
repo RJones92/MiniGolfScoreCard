@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, NavLink, HashRouter } from "react-router-dom";
-import HomePage from "../views/HomePage";
-import TournamentPage from "../views/TournamentPage";
-import PlayerPage from "../views/PlayerPage";
+import HomePage from "../containers/HomePage";
+import TournamentPage from "../containers/TournamentPage";
+import PlayerPage from "../containers/PlayerPage";
 
 function NavigationBar() {
   return (
