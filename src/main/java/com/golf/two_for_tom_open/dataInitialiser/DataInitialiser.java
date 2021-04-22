@@ -79,14 +79,14 @@ public class DataInitialiser implements CommandLineRunner {
         //Player A's scores
         scoreService.save(createScore(3, tournament2015, courseAHole1, playerA));
         scoreService.save(createScore(3, tournament2015, courseAHole2, playerA));
-        scoreService.save(createScore(1, tournament2015, courseBHole1, playerA));
-        scoreService.save(createScore(8, tournament2015, courseBHole2, playerA));
+        scoreService.save(createScore(11, tournament2015, courseBHole1, playerA));
+        scoreService.save(createScore(12, tournament2015, courseBHole2, playerA));
 
         //Player B's scores
         scoreService.save(createScore(6, tournament2015, courseAHole1, playerB));
         scoreService.save(createScore(2, tournament2015, courseAHole2, playerB));
-        scoreService.save(createScore(11, tournament2015, courseBHole1, playerB));
-        scoreService.save(createScore(12, tournament2015, courseBHole2, playerB));
+        scoreService.save(createScore(1, tournament2015, courseBHole1, playerB));
+        scoreService.save(createScore(8, tournament2015, courseBHole2, playerB));
 
     }
 
