@@ -9,9 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +21,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +33,7 @@ class ScoreServiceImplTest {
     private static final String PLAYER_X_FIRST_NAME = "John";
     private static final String PLAYER_X_LAST_NAME = "Smith";
 
+    @InjectMocks
     ScoreServiceImpl scoreService;
     @Mock
     ScoreRepository scoreRepository;
@@ -41,15 +49,29 @@ class ScoreServiceImplTest {
     }
 
     @Test
-    void getAll() {
+    void testGetAll() {
         when(scoreRepository.findAll()).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
+
         List<Score> scores = scoreService.getAll();
+
         assertThat(scores, contains(score1ForPlayerX, score2ForPlayerX));
         assertThat(scores, hasSize(2));
+        verify(scoreRepository, times(1)).findAll();
     }
 
     @Test
-    void save() {
+    void testGetAllScoreDto() {
+        when(scoreRepository.findAll()).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
+
+        List<ScoreDto> scores = scoreService.getAllScoreDto();
+
+        assertThat(scores, contains(scoreMapper.scoreEntityToDto(score1ForPlayerX), scoreMapper.scoreEntityToDto(score2ForPlayerX)));
+        assertThat(scores, hasSize(2));
+        verify(scoreRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testSave() {
         when(scoreRepository.save(score1ForPlayerX)).thenReturn(score1ForPlayerX);
         Score score = scoreService.save(score1ForPlayerX);
         assertThat(score, is(score1ForPlayerX));
@@ -69,6 +91,7 @@ class ScoreServiceImplTest {
         assertThat(scores.get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
         assertThat(scores.get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
         assertThat(scores.get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
+        verify(scoreRepository, times(1)).findScoresForPlayerById(anyInt());
     }
 
     @Test
@@ -84,5 +107,38 @@ class ScoreServiceImplTest {
         assertThat(scores.get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
         assertThat(scores.get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
         assertThat(scores.get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
+        verify(scoreRepository, times(1)).findScoresForPlayerByName(anyString(), anyString());
+    }
+
+    @Test
+    void testGetScoresForTournamentByYear() {
+        when(scoreRepository.findScoresForTournamentByYear(any(Year.class))).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
+
+        List<ScoreDto> scores = scoreService.getScoresForTournamentByYear(Year.of(2000));
+
+        assertThat(scores, hasSize(2));
+        assertThat(scores.get(0).getStrokes(), is(score1ForPlayerX.getStrokes()));
+        assertThat(scores.get(0).getPlayer().getFirstName(), is(score1ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(0).getPlayer().getLastName(), is(score1ForPlayerX.getPlayer().getLastName()));
+        assertThat(scores.get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
+        assertThat(scores.get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
+        verify(scoreRepository, times(1)).findScoresForTournamentByYear(any(Year.class));
+    }
+
+    @Test
+    void testGetScoresForTournamentById() {
+        when(scoreRepository.findAllByTournamentId(anyInt())).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
+
+        List<ScoreDto> scores = scoreService.getScoresForTournamentById(1);
+
+        assertThat(scores, hasSize(2));
+        assertThat(scores.get(0).getStrokes(), is(score1ForPlayerX.getStrokes()));
+        assertThat(scores.get(0).getPlayer().getFirstName(), is(score1ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(0).getPlayer().getLastName(), is(score1ForPlayerX.getPlayer().getLastName()));
+        assertThat(scores.get(1).getStrokes(), is(score2ForPlayerX.getStrokes()));
+        assertThat(scores.get(1).getPlayer().getFirstName(), is(score2ForPlayerX.getPlayer().getFirstName()));
+        assertThat(scores.get(1).getPlayer().getLastName(), is(score2ForPlayerX.getPlayer().getLastName()));
+        verify(scoreRepository, times(1)).findAllByTournamentId(anyInt());
     }
 }

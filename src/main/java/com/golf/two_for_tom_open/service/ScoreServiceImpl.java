@@ -71,7 +71,6 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public List<ScoreDto> getScoresForTournamentByYear(Year tournamentYear) {
-        //TODO test me
         try {
             List<Score> scores = scoreRepository.findScoresForTournamentByYear(tournamentYear);
             return convertListScoresToListScoreDto(scores);

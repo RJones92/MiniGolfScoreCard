@@ -3,35 +3,27 @@ package com.golf.two_for_tom_open.service;
 import com.golf.two_for_tom_open.model.entity.Player;
 import com.golf.two_for_tom_open.repository.PlayerRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = PlayerServiceImpl.class)
+@ExtendWith(MockitoExtension.class)
 class PlayerServiceImplTest {
 
-    @TestConfiguration
-    static class PlayerServiceImplTestContextConfiguration {
+    @InjectMocks
+    PlayerServiceImpl playerService;
 
-        @Bean
-        public PlayerService playerService() {
-            return new PlayerServiceImpl();
-        }
-    }
-
-    @Autowired
-    PlayerService playerService;
-
-    @MockBean
+    @Mock
     PlayerRepository playerRepository;
 
     private final Player playerX = Player.builder().firstName("John").lastName("Smith").build();

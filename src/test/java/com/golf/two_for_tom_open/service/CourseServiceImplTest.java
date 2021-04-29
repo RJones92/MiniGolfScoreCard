@@ -3,36 +3,27 @@ package com.golf.two_for_tom_open.service;
 import com.golf.two_for_tom_open.model.entity.Course;
 import com.golf.two_for_tom_open.repository.CourseRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CourseServiceImpl.class)
+@ExtendWith(MockitoExtension.class)
 class CourseServiceImplTest {
 
-    @TestConfiguration
-    static class CourseServiceImplTestContextConfiguration {
-
-        @Bean
-        public CourseService courseService() {
-            return new CourseServiceImpl();
-        }
-    }
-
-    @Autowired
-    CourseService courseService;
-
-    @MockBean
+    @InjectMocks
+    CourseServiceImpl courseService;
+    @Mock
     CourseRepository courseRepository;
 
     private final Course courseA = Course.builder()
