@@ -1,10 +1,13 @@
 package com.golf.two_for_tom_open.service;
 
+import com.golf.two_for_tom_open.model.dto.PlayerDto;
 import com.golf.two_for_tom_open.model.entity.Player;
+import com.golf.two_for_tom_open.model.mapper.PlayerMapper;
 import com.golf.two_for_tom_open.repository.PlayerRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -15,19 +18,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceImplTest {
 
-    @InjectMocks
     PlayerServiceImpl playerService;
-
     @Mock
     PlayerRepository playerRepository;
+    PlayerMapper playerMapper = Mappers.getMapper(PlayerMapper.class);
 
     private final Player playerX = Player.builder().firstName("John").lastName("Smith").build();
     private final Player playerY = Player.builder().firstName("Jane").lastName("Doe").build();
+
+    @BeforeEach
+    void setUp() {
+        playerService = new PlayerServiceImpl(playerRepository, playerMapper);
+    }
 
     @Test
     void getAll() {
@@ -35,6 +44,16 @@ class PlayerServiceImplTest {
         List<Player> players = playerService.getAll();
         assertThat(players, contains(playerX, playerY));
         assertThat(players, hasSize(2));
+    }
+
+    @Test
+    void testGetAllPlayerDtos() {
+        when(playerRepository.findAll()).thenReturn(Arrays.asList(playerX, playerY));
+
+        List<PlayerDto> players = playerService.getAllPlayerDtos();
+
+        assertThat(players, hasSize(2));
+        verify(playerRepository, times(1)).findAll();
     }
 
     @Test
