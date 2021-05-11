@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
-public class TournamentDtoEnricher implements DtoEnricher {
+public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
 
     private final ScoreService scoreService;
 
