@@ -1,9 +1,6 @@
 package com.golf.two_for_tom_open.model.enricher;
 
-import com.golf.two_for_tom_open.model.dto.CourseDto;
-import com.golf.two_for_tom_open.model.dto.HoleDto;
-import com.golf.two_for_tom_open.model.dto.PlayerDto;
-import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.dto.*;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +13,7 @@ import java.time.Year;
 import java.util.*;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -297,6 +295,59 @@ class PlayerDtoEnricherTest {
 
     @Test
     void testCountHolesWon() {
+        //GIVEN
+        final int TOURNAMENT_2015_ID = 1;
+        final int TOURNAMENT_2016_ID = 2;
 
+        HoleDto hole_1_Course_1 = HoleDto.builder().id(1).par(2).holeNumber(1).build();
+        HoleDto hole_2_Course_1 = HoleDto.builder().id(2).par(3).holeNumber(2).build();
+        HoleDto hole_1_Course_2 = HoleDto.builder().id(3).par(2).holeNumber(1).build();
+        HoleDto hole_2_Course_2 = HoleDto.builder().id(4).par(3).holeNumber(2).build();
+        HoleDto hole_3_Course_2 = HoleDto.builder().id(5).par(3).holeNumber(3).build();
+
+        CourseDto course_One = CourseDto.builder()
+                .id(1)
+                .courseName("Course One")
+                .holes(Arrays.asList(hole_1_Course_1, hole_2_Course_1))
+                .build();
+        CourseDto course_Two = CourseDto.builder()
+                .id(2)
+                .courseName("Course Two")
+                .holes(Arrays.asList(hole_1_Course_2, hole_2_Course_2, hole_3_Course_2))
+                .build();
+
+        TournamentDto tournament_2015 = TournamentDto.builder()
+                .id(TOURNAMENT_2015_ID)
+                .players(Arrays.asList(playerA, playerB))
+                .courses(Arrays.asList(course_One, course_Two))
+                .year(Year.of(2015))
+                .winner(playerA)
+                .build();
+
+        List<TournamentDto> allTournaments = new ArrayList<>();
+        allTournaments.add(tournament_2015);
+
+        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+
+        List<ScoreDto> scores = new ArrayList<>();
+        scores.add(ScoreDto.builder().id(1).player(playerA).tournament(tournament_2015).hole(hole_1_Course_1).strokes(2).build());
+        scores.add(ScoreDto.builder().id(1).player(playerB).tournament(tournament_2015).hole(hole_1_Course_1).strokes(8).build());
+        scores.add(ScoreDto.builder().id(1).player(playerA).tournament(tournament_2015).hole(hole_2_Course_1).strokes(1).build());
+        scores.add(ScoreDto.builder().id(1).player(playerB).tournament(tournament_2015).hole(hole_2_Course_1).strokes(8).build());
+
+        scores.add(ScoreDto.builder().id(1).player(playerA).tournament(tournament_2015).hole(hole_1_Course_2).strokes(8).build());
+        scores.add(ScoreDto.builder().id(1).player(playerB).tournament(tournament_2015).hole(hole_1_Course_2).strokes(3).build());
+        scores.add(ScoreDto.builder().id(1).player(playerA).tournament(tournament_2015).hole(hole_2_Course_2).strokes(2).build());
+        scores.add(ScoreDto.builder().id(1).player(playerB).tournament(tournament_2015).hole(hole_2_Course_2).strokes(8).build());
+        scores.add(ScoreDto.builder().id(1).player(playerA).tournament(tournament_2015).hole(hole_3_Course_2).strokes(1).build());
+        scores.add(ScoreDto.builder().id(1).player(playerB).tournament(tournament_2015).hole(hole_3_Course_2).strokes(1).build());
+
+        when(scoreService.getScoresForTournamentsById(anyList())).thenReturn(scores);
+
+        //WHEN
+        playerDtoEnricher.enrich(playerA);
+
+        //THEN
+        assertThat(playerA.getCountOfHolesWon(), equalTo(4L));
     }
 }
