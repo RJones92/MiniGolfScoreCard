@@ -1,24 +1,23 @@
 package com.golf.two_for_tom_open.model.enricher;
 
-import com.golf.two_for_tom_open.model.dto.CourseDto;
-import com.golf.two_for_tom_open.model.dto.HoleDto;
-import com.golf.two_for_tom_open.model.dto.PlayerDto;
-import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.dto.*;
+import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 @Component
 public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
 
-    private List<TournamentDto> enrichedTournaments;
+    private final List<TournamentDto> enrichedTournaments;
+    private final ScoreService scoreService;
 
-    public PlayerDtoEnricher(TournamentService tournamentService) {
+    public PlayerDtoEnricher(TournamentService tournamentService, ScoreService scoreService) {
         this.enrichedTournaments = tournamentService.getAllTournamentDtos();
+        this.scoreService = scoreService;
     }
 
     @Override
@@ -35,22 +34,19 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
 
         player.setCountOfHolesPlayed(countHolesPlayed(player));
         player.setCountOfHolesWon(countHolesWon(player));
-
-        //TODO these stat's
-//        countHolesInOne(player);
-//        averageHoleInOnesInTournaments(player);
-//
-//        averageStrokesPerHole(player);
-//        averageDifferenceBetweenStrokesAndPar(player);
     }
 
     private long countTournamentsPlayed(PlayerDto player) {
-        return enrichedTournaments.stream()
-                .filter(tournament -> isPlayerInTournament.test(tournament, player))
-                .count();
+        return tournamentsPlayed(player).size();
     }
 
-    private BiPredicate<TournamentDto, PlayerDto> isPlayerInTournament = (tournament, player) -> tournament.getPlayers().stream()
+    private List<TournamentDto> tournamentsPlayed(PlayerDto player) {
+        return enrichedTournaments.stream()
+                .filter(tournament -> isPlayerInTournament.test(tournament, player))
+                .collect(Collectors.toList());
+    }
+
+    private final BiPredicate<TournamentDto, PlayerDto> isPlayerInTournament = (tournament, player) -> tournament.getPlayers().stream()
             .anyMatch(tournamentPlayer -> tournamentPlayer.equals(player));
 
     private long countTournamentsWon(PlayerDto player) {
@@ -77,7 +73,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                 .sum();
     }
 
-    private long countOfPlayerWinsForCourse (CourseDto course, PlayerDto player) {
+    private long countOfPlayerWinsForCourse(CourseDto course, PlayerDto player) {
         Collection<PlayerDto> courseWinners = course.getWinnersByTournamentId().values();
         return courseWinners.stream()
                 .filter(winner -> winner.equals(player))
@@ -97,17 +93,52 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                 .collect(Collectors.toList());
     }
 
-    private long countHolesWon(PlayerDto player) {
-        return holesPlayed(player).stream()
-                .mapToLong(hole -> countOfPlayerWinsForHole(hole, player))
-                .sum();
+    private long countHolesWon(PlayerDto player) throws NoSuchElementException {
+        List<ScoreDto> allScoresForTournamentsThisPlayerPlayed = scoresForTournamentsPlayerPlayedIn(player);
+
+        List<ScoreDto> scoresForThisPlayer = allScoresForTournamentsThisPlayerPlayed.stream()
+                .filter(score -> score.getPlayer().equals(player))
+                .collect(Collectors.toList());
+
+        return scoresForThisPlayer.stream()
+                .filter(playerScore -> {
+                    List<ScoreDto> holeScoresForThisTourn = getScoresWithSameHoleAndSameTournament(
+                            allScoresForTournamentsThisPlayerPlayed, playerScore);
+                    if (holeScoresForThisTourn.isEmpty()) return false;
+
+                    return findHoleWinners(holeScoresForThisTourn).stream()
+                            .anyMatch(winner -> winner.equals(player));
+                })
+                .count();
     }
 
-    private long countOfPlayerWinsForHole(HoleDto hole, PlayerDto player) {
-        //TODO - figure out who won the hole...
-        //Set hole winners in tournamentDTOEnricher
-        Collection<PlayerDto> holeWinners;
-        return 1L;
+    private List<ScoreDto> scoresForTournamentsPlayerPlayedIn(PlayerDto player) {
+        List<Integer> tournamentIdsOfTournamentsPlayed = tournamentsPlayed(player).stream()
+                .map(TournamentDto::getId)
+                .collect(Collectors.toList());
+        return scoreService.getScoresForTournamentsById(tournamentIdsOfTournamentsPlayed);
+    }
+
+    private List<ScoreDto> getScoresWithSameHoleAndSameTournament(List<ScoreDto> allScores, ScoreDto scoreToTest) {
+        return allScores.stream()
+                .filter(score -> isScoreSameHoleAndSameTournament.test(score, scoreToTest))
+                .collect(Collectors.toList());
+    }
+
+    private final BiPredicate<ScoreDto, ScoreDto> isScoreSameHoleAndSameTournament = (ScoreDto score1, ScoreDto score2) ->
+            ((score1.getHole().equals(score2.getHole()))
+                    && (score1.getTournament().getId() == score2.getTournament().getId()));
+
+    private List<PlayerDto> findHoleWinners(List<ScoreDto> scoresForHole) {
+        int lowestStrokesForHole = scoresForHole.stream()
+                .min(Comparator.comparing(ScoreDto::getStrokes))
+                .orElseThrow()
+                .getStrokes();
+
+        return scoresForHole.stream()
+                .filter(score -> score.getStrokes() == lowestStrokesForHole)
+                .map(ScoreDto::getPlayer)
+                .collect(Collectors.toList());
     }
 
 }

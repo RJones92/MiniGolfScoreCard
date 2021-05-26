@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.Year;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,6 +89,18 @@ public class ScoreServiceImpl implements ScoreService {
             return convertListScoresToListScoreDto(scores);
         } catch (Exception e) {
             logger.error("Error retrieving scores for tournament ID: {}", tournamentId);
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<ScoreDto> getScoresForTournamentsById(Collection<Integer> tournamentIds) {
+        try {
+            List<Score> scores = scoreRepository.findDistinctScoresByTournamentIdIn(tournamentIds);
+            return convertListScoresToListScoreDto(scores);
+        } catch (Exception e) {
+            logger.error("Error retrieving scores for tournament ID's.");
             logger.error(e.getMessage());
         }
         return null;
