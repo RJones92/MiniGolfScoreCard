@@ -12,16 +12,18 @@ import java.util.stream.Collectors;
 @Component
 public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
 
-    private final List<TournamentDto> enrichedTournaments;
+    private List<TournamentDto> enrichedTournaments;
+    private final TournamentService tournamentService;
     private final ScoreService scoreService;
 
     public PlayerDtoEnricher(TournamentService tournamentService, ScoreService scoreService) {
-        this.enrichedTournaments = tournamentService.getAllTournamentDtos();
+        this.tournamentService = tournamentService;
         this.scoreService = scoreService;
     }
 
     @Override
     public void enrich(PlayerDto player) {
+        enrichedTournaments = tournamentService.getAllTournamentDtos();
         calculateStatistics(player);
     }
 
