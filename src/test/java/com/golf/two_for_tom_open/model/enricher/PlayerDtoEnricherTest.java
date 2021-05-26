@@ -95,7 +95,34 @@ class PlayerDtoEnricherTest {
 
     @Test
     void testCountTournamentsWon() {
+        //GIVEN
+        final int TOURNAMENT_2015_ID = 1;
+        final int TOURNAMENT_2016_ID = 2;
+        TournamentDto tournament_2015 = TournamentDto.builder()
+                .id(TOURNAMENT_2015_ID)
+                .players(Arrays.asList(playerA))
+                .courses(Collections.emptyList())
+                .year(Year.of(2015))
+                .winner(playerA)
+                .build();
+        TournamentDto tournament_2016 = TournamentDto.builder()
+                .id(TOURNAMENT_2016_ID)
+                .players(Arrays.asList(playerA, playerB))
+                .courses(Collections.emptyList())
+                .year(Year.of(2016))
+                .winner(playerB)
+                .build();
+        List<TournamentDto> allTournaments = new ArrayList<>();
+        allTournaments.add(tournament_2015);
+        allTournaments.add(tournament_2016);
 
+        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+
+        //WHEN
+        playerDtoEnricher.enrich(playerA);
+
+        //THEN
+        assertThat(playerA.getCountOfTournamentsWon(), equalTo(1L));
     }
 
     @Test
