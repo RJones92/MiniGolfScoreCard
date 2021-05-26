@@ -1,5 +1,6 @@
 package com.golf.two_for_tom_open.model.enricher;
 
+import com.golf.two_for_tom_open.model.dto.CourseDto;
 import com.golf.two_for_tom_open.model.dto.PlayerDto;
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
 import com.golf.two_for_tom_open.service.ScoreService;
@@ -11,10 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
@@ -61,17 +59,15 @@ class PlayerDtoEnricherTest {
     @Test
     void testCountTournamentsPlayed() {
         //GIVEN
-        final int TOURNAMENT_2015_ID = 1;
-        final int TOURNAMENT_2016_ID = 2;
         TournamentDto tournament_2015 = TournamentDto.builder()
-                .id(TOURNAMENT_2015_ID)
+                .id(1)
                 .players(Arrays.asList(playerA))
                 .courses(Collections.emptyList())
                 .year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
-                .id(TOURNAMENT_2016_ID)
+                .id(2)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Collections.emptyList())
                 .year(Year.of(2016))
@@ -96,17 +92,15 @@ class PlayerDtoEnricherTest {
     @Test
     void testCountTournamentsWon() {
         //GIVEN
-        final int TOURNAMENT_2015_ID = 1;
-        final int TOURNAMENT_2016_ID = 2;
         TournamentDto tournament_2015 = TournamentDto.builder()
-                .id(TOURNAMENT_2015_ID)
+                .id(1)
                 .players(Arrays.asList(playerA))
                 .courses(Collections.emptyList())
                 .year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
-                .id(TOURNAMENT_2016_ID)
+                .id(2)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Collections.emptyList())
                 .year(Year.of(2016))
@@ -127,12 +121,113 @@ class PlayerDtoEnricherTest {
 
     @Test
     void testCountCoursesPlayed() {
+        //GIVEN
+        CourseDto course_One = CourseDto.builder()
+                .id(1)
+                .courseName("Course One")
+                .holes(Collections.emptyList())
+                .build();
+        CourseDto course_Two = CourseDto.builder()
+                .id(2)
+                .courseName("Course Two")
+                .holes(Collections.emptyList())
+                .build();
+        CourseDto course_Three = CourseDto.builder()
+                .id(3)
+                .courseName("Course Three")
+                .holes(Collections.emptyList())
+                .build();
+        CourseDto course_Four = CourseDto.builder()
+                .id(4)
+                .courseName("Course Four")
+                .holes(Collections.emptyList())
+                .build();
 
+        TournamentDto tournament_2015 = TournamentDto.builder()
+                .id(1)
+                .players(Arrays.asList(playerA, playerB))
+                .courses(Arrays.asList(course_One, course_Two, course_Three))
+                .year(Year.of(2015))
+                .winner(playerA)
+                .build();
+        TournamentDto tournament_2016 = TournamentDto.builder()
+                .id(2)
+                .players(Arrays.asList(playerA))
+                .courses(Arrays.asList(course_Four))
+                .year(Year.of(2016))
+                .winner(playerA)
+                .build();
+
+        List<TournamentDto> allTournaments = new ArrayList<>();
+        allTournaments.add(tournament_2015);
+        allTournaments.add(tournament_2016);
+
+        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+
+        //WHEN
+        playerDtoEnricher.enrich(playerA);
+
+        //THEN
+        assertThat(playerA.getCountOfCoursesPlayed(), equalTo(4L));
     }
 
     @Test
-    void testCountCoursessWon() {
+    void testCountCoursesWon() {
+        //GIVEN
+        final int TOURNAMENT_2015_ID = 1;
+        final int TOURNAMENT_2016_ID = 2;
 
+        CourseDto course_One = CourseDto.builder()
+                .id(1)
+                .courseName("Course One")
+                .holes(Collections.emptyList())
+                .winnersByTournamentId(Map.of(TOURNAMENT_2015_ID, playerA))
+                .build();
+        CourseDto course_Two = CourseDto.builder()
+                .id(2)
+                .courseName("Course Two")
+                .holes(Collections.emptyList())
+                .winnersByTournamentId(Map.of(TOURNAMENT_2015_ID, playerA))
+                .build();
+        CourseDto course_Three = CourseDto.builder()
+                .id(3)
+                .courseName("Course Three")
+                .holes(Collections.emptyList())
+                .winnersByTournamentId(Map.of(TOURNAMENT_2015_ID, playerB))
+                .build();
+        CourseDto course_Four = CourseDto.builder()
+                .id(4)
+                .courseName("Course Four")
+                .holes(Collections.emptyList())
+                .winnersByTournamentId(Map.of(TOURNAMENT_2016_ID, playerA))
+                .build();
+
+        TournamentDto tournament_2015 = TournamentDto.builder()
+                .id(TOURNAMENT_2015_ID)
+                .players(Arrays.asList(playerA, playerB))
+                .courses(Arrays.asList(course_One, course_Two, course_Three))
+                .year(Year.of(2015))
+                .winner(playerA)
+                .build();
+        TournamentDto tournament_2016 = TournamentDto.builder()
+                .id(TOURNAMENT_2016_ID)
+                .players(Arrays.asList(playerA))
+                .courses(Arrays.asList(course_Four))
+                .year(Year.of(2016))
+                .winner(playerA)
+                .build();
+
+        List<TournamentDto> allTournaments = new ArrayList<>();
+        allTournaments.add(tournament_2015);
+        allTournaments.add(tournament_2016);
+
+        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+
+        //WHEN
+        playerDtoEnricher.enrich(playerA);
+
+        //THEN
+        assertThat(playerA.getCountOfCoursesWon(), equalTo(3L));
     }
 
     @Test
