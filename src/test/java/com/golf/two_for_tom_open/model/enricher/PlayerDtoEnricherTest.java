@@ -1,6 +1,7 @@
 package com.golf.two_for_tom_open.model.enricher;
 
 import com.golf.two_for_tom_open.model.dto.CourseDto;
+import com.golf.two_for_tom_open.model.dto.HoleDto;
 import com.golf.two_for_tom_open.model.dto.PlayerDto;
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
 import com.golf.two_for_tom_open.service.ScoreService;
@@ -232,7 +233,66 @@ class PlayerDtoEnricherTest {
 
     @Test
     void testCountHolesPlayed() {
+        //GIVEN
+        CourseDto course_One = CourseDto.builder()
+                .id(1)
+                .courseName("Course One")
+                .holes(Arrays.asList(
+                        HoleDto.builder().id(1).par(2).holeNumber(1).build(),
+                        HoleDto.builder().id(2).par(3).holeNumber(2).build()
+                ))
+                .build();
+        CourseDto course_Two = CourseDto.builder()
+                .id(2)
+                .courseName("Course Two")
+                .holes(Arrays.asList(
+                        HoleDto.builder().id(3).par(2).holeNumber(1).build(),
+                        HoleDto.builder().id(4).par(3).holeNumber(2).build(),
+                        HoleDto.builder().id(5).par(3).holeNumber(3).build()
+                ))
+                .build();
+        CourseDto course_Three = CourseDto.builder()
+                .id(3)
+                .courseName("Course Three")
+                .holes(Arrays.asList(
+                        HoleDto.builder().id(6).par(3).holeNumber(1).build()
+                ))
+                .build();
+        CourseDto course_Four = CourseDto.builder()
+                .id(4)
+                .courseName("Course Four")
+                .holes(Arrays.asList(
+                        HoleDto.builder().id(7).par(3).holeNumber(1).build(),
+                        HoleDto.builder().id(8).par(3).holeNumber(2).build()
+                ))
+                .build();
 
+        TournamentDto tournament_2015 = TournamentDto.builder()
+                .id(1)
+                .players(Arrays.asList(playerA, playerB))
+                .courses(Arrays.asList(course_One, course_Two, course_Three))
+                .year(Year.of(2015))
+                .winner(playerA)
+                .build();
+        TournamentDto tournament_2016 = TournamentDto.builder()
+                .id(2)
+                .players(Arrays.asList(playerA))
+                .courses(Arrays.asList(course_Four))
+                .year(Year.of(2016))
+                .winner(playerA)
+                .build();
+
+        List<TournamentDto> allTournaments = new ArrayList<>();
+        allTournaments.add(tournament_2015);
+        allTournaments.add(tournament_2016);
+
+        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+
+        //WHEN
+        playerDtoEnricher.enrich(playerA);
+
+        //THEN
+        assertThat(playerA.getCountOfHolesPlayed(), equalTo(8L));
     }
 
     @Test
