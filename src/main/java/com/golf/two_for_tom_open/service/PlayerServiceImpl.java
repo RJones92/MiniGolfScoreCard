@@ -1,6 +1,7 @@
 package com.golf.two_for_tom_open.service;
 
 import com.golf.two_for_tom_open.model.dto.PlayerDto;
+import com.golf.two_for_tom_open.model.enricher.DtoEnricher;
 import com.golf.two_for_tom_open.model.entity.Player;
 import com.golf.two_for_tom_open.model.mapper.PlayerMapper;
 import com.golf.two_for_tom_open.repository.PlayerRepository;
@@ -14,10 +15,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerRepository playerRepository;
     private final PlayerMapper playerMapper;
+    private final DtoEnricher playerDtoEnricher;
 
-    public PlayerServiceImpl(PlayerRepository playerRepository, PlayerMapper playerMapper) {
+    public PlayerServiceImpl(PlayerRepository playerRepository, PlayerMapper playerMapper, DtoEnricher playerDtoEnricher) {
         this.playerRepository = playerRepository;
         this.playerMapper = playerMapper;
+        this.playerDtoEnricher = playerDtoEnricher;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class PlayerServiceImpl implements PlayerService {
         return players.stream()
                 .map(player -> {
                     PlayerDto playerDto = playerMapper.playerEntityToDto(player);
-                    //TODO enrich each player Dto object
+                    playerDtoEnricher.enrich(playerDto);
                     return  playerDto;
                 })
                 .collect(Collectors.toList());

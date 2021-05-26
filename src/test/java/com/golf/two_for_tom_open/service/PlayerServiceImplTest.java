@@ -1,6 +1,7 @@
 package com.golf.two_for_tom_open.service;
 
 import com.golf.two_for_tom_open.model.dto.PlayerDto;
+import com.golf.two_for_tom_open.model.enricher.DtoEnricher;
 import com.golf.two_for_tom_open.model.entity.Player;
 import com.golf.two_for_tom_open.model.mapper.PlayerMapper;
 import com.golf.two_for_tom_open.repository.PlayerRepository;
@@ -28,6 +29,8 @@ class PlayerServiceImplTest {
     PlayerServiceImpl playerService;
     @Mock
     PlayerRepository playerRepository;
+    @Mock
+    DtoEnricher playerDtoEnricher;
     PlayerMapper playerMapper = Mappers.getMapper(PlayerMapper.class);
 
     private final Player playerX = Player.builder().firstName("John").lastName("Smith").build();
@@ -35,7 +38,7 @@ class PlayerServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        playerService = new PlayerServiceImpl(playerRepository, playerMapper);
+        playerService = new PlayerServiceImpl(playerRepository, playerMapper, playerDtoEnricher);
     }
 
     @Test
