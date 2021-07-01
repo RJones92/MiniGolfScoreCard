@@ -8,6 +8,7 @@ function Table(props) {
   createRows();
 
   function createRows() {
+    console.log(props);
     props.rows.forEach((row, index) => {
       let tableDataElements = [];
 

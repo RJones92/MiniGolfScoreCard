@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Table from "../components/Table";
 import { getAllPlayers } from "../services/playerService";
 
 const statTypes = new Map([
@@ -18,21 +19,41 @@ function PlayerPage(props) {
   useEffect(() => {
     getAllPlayers().then(
       (allPlayers) => {
+        let statsTable = createStatsTable(allPlayers);
+        setPlayerStatsTableObjects(statsTable);
         setIsLoaded(true);
-        setPlayerStatsTableObjects(createStatsTable(allPlayers));
       },
-      (errorMessage) => {
+      (error) => {
+        setError(error);
         setIsLoaded(true);
-        setError(errorMessage);
       }
     );
 
     function createStatsTable(allPlayers) {
+      const tableColumns = createStatsTableColumns(allPlayers);
+      const tableAsRows = transposeColumnsToRows(tableColumns);
+
+      let headerRow = [];
+      let otherRows = [];
+      for (let i = 0; i < tableAsRows.length; i++) {
+        if (i === 0) {
+          headerRow = tableAsRows[0];
+        } else {
+          otherRows.push(tableAsRows[i]);
+        }
+      }
+
+      return {
+        headers: headerRow,
+        rows: otherRows,
+      };
+    }
+
+    function createStatsTableColumns(allPlayers) {
       const playerKeys = Object.keys(allPlayers);
-      let playerColumns = playerKeys.forEach((playerKey) => {
-        const player = allPlayers[playerKey];
-        return createPlayerColumn(player);
-      });
+      const playerColumns = playerKeys.map((playerKey) =>
+        createPlayerColumn(allPlayers[playerKey])
+      );
 
       return {
         headerColumn: ["", ...statTypes.values()],
@@ -44,20 +65,50 @@ function PlayerPage(props) {
       const column = [];
       column.push(player.firstName + " " + player.lastName);
 
-      for (const statName of statTypes.values()) {
-        column.push(statName);
+      for (const statName of statTypes.keys()) {
+        column.push(player[statName]);
       }
 
       return column;
     }
-  }, [playerStatsTableObjects]);
+
+    function transposeColumnsToRows(tableColumns) {
+      let rows = [];
+      for (let i = 0; i < tableColumns.headerColumn.length; i++) {
+        let row = [];
+        row.push(tableColumns.headerColumn[i]);
+
+        for (let x = 0; x < tableColumns.playerColumns.length; x++) {
+          row.push(tableColumns.playerColumns[x][i]);
+        }
+
+        rows.push(row);
+      }
+
+      return rows;
+    }
+  }, []);
 
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
-    return <p>Placeholder - not yet implemented.</p>;
+    console.log(playerStatsTableObjects);
+    return (
+      // <p>placeholder</p>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-6">
+            <Table
+              columnHeaders={playerStatsTableObjects.headers}
+              rows={playerStatsTableObjects.rows}
+              tableHeader="testing"
+            />
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
