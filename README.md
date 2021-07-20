@@ -1,4 +1,6 @@
 # MiniGolfScoreCard
+Latest build status: [![CircleCI](https://circleci.com/gh/RJones92/MiniGolfScoreCard/tree/main.svg?style=svg)](https://circleci.com/gh/RJones92/MiniGolfScoreCard/tree/main)
+
 An app that will have a java backend talking to an SQL DB and serving data to a React frontend.
 
 The app's purpose is to record annual mini golf tournament scores, and draw up statistics for each participant.
