@@ -6,6 +6,7 @@ import com.golf.two_for_tom_open.service.PlayerService;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.Year;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
+@Profile("dev")
 public class DataInitialiser implements CommandLineRunner {
     private static final String COURSE_A = "Course A";
     private static final String COURSE_B = "Course B";
@@ -91,13 +93,12 @@ public class DataInitialiser implements CommandLineRunner {
     }
 
     private Score createScore(int strokes, Tournament tournament, Hole hole, Player player) {
-        Score score = Score.builder()
+        return Score.builder()
                 .strokes(strokes)
                 .player(player)
                 .tournament(tournament)
                 .hole(hole)
                 .build();
-        return score;
     }
 
     private List<Player> createPlayers() {
