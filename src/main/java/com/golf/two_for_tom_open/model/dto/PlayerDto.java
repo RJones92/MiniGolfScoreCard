@@ -14,6 +14,13 @@ public class PlayerDto {
     private int id;
     private String firstName;
     private String lastName;
+    private long countOfTournamentsPlayed;
+    private long countOfTournamentsWon;
+    private long countOfCoursesPlayed;
+    private long countOfCoursesWon;
+    private long countOfHolesPlayed;
+    private long countOfHolesWon;
+
 
     @Override
     public boolean equals(Object o) {
