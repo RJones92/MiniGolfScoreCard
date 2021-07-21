@@ -179,3 +179,9 @@ fabric.properties
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
+
+# Node
+package-lock.json
+npm
+npm.cmd
+node.exe
