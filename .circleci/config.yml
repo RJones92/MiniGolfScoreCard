@@ -1,4 +1,18 @@
 version: 2.1
+orbs:
+  heroku: circleci/heroku1.2.6 # Invoke the Heroku orb
+
+workflows:
+  heroku_deploy:
+    jobs:
+      - build
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - build # only run deploy-via-git job if the build job has completed
+          filters:
+            branches:
+              only: main # only run deploy-via-git job on main branch
+
 jobs:
   build:
     docker:
