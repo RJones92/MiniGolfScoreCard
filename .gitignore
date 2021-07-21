@@ -55,7 +55,6 @@ logs
 **/*.backup.*
 **/*.back.*
 
-node_modules
 bower_components
 
 *.sublime*
@@ -185,3 +184,6 @@ package-lock.json
 npm
 npm.cmd
 node.exe
+build
+node_modules
+
