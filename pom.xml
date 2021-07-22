@@ -194,6 +194,9 @@
                         <configuration>
                             <arguments>run build</arguments>
                             <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                            <environmentVariables>
+                                <CI>false</CI>
+                            </environmentVariables>
                         </configuration>
                     </execution>
                     <execution>
