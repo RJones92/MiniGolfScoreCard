@@ -211,6 +211,7 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
+                            <workingDirectory>src/main/ui</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
                                 <argument>gulp</argument>
@@ -225,6 +226,7 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
+                            <workingDirectory>src/main/ui</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
                                 <argument>del</argument>
@@ -239,6 +241,7 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
+                            <workingDirectory>src/main/ui</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
                                 <argument>fancy-log</argument>
