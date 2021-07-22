@@ -196,6 +196,13 @@
                             <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>gulp build in frontend plugin</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>gulp</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -211,7 +218,6 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
-                            <workingDirectory>src/main/ui</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
                                 <argument>gulp</argument>
@@ -226,7 +232,6 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
-                            <workingDirectory>src/main/ui</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
                                 <argument>del</argument>
@@ -241,21 +246,10 @@
                         </goals>
                         <configuration>
                             <executable>npm</executable>
-                            <workingDirectory>src/main/ui</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
                                 <argument>fancy-log</argument>
                             </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>gulp build</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>gulp</executable>
                         </configuration>
                     </execution>
                 </executions>
