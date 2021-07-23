@@ -1,3 +1,8 @@
+### non-standard gitignore ###
+# ignoring static directory because gulpfile.js replces it on each build
+static/
+
+### standard maven gitignore ###
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -55,7 +60,6 @@ logs
 **/*.backup.*
 **/*.back.*
 
-node_modules
 bower_components
 
 *.sublime*
@@ -179,3 +183,12 @@ fabric.properties
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
+
+# Node
+npm/
+npm.cmd
+node.exe
+build/
+node_modules/
+node/
+
