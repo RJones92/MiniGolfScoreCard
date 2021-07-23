@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class AppController {
 
-    @GetMapping({"/"})
+    @GetMapping({"/", "", "/index"})
     public String loadUi() {
         log.info("Loading UI");
         return "forward:/index.html";
