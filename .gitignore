@@ -1,3 +1,8 @@
+### non-standard gitignore ###
+# ignoring static directory because gulpfile.js replces it on each build
+static/
+
+### standard maven gitignore ###
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -180,9 +185,10 @@ fabric.properties
 .idea/codestream.xml
 
 # Node
-npm
+npm/
 npm.cmd
 node.exe
-build
-node_modules
+build/
+node_modules/
+node/
 
