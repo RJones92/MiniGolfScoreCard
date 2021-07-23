@@ -180,7 +180,6 @@ fabric.properties
 .idea/codestream.xml
 
 # Node
-package-lock.json
 npm
 npm.cmd
 node.exe
