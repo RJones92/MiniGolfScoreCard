@@ -365,4 +365,5 @@ test("returns a list of tournaments", async () => {
   fetch.mockResponseOnce(JSON.stringify(mockResponse));
   const allTourns = await getAllTournaments();
   expect(allTourns.length).toBe(3);
+  expect(fetch.mock.calls.length).toBe(1);
 });
