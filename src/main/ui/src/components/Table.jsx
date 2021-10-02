@@ -1,6 +1,7 @@
 import React from "react";
 
 function Table(props) {
+  const { columnHeaders, rows } = props;
   //props.columnHeaders = [header1, header2, header3, etc]
   //props.rows = [{valueCol1, valueCol2, valueCol3}, {valueCol1, valueCol2, valueCol3}, etc]
 
@@ -9,7 +10,7 @@ function Table(props) {
 
   function createRows() {
     console.log(props);
-    props.rows.forEach((row, index) => {
+    rows.forEach((row, index) => {
       let tableDataElements = [];
 
       const keys = Object.keys(row);
@@ -25,7 +26,7 @@ function Table(props) {
     <table className="table mt-4">
       <thead>
         <tr key="columnHeaders">
-          {props.columnHeaders.map((headerName) => (
+          {columnHeaders.map((headerName) => (
             <th key={headerName} scope="col">
               {headerName}
             </th>
