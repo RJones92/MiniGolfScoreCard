@@ -1,18 +1,21 @@
 package com.golf.two_for_tom_open.model.dto;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.Year;
 import java.util.List;
 
 @Builder
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TournamentDto {
 
     private int id;

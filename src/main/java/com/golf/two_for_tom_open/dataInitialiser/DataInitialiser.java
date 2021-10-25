@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@Profile("dev")
+@Profile("tbc")
 public class DataInitialiser implements CommandLineRunner {
     private static final String COURSE_A = "Course A";
     private static final String COURSE_B = "Course B";

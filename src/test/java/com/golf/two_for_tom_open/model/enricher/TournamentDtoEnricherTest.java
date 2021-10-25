@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,10 +24,16 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TournamentDtoEnricherTest {
 
-    @Mock
-    ScoreService scoreService;
     @InjectMocks
     TournamentDtoEnricher tournamentEnricher;
+    @Mock
+    ScoreService scoreService;
+
+    TournamentDto tournament1;
+
+    CourseDto course1;
+    CourseDto course2;
+    CourseDto course3;
 
     HoleDto hole1;
     HoleDto hole2;
@@ -44,107 +52,123 @@ class TournamentDtoEnricherTest {
     @BeforeEach
     void setUp() {
         holeSetUp();
+        courseSetUp();
         playersSetUp();
+        tournamentSetUp();
     }
 
     @Test
-    void testSettingWinnersWithOneTournamentAndThreeCourse() {
-        //GIVEN
-        CourseDto course1 = CourseDto.builder().courseName("Course 1").holes(Arrays.asList(hole1, hole2, hole3)).build();
-        CourseDto course2 = CourseDto.builder().courseName("Course 2").holes(Arrays.asList(hole4, hole5, hole6)).build();
-        CourseDto course3 = CourseDto.builder().courseName("Course 3").holes(Arrays.asList(hole8, hole8, hole9)).build();
-
-        TournamentDto tournament = TournamentDto.builder()
-                .courses(Arrays.asList(course1, course2, course3))
-                .players(Arrays.asList(playerA, playerB, playerC))
-                .build();
-
-        List<ScoreDto> scores = Arrays.asList(
-                //Course 1
-                buildScore(tournament, playerA, hole1, 1),
-                buildScore(tournament, playerA, hole2, 1),
-                buildScore(tournament, playerA, hole3, 1),
-
-                buildScore(tournament, playerB, hole1, 8),
-                buildScore(tournament, playerB, hole2, 8),
-                buildScore(tournament, playerB, hole3, 8),
-
-                buildScore(tournament, playerC, hole1, 8),
-                buildScore(tournament, playerC, hole2, 8),
-                buildScore(tournament, playerC, hole3, 8),
-
-                //Course 2
-                buildScore(tournament, playerA, hole4, 8),
-                buildScore(tournament, playerA, hole5, 8),
-                buildScore(tournament, playerA, hole6, 8),
-
-                buildScore(tournament, playerB, hole4, 1),
-                buildScore(tournament, playerB, hole5, 1),
-                buildScore(tournament, playerB, hole6, 1),
-
-                buildScore(tournament, playerC, hole4, 8),
-                buildScore(tournament, playerC, hole5, 8),
-                buildScore(tournament, playerC, hole6, 8),
-
-                //Course 3
-                buildScore(tournament, playerA, hole7, 8),
-                buildScore(tournament, playerA, hole8, 8),
-                buildScore(tournament, playerA, hole9, 8),
-
-                buildScore(tournament, playerB, hole7, 1),
-                buildScore(tournament, playerB, hole8, 1),
-                buildScore(tournament, playerB, hole9, 1),
-
-                buildScore(tournament, playerC, hole7, 8),
-                buildScore(tournament, playerC, hole8, 8),
-                buildScore(tournament, playerC, hole9, 8)
+    void testCourseWinner_Simple() {
+        // GIVEN
+        List<ScoreDto> playerAScores = Arrays.asList(
+                buildScore(tournament1, playerA, hole1, 2),
+                buildScore(tournament1, playerA, hole2, 2),
+                buildScore(tournament1, playerA, hole3, 2),
+                buildScore(tournament1, playerA, hole4, 2),
+                buildScore(tournament1, playerA, hole5, 2),
+                buildScore(tournament1, playerA, hole6, 2),
+                buildScore(tournament1, playerA, hole7, 2),
+                buildScore(tournament1, playerA, hole8, 2),
+                buildScore(tournament1, playerA, hole9, 2)
+                );
+        List<ScoreDto> playerBScores = Arrays.asList(
+                buildScore(tournament1, playerB, hole1, 1),
+                buildScore(tournament1, playerB, hole2, 1),
+                buildScore(tournament1, playerB, hole3, 1),
+                buildScore(tournament1, playerB, hole4, 1),
+                buildScore(tournament1, playerB, hole5, 1),
+                buildScore(tournament1, playerB, hole6, 1),
+                buildScore(tournament1, playerB, hole7, 1),
+                buildScore(tournament1, playerB, hole8, 1),
+                buildScore(tournament1, playerB, hole9, 1)
+        );
+        List<ScoreDto> playerCScores = Arrays.asList(
+                buildScore(tournament1, playerC, hole1, 3),
+                buildScore(tournament1, playerC, hole2, 3),
+                buildScore(tournament1, playerC, hole3, 3),
+                buildScore(tournament1, playerC, hole4, 3),
+                buildScore(tournament1, playerC, hole5, 3),
+                buildScore(tournament1, playerC, hole6, 3),
+                buildScore(tournament1, playerC, hole7, 3),
+                buildScore(tournament1, playerC, hole8, 3),
+                buildScore(tournament1, playerC, hole9, 3)
         );
 
-        when(scoreService.getScoresForTournamentById(anyInt())).thenReturn(scores);
+        List<ScoreDto> scores = new ArrayList<>();
+        scores.addAll(playerAScores);
+        scores.addAll(playerBScores);
+        scores.addAll(playerCScores);
 
-        //WHEN
-        tournamentEnricher.enrich(tournament);
+        when(scoreService.getScoresForTournamentById(1)).thenReturn(scores);
 
-        //THEN
-        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerA.getId()));
-        assertThat(course2.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerB.getId()));
-        assertThat(course3.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerB.getId()));
-        assertThat(tournament.getWinner(), equalTo(playerB));
+        // WHEN
+        tournamentEnricher.enrich(tournament1);
+
+        // THEN
+        assertThat(course1.getWinnersByTournamentId().get(tournament1.getId()).getId(), equalTo(playerB.getId()));
+        assertThat(course2.getWinnersByTournamentId().get(tournament1.getId()).getId(), equalTo(playerB.getId()));
+        assertThat(course3.getWinnersByTournamentId().get(tournament1.getId()).getId(), equalTo(playerB.getId()));
+        assertThat(tournament1.getWinner(), equalTo(playerB));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
+
     }
 
     @Test
-    void testSettingTournamentWinnerWhenPlayersHaveEqualStrokesOnACourse() {
-        //GIVEN
-        CourseDto course1 = CourseDto.builder().courseName("Course 1").holes(Arrays.asList(hole1, hole2, hole3)).build();
-
-        TournamentDto tournament = TournamentDto.builder()
-                .courses(Arrays.asList(course1))
-                .players(Arrays.asList(playerA, playerB))
-                .build();
-
-        course1.setHoles(Arrays.asList(hole1, hole2, hole3));
-
-        List<ScoreDto> scores = Arrays.asList(
-                buildScore(tournament, playerA, hole1, 3),
-                buildScore(tournament, playerA, hole2, 3),
-                buildScore(tournament, playerA, hole3, 2),
-
-                buildScore(tournament, playerB, hole1, 3),
-                buildScore(tournament, playerB, hole2, 4),
-                buildScore(tournament, playerB, hole3, 1)
+    void testCourseWinner_Complex() {
+        // GIVEN
+        List<ScoreDto> playerAScores = Arrays.asList(
+                buildScore(tournament1, playerA, hole1, 3),
+                buildScore(tournament1, playerA, hole2, 4),
+                buildScore(tournament1, playerA, hole3, 3),
+                buildScore(tournament1, playerA, hole4, 7),
+                buildScore(tournament1, playerA, hole5, 7),
+                buildScore(tournament1, playerA, hole6, 7),
+                buildScore(tournament1, playerA, hole7, 2),
+                buildScore(tournament1, playerA, hole8, 2),
+                buildScore(tournament1, playerA, hole9, 2) //37
+        );
+        List<ScoreDto> playerBScores = Arrays.asList(
+                buildScore(tournament1, playerB, hole1, 3),
+                buildScore(tournament1, playerB, hole2, 4),
+                buildScore(tournament1, playerB, hole3, 4),
+                buildScore(tournament1, playerB, hole4, 1),
+                buildScore(tournament1, playerB, hole5, 1),
+                buildScore(tournament1, playerB, hole6, 2),
+                buildScore(tournament1, playerB, hole7, 6),
+                buildScore(tournament1, playerB, hole8, 1),
+                buildScore(tournament1, playerB, hole9, 5)//27
+        );
+        List<ScoreDto> playerCScores = Arrays.asList(
+                buildScore(tournament1, playerC, hole1, 6),
+                buildScore(tournament1, playerC, hole2, 7),
+                buildScore(tournament1, playerC, hole3, 8),
+                buildScore(tournament1, playerC, hole4, 3),
+                buildScore(tournament1, playerC, hole5, 3),
+                buildScore(tournament1, playerC, hole6, 3),
+                buildScore(tournament1, playerC, hole7, 3),
+                buildScore(tournament1, playerC, hole8, 3),
+                buildScore(tournament1, playerC, hole9, 3) //39
         );
 
-        when(scoreService.getScoresForTournamentById(anyInt())).thenReturn(scores);
+        List<ScoreDto> scores = new ArrayList<>();
+        scores.addAll(playerAScores);
+        scores.addAll(playerBScores);
+        scores.addAll(playerCScores);
 
-        //WHEN
-        tournamentEnricher.enrich(tournament);
+        when(scoreService.getScoresForTournamentById(1)).thenReturn(scores);
 
-        //THEN
-        assertThat(course1.getWinnersByTournamentId().get(tournament.getId()).getId(), equalTo(playerB.getId()));
-        assertThat(tournament.getWinner().getId(), equalTo(playerB.getId()));
+        // WHEN
+        tournamentEnricher.enrich(tournament1);
+
+        // THEN
+        assertThat(course1.getWinnersByTournamentId().get(tournament1.getId()).getId(), equalTo(playerA.getId()));
+        assertThat(course2.getWinnersByTournamentId().get(tournament1.getId()).getId(), equalTo(playerB.getId()));
+        assertThat(course3.getWinnersByTournamentId().get(tournament1.getId()).getId(), equalTo(playerA.getId()));
+        assertThat(tournament1.getWinner(), equalTo(playerA));
         verify(scoreService, times(1)).getScoresForTournamentById(anyInt());
+
     }
+
 
     private void holeSetUp() {
         hole1 = HoleDto.builder().id(1).par(2).holeNumber(1).build();
@@ -162,6 +186,30 @@ class TournamentDtoEnricherTest {
         playerA = PlayerDto.builder().id(1).firstName("Player").lastName("A").build();
         playerB = PlayerDto.builder().id(2).firstName("Player").lastName("B").build();
         playerC = PlayerDto.builder().id(3).firstName("Player").lastName("C").build();
+    }
+
+    private void courseSetUp() {
+        course1 = CourseDto.builder()
+                .courseName("course1")
+                .holes(Arrays.asList(hole1, hole2, hole3))
+                .build();
+        course2 = CourseDto.builder()
+                .courseName("course2")
+                .holes(Arrays.asList(hole4, hole5, hole6))
+                .build();
+        course3 = CourseDto.builder()
+                .courseName("course3")
+                .holes(Arrays.asList(hole7, hole8, hole9))
+                .build();
+    }
+
+    private void tournamentSetUp() {
+        tournament1 = TournamentDto.builder()
+                .id(1)
+                .year(Year.of(2015))
+                .courses(Arrays.asList(course1, course2, course3))
+                .players(Arrays.asList(playerA, playerB, playerC))
+                .build();
     }
 
     private ScoreDto buildScore(TournamentDto tournament, PlayerDto player, HoleDto hole, int strokes) {
