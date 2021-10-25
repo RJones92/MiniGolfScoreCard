@@ -2,23 +2,22 @@ package com.golf.two_for_tom_open.model.enricher;
 
 import com.golf.two_for_tom_open.model.dto.*;
 import com.golf.two_for_tom_open.service.ScoreService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
 
     private final ScoreService scoreService;
 
-    public TournamentDtoEnricher(ScoreService scoreService) {
-        this.scoreService = scoreService;
-    }
-
     @Override
-    public void enrich(TournamentDto tournament) {
+    public TournamentDto enrich(TournamentDto tournament) {
         setWinners(tournament);
+        return tournament;
     }
 
     private void setWinners(TournamentDto tournament) {

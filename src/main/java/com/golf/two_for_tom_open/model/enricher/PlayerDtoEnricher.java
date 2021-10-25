@@ -3,12 +3,14 @@ package com.golf.two_for_tom_open.model.enricher;
 import com.golf.two_for_tom_open.model.dto.*;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Component
 public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
 
@@ -16,15 +18,11 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     private final TournamentService tournamentService;
     private final ScoreService scoreService;
 
-    public PlayerDtoEnricher(TournamentService tournamentService, ScoreService scoreService) {
-        this.tournamentService = tournamentService;
-        this.scoreService = scoreService;
-    }
-
     @Override
-    public void enrich(PlayerDto player) {
+    public PlayerDto enrich(PlayerDto player) {
         enrichedTournaments = tournamentService.getAllTournamentDtos();
         calculateStatistics(player);
+        return player;
     }
 
     private void calculateStatistics(PlayerDto player) {

@@ -88,7 +88,7 @@ public class DataInitialiser_Complex implements CommandLineRunner {
 
     // ++++++++++++++++ PLAYERS ++++++++++++++++
     private void buildScoreRhys2016(){
-        List<Integer> course1 = Arrays.asList(2,4,5,5,4,5,2,2,5,0,4,5,5,2,6,2,6,1);
+        List<Integer> course1 = Arrays.asList(2,4,5,5,4,5,2,2,5,0,4,5,5,2,6,2,6,1); //64
         List<Integer> course2 = Arrays.asList(3,2,2,3,3,3,4,2,2,5,2,2,2,2,3,5,2,2);
         List<Integer> course3 = Arrays.asList(4,3,3,3,4,2,5,3,2,2,5,3,2,3,3,1,3,2);
         List<Integer> course4 = Arrays.asList(2,2,4,6,2,2,3,3,2,5,2,3,3,2,3,3,2,1);
