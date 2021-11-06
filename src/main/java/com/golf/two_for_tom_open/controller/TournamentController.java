@@ -21,11 +21,11 @@ public class TournamentController {
     }
 
     @GetMapping(value = {"/", ""})
-    public ResponseEntity<?> getAllTournaments(@RequestParam(defaultValue = "true", required = false) boolean simple) {
+    public ResponseEntity<?> getAllTournaments(@RequestParam(defaultValue = "true", required = false) boolean complex) {
         logger.info("Request to retrieve all tournaments received.");
 
-        return simple ?
-               ResponseEntity.ok(tournamentService.getAllTournamentLiteDtos()) :
-               ResponseEntity.ok(tournamentService.getAllTournamentDtos());
+        return complex ?
+                ResponseEntity.ok(tournamentService.getAllTournamentDtos()) :
+                ResponseEntity.ok(tournamentService.getAllTournamentLiteDtos());
     }
 }
