@@ -39,13 +39,8 @@ public class TournamentServiceImpl implements TournamentService {
 
     @Override
     public List<TournamentLiteDto> getAllTournamentLiteDtos() {
-        List<Tournament> tournaments = this.getAll();
-        return tournaments.stream()
-                .map(tournament -> {
-                    TournamentDto tournamentDto = tournamentMapper.tournamentEntityToDto(tournament);
-                    tournamentDtoEnricher.enrich(tournamentDto);
-                    return tournamentMapper.tournamentDtoToLiteDto(tournamentDto);
-                })
+        return getAllTournamentDtos().stream()
+                .map(tournamentMapper::tournamentDtoToLiteDto)
                 .collect(Collectors.toList());
     }
 
