@@ -145,7 +145,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -183,7 +182,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>install node and npm</id>
+                        <id>install-node-and-npm</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>install-node-and-npm</goal>
@@ -194,14 +193,14 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm install</id>
+                        <id>npm-install</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                     </execution>
                     <execution>
-                        <id>prod build</id>
+                        <id>prod-build</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -215,7 +214,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>gulp build in frontend plugin</id>
+                        <id>gulp-build-in-frontend-plugin</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>gulp</goal>
@@ -225,5 +224,65 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <build>
+                <plugins>
+                    <plugin> <!-- disable frontend build and install in dev profile -->
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.12.0</version>
+                        <configuration>
+                            <installDirectory>root</installDirectory>
+                            <workingDirectory>src/main/ui</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>install-node-and-npm</id>
+                                <phase>none</phase> <!-- this disables the plugin on dev build -->
+                                <goals>
+                                    <goal>install-node-and-npm</goal>
+                                </goals>
+                                <configuration>
+                                    <nodeVersion>v10.15.3</nodeVersion>
+                                    <npmVersion>6.9.0</npmVersion>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>npm-install</id>
+                                <phase>none</phase> <!-- this disables the plugin on dev build -->
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>prod-build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>none</phase> <!-- this disables the plugin on dev build -->
+                                <configuration>
+                                    <arguments>run build</arguments>
+                                    <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                                    <environmentVariables>
+                                        <CI>false</CI>
+                                    </environmentVariables>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>gulp-build-in-frontend-plugin</id>
+                                <phase>none</phase> <!-- this disables the plugin on dev build -->
+                                <goals>
+                                    <goal>gulp</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

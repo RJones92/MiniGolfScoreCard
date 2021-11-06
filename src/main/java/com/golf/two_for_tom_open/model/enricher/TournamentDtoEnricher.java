@@ -2,23 +2,24 @@ package com.golf.two_for_tom_open.model.enricher;
 
 import com.golf.two_for_tom_open.model.dto.*;
 import com.golf.two_for_tom_open.service.ScoreService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
+@Slf4j
 public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
 
     private final ScoreService scoreService;
 
-    public TournamentDtoEnricher(ScoreService scoreService) {
-        this.scoreService = scoreService;
-    }
-
     @Override
-    public void enrich(TournamentDto tournament) {
+    public TournamentDto enrich(TournamentDto tournament) {
         setWinners(tournament);
+        return tournament;
     }
 
     private void setWinners(TournamentDto tournament) {
@@ -37,7 +38,9 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
     }
 
     private List<ScoreDto> getCourseScores(CourseDto course, List<ScoreDto> scores) {
-        List<Integer> courseHoleIds = course.getHoles().stream().map(HoleDto::getId).collect(Collectors.toList());
+        List<Integer> courseHoleIds = course.getHoles().stream()
+                .map(HoleDto::getId)
+                .collect(Collectors.toList());
         return scores.stream()
                 .filter(score -> courseHoleIds.contains(score.getHole().getId()))
                 .collect(Collectors.toList());

@@ -88,17 +88,17 @@ public class DataInitialiser_Complex implements CommandLineRunner {
 
     // ++++++++++++++++ PLAYERS ++++++++++++++++
     private void buildScoreRhys2016(){
-        List<Integer> course1 = Arrays.asList(2,4,5,5,4,5,2,2,5,0,4,5,5,2,6,2,6,1);
+        List<Integer> course1 = Arrays.asList(2,4,5,5,4,5,2,2,5,0,4,5,5,2,6,2,6,1); //64
         List<Integer> course2 = Arrays.asList(3,2,2,3,3,3,4,2,2,5,2,2,2,2,3,5,2,2);
         List<Integer> course3 = Arrays.asList(4,3,3,3,4,2,5,3,2,2,5,3,2,3,3,1,3,2);
         List<Integer> course4 = Arrays.asList(2,2,4,6,2,2,3,3,2,5,2,3,3,2,3,3,2,1);
         List<Integer> course5 = Arrays.asList(2,3,2,4,6,2,5,2,3,2,2,2,5,3,2,3,2,4);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).flatMap(Collection::stream).collect(Collectors.toList());
+                course5).collect(Collectors.toList());
         createScores(total, tournament2016, Rhys);
     }
 
@@ -110,14 +110,14 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course5 = Arrays.asList(3,2,2,3,3,4,2,2,3,3,2,2,3,4,2,2,2,4);
         List<Integer> course6 = Arrays.asList(3,2,2,2,4,3,3,2,3,3,4,2,2,3,2,3,2,3);
         List<Integer> course7 = Arrays.asList(2,4,4,2,3,7,7,4,3,2,3,5,4,2,3,2,3,2);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
                 course5,
                 course6,
-                course7).flatMap(Collection::stream).collect(Collectors.toList());
+                course7).collect(Collectors.toList());
         createScores(total, tournament2017, Rhys);
     }
 
@@ -130,7 +130,7 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course6 = Arrays.asList(4,2,3,2,4,6,2,3,6);
         List<Integer> course7 = Arrays.asList(6,1,1,6,2,2,3,2,2,2,2,5,2,3,4,3,2,4);
         List<Integer> course8 = Arrays.asList(3,2,4,2,2,1,2,2,3,5,2,3,3,3,4,4,3,3);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
@@ -138,7 +138,7 @@ public class DataInitialiser_Complex implements CommandLineRunner {
                 course5,
                 course6,
                 course7,
-                course8).flatMap(Collection::stream).collect(Collectors.toList());
+                course8).collect(Collectors.toList());
         createScores(total, tournament2018, Rhys);
     }
 
@@ -148,12 +148,12 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course3 = Arrays.asList(1,3,3,1,3,2,2,3,2,3,3,2,2,2,2,1,4,2);
         List<Integer> course4 = Arrays.asList(3,2,4,2,4,2,3,3,4,3,3,3,2,1,2,5,3,2);
         List<Integer> course5 = Arrays.asList(2,3,4,3,3,2,2,2,2,2,3,3,3,3,3,3,2,3);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).flatMap(Collection::stream).collect(Collectors.toList());
+                course5).collect(Collectors.toList());
         createScores(total, tournament2016, Jamie);
     }
 
@@ -165,14 +165,14 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course5 = Arrays.asList(3,2,3,3,3,5,2,2,3,2,3,2,4,2,3,4,2,3);
         List<Integer> course6 = Arrays.asList(5,2,2,5,5,2,2,2,3,4,6,3,3,3,3,4,2,2);
         List<Integer> course7 = Arrays.asList(2,2,3,2,2,3,7,7,4,2,3,4,2,2,3,2,3,2);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
                 course5,
                 course6,
-                course7).flatMap(Collection::stream).collect(Collectors.toList());
+                course7).collect(Collectors.toList());
         createScores(total, tournament2017, Jamie);
     }
 
@@ -185,7 +185,7 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course6 = Arrays.asList(3,2,3,6,3,4,3,3,6);
         List<Integer> course7 = Arrays.asList(4,2,1,3,2,2,3,2,2,2,2,3,2,2,2,3,3,2);
         List<Integer> course8 = Arrays.asList(3,2,4,2,2,1,2,2,3,5,2,3,3,3,4,4,3,3);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
@@ -193,7 +193,7 @@ public class DataInitialiser_Complex implements CommandLineRunner {
                 course5,
                 course6,
                 course7,
-                course8).flatMap(Collection::stream).collect(Collectors.toList());
+                course8).collect(Collectors.toList());
         createScores(total, tournament2018, Jamie);
     }
 
@@ -203,12 +203,12 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course3 = Arrays.asList(2,4,4,2,3,2,2,4,1,3,3,2,3,2,1,2,3,4);
         List<Integer> course4 = Arrays.asList(2,3,3,4,4,2,2,4,3,3,2,6,3,3,2,4,3,4);
         List<Integer> course5 = Arrays.asList(2,2,3,3,4,4,2,2,2,3,2,3,3,6,2,2,2,2);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).flatMap(Collection::stream).collect(Collectors.toList());
+                course5).collect(Collectors.toList());
         createScores(total, tournament2016, Tom);
     }
 
@@ -220,14 +220,14 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course5 = Arrays.asList(3,4,4,2,3,3,3,2,3,3,3,3,2,2,3,4,3,2);
         List<Integer> course6 = Arrays.asList(2,2,3,3,3,3,2,3,3,2,5,2,3,3,4,3,3,2);
         List<Integer> course7 = Arrays.asList(4,2,4,2,2,2,7,2,3,2,2,4,2,2,2,2,7,3);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
                 course5,
                 course6,
-                course7).flatMap(Collection::stream).collect(Collectors.toList());
+                course7).collect(Collectors.toList());
         createScores(total, tournament2017, Tom);
     }
 
@@ -240,7 +240,7 @@ public class DataInitialiser_Complex implements CommandLineRunner {
         List<Integer> course6 = Arrays.asList(3,6,6,6,3,2,3,4,6);
         List<Integer> course7 = Arrays.asList(1,4,4,5,1,2,2,2,2,2,3,2,2,2,2,2,3,2);
         List<Integer> course8 = Arrays.asList(2,2,2,2,3,2,4,3,2,2,3,2,2,2,5,3,1,4);
-        List<Integer> total = Stream.of(
+        List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
@@ -248,26 +248,33 @@ public class DataInitialiser_Complex implements CommandLineRunner {
                 course5,
                 course6,
                 course7,
-                course8).flatMap(Collection::stream).collect(Collectors.toList());
+                course8).collect(Collectors.toList());
         createScores(total, tournament2018, Tom);
     }
 
-    private void createScores(List<Integer> numberOfStrokesPerCourse, Tournament tournament, Player player) {
-        int countOfTournamentHoles = tournament.getCourses().stream().mapToInt(course -> course.getHoles().size()).sum();
-        if (numberOfStrokesPerCourse.size() != countOfTournamentHoles) {
-            throw new RuntimeException("The size of the strokes list (" + numberOfStrokesPerCourse.size() + ") does not match the number of courses (" +
+    private void createScores(List<List<Integer>> strokesPerCourse, Tournament tournament, Player player) {
+        int countOfTournamentHoles = tournament.getCourses().stream()
+                .mapToInt(course -> course.getHoles().size())
+                .sum();
+        int countOfHolesTaken = strokesPerCourse.stream()
+                .map(List::size)
+                .mapToInt(Integer::intValue)
+                .sum();
+        if (countOfHolesTaken != countOfTournamentHoles) {
+            throw new RuntimeException("The size of the strokes list (" + countOfHolesTaken +
+                    ") does not match the number of holes (" +
                     countOfTournamentHoles + ")");
         }
         List<Score> scores = new ArrayList<>();
 
         for (int i = 0; i < tournament.getCourses().size(); i++) {
             Course course = tournament.getCourses().get(i);
+            List<Integer> strokesTakenForCourse = strokesPerCourse.get(i);
 
             for (int x = 0; x < course.getHoles().size(); x++) {
                 Hole hole = course.getHoles().get(x);
-                Integer strokesTaken = numberOfStrokesPerCourse.get(x);
-
-                scores.add(createScore(strokesTaken, tournament, hole, player));
+                Integer strokesTakenForHole = strokesTakenForCourse.get(x);
+                scores.add(createScore(strokesTakenForHole, tournament, hole, player));
             }
         }
 

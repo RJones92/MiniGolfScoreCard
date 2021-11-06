@@ -1,6 +1,5 @@
 package com.golf.two_for_tom_open.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,20 +7,15 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.Year;
-import java.util.List;
 
 @Builder
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Component
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class TournamentDto {
+public class TournamentLiteDto {
 
     private int id;
     private Year year;
-    private List<CourseDto> courses;
-    private List<PlayerDto> players;
-
     private PlayerDto winner;
 }
