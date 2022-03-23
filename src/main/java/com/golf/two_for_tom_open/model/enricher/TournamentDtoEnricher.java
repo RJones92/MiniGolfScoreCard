@@ -6,8 +6,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.singletonList;
+import static java.util.Objects.compare;
 
 @Component
 @RequiredArgsConstructor
@@ -17,24 +24,19 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
     private final ScoreService scoreService;
 
     @Override
-    public TournamentDto enrich(TournamentDto tournament) {
-        setWinners(tournament);
-        return tournament;
-    }
-
-    private void setWinners(TournamentDto tournament) {
-        setCourseWinners(tournament);
+    public void enrich(TournamentDto tournament) {
         setTournamentWinner(tournament);
     }
 
-    private void setCourseWinners(TournamentDto tournament) {
+    private void setTournamentWinner(TournamentDto tournament) {
         List<ScoreDto> tournamentScores = scoreService.getScoresForTournamentById(tournament.getId());
+        tournament.getCourses()
+                .forEach(course -> {
+                    List<ScoreDto> courseScores = getCourseScores(course, tournamentScores);
+                    course.getWinnerByTournamentId().put(tournament.getId(), getCourseWinner(courseScores, tournament.getPlayers()));
+                });
 
-        tournament.getCourses().forEach(course -> {
-            List<ScoreDto> courseScores = getCourseScores(course, tournamentScores);
-            PlayerDto courseWinner = calculateCourseWinner(courseScores, tournament.getPlayers());
-            course.getWinnersByTournamentId().put(tournament.getId(), courseWinner);
-        });
+        tournament.setWinner(getTournamentWinner(tournament, tournamentScores));
     }
 
     private List<ScoreDto> getCourseScores(CourseDto course, List<ScoreDto> scores) {
@@ -46,35 +48,36 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
                 .collect(Collectors.toList());
     }
 
-    private PlayerDto calculateCourseWinner(List<ScoreDto> courseScores, List<PlayerDto> tournamentPlayers) {
+    private PlayerDto getCourseWinner(List<ScoreDto> courseScores, List<PlayerDto> tournamentPlayers) {
 
-        Map<Integer, Integer> playerId_countOfStrokes = setStrokesPerPlayer(courseScores, tournamentPlayers);
-        List<Integer> lowestStrokePlayerIds = findPlayerIdWithLowestStroke(playerId_countOfStrokes);
+        Map<Integer, Integer> playerId_countOfStrokes = getStrokesForPlayers(courseScores, tournamentPlayers);
+        List<Integer> lowestStrokePlayerIds = getPlayerIdsWithLowestStroke(playerId_countOfStrokes);
         List<PlayerDto> lowestStrokePlayers = tournamentPlayers.stream()
                 .filter(tournamentPlayer -> lowestStrokePlayerIds.contains(tournamentPlayer.getId()))
                 .collect(Collectors.toList());
 
-        if (isMoreThanOnePlayerWithLowestStrokes(lowestStrokePlayers)) {
+        if (lowestStrokePlayers.size() > 1) {
             return playerWithMostHolesInOne(courseScores, lowestStrokePlayers);
-        } else {
-            return lowestStrokePlayers.get(0);
         }
+
+        return lowestStrokePlayers.get(0);
     }
 
-    private Map<Integer, Integer> setStrokesPerPlayer(List<ScoreDto> scores, List<PlayerDto> players) {
+    private Map<Integer, Integer> getStrokesForPlayers(List<ScoreDto> scores, List<PlayerDto> players) {
         Map<Integer, Integer> playerId_countOfStrokes = new HashMap<>();
         players.forEach(player -> playerId_countOfStrokes.put(player.getId(), 0));
 
-        scores.forEach(score -> {
-            int currentStrokesForPlayer = playerId_countOfStrokes.get(score.getPlayer().getId());
-            int newNumberOfStrokesForPlayer = currentStrokesForPlayer + score.getStrokes();
-            playerId_countOfStrokes.put(score.getPlayer().getId(), newNumberOfStrokesForPlayer);
-        });
-
+        for (PlayerDto player : players) {
+            int playerStrokes = scores.stream()
+                    .filter(score -> score.getPlayer().getId() == player.getId())
+                    .mapToInt(ScoreDto::getStrokes)
+                    .sum();
+            playerId_countOfStrokes.put(player.getId(), playerStrokes);
+        }
         return playerId_countOfStrokes;
     }
 
-    private List<Integer> findPlayerIdWithLowestStroke(Map<Integer, Integer> playerId_countOfStrokes) {
+    private List<Integer> getPlayerIdsWithLowestStroke(Map<Integer, Integer> playerId_countOfStrokes) {
 
         int lowestNumberOfStrokes = playerId_countOfStrokes.entrySet().stream()
                 .min(Map.Entry.comparingByValue())
@@ -88,17 +91,13 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
 
     }
 
-    private boolean isMoreThanOnePlayerWithLowestStrokes(List<PlayerDto> players) {
-        return players.size() > 1;
-    }
-
     private PlayerDto playerWithMostHolesInOne(List<ScoreDto> courseScores, List<PlayerDto> players) {
 
         Map<PlayerDto, Long> player_CountOfHolesInOne = new HashMap<>();
 
         for (PlayerDto player : players) {
-            Long countOfHoleInOneForPlayer = courseScores.stream()
-                    .filter(score -> score.getPlayer() == player)
+            long countOfHoleInOneForPlayer = courseScores.stream()
+                    .filter(score -> score.getPlayer().getId() == player.getId())
                     .filter(score -> score.getStrokes() == 1)
                     .count();
 
@@ -109,19 +108,13 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElseThrow();
-
     }
 
-    private void setTournamentWinner(TournamentDto tournament) {
-        PlayerDto winner = calculateTournamentWinner(tournament);
-        tournament.setWinner(winner);
-    }
-
-    private PlayerDto calculateTournamentWinner(TournamentDto tournament) {
+    private PlayerDto getTournamentWinner(TournamentDto tournament, List<ScoreDto> tournamentScores) {
         Map<PlayerDto, Integer> numberOfCoursesWonForEachPlayer = calculateNumberOfCoursesWonForEachPlayer(tournament);
 
         return numberOfCoursesWonForEachPlayer.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
+                .max(((o1, o2) -> compare(o1, o2, compareCoursesWonForPlayer(tournamentScores))))
                 .orElseThrow().getKey();
     }
 
@@ -129,23 +122,12 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
         Map<Integer, Integer> playerId_CountOfCourseWins = new HashMap<>();
         tournament.getPlayers().forEach(player -> playerId_CountOfCourseWins.put(player.getId(), 0));
 
-        List<ScoreDto> tournamentScores = new ArrayList<>();
-        if (!isTournamentCourseWinnersCalculated(tournament)) {
-            tournamentScores = scoreService.getScoresForTournamentById(tournament.getId());
-        }
-        List<ScoreDto> finalTournamentScores = tournamentScores;
-
-        tournament.getCourses().forEach(course -> {
-            PlayerDto courseWinner;
-            if (!isTournamentCourseWinnersCalculated(tournament)) {
-                List<ScoreDto> courseScores = getCourseScores(course, finalTournamentScores);
-                courseWinner = calculateCourseWinner(courseScores, tournament.getPlayers());
-            } else {
-                courseWinner = course.getWinnersByTournamentId().get(tournament.getId());
-            }
-            Integer currentCountOfCourseWins = playerId_CountOfCourseWins.get(courseWinner.getId());
-            playerId_CountOfCourseWins.put(courseWinner.getId(), currentCountOfCourseWins + 1);
-        });
+        tournament.getCourses().stream()
+                .map(course -> course.getWinnerByTournamentId().get(tournament.getId()))
+                .forEach(courseWinner -> {
+                    Integer currentCountOfCourseWins = playerId_CountOfCourseWins.get(courseWinner.getId());
+                    playerId_CountOfCourseWins.put(courseWinner.getId(), currentCountOfCourseWins + 1);
+                });
 
         return playerId_CountOfCourseWins.entrySet().stream()
                 .collect(Collectors.toMap(
@@ -157,11 +139,16 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
                 ));
     }
 
-    private Boolean isTournamentCourseWinnersCalculated(TournamentDto tournament) {
 
-        for (CourseDto course : tournament.getCourses()) {
-            if (!course.getWinnersByTournamentId().isEmpty()) return true;
-        }
-        return false;
+    private Comparator<Map.Entry<PlayerDto, Integer>> compareCoursesWonForPlayer(List<ScoreDto> tournamentScores) {
+
+        return Comparator.comparingInt((ToIntFunction<Map.Entry<PlayerDto, Integer>>) Map.Entry::getValue)
+                .thenComparingInt(o -> getTotalTournamentStrokes(o.getKey(), tournamentScores));
     }
+
+    private int getTotalTournamentStrokes(PlayerDto player, List<ScoreDto> tournamentScores) {
+        Map<Integer, Integer> playerId_strokes = getStrokesForPlayers(tournamentScores, singletonList(player));
+        return playerId_strokes.get(player.getId());
+    }
+
 }

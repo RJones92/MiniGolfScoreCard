@@ -19,6 +19,6 @@ public class CourseDto {
     private String courseName;
     private List<HoleDto> holes;
     @Builder.Default
-    private Map<Integer, PlayerDto> winnersByTournamentId = new HashMap<>();
+    private Map<Integer, PlayerDto> winnerByTournamentId = new HashMap<>();
 
 }

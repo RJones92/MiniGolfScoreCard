@@ -38,7 +38,7 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public List<ScoreDto> getAllScoreDto() {
         List<Score> scores = this.getAll();
-        return convertListScoresToListScoreDto(scores);
+        return map(scores);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ScoreServiceImpl implements ScoreService {
     public List<ScoreDto> getScoresForPlayerById(int playerId) {
         try {
             List<Score> scores = scoreRepository.findScoresForPlayerById(playerId);
-            return convertListScoresToListScoreDto(scores);
+            return map(scores);
         } catch (Exception e) {
             logger.error("Error retrieving scores for player ID: {}", playerId);
             logger.error("Error message thrown is: {}", e.getMessage());
@@ -62,7 +62,7 @@ public class ScoreServiceImpl implements ScoreService {
     public List<ScoreDto> getScoresForPlayerByName(String firstName, String lastName) {
         try {
             List<Score> scores = scoreRepository.findScoresForPlayerByName(firstName, lastName);
-            return convertListScoresToListScoreDto(scores);
+            return map(scores);
         } catch (Exception e) {
             logger.error("Error retrieving scores for player name: {} {}", firstName, lastName);
             logger.info("Error message thrown is: {}", e.getMessage());
@@ -74,7 +74,7 @@ public class ScoreServiceImpl implements ScoreService {
     public List<ScoreDto> getScoresForTournamentByYear(Year tournamentYear) {
         try {
             List<Score> scores = scoreRepository.findScoresForTournamentByYear(tournamentYear);
-            return convertListScoresToListScoreDto(scores);
+            return map(scores);
         } catch (Exception e) {
             logger.error("Error retrieving scores for tournament with year: {}", tournamentYear.getValue());
             logger.info("Error message thrown is: {}", e.getMessage());
@@ -86,7 +86,7 @@ public class ScoreServiceImpl implements ScoreService {
     public List<ScoreDto> getScoresForTournamentById(int tournamentId) {
         try {
             List<Score> scores = scoreRepository.findAllByTournamentId(tournamentId);
-            return convertListScoresToListScoreDto(scores);
+            return map(scores);
         } catch (Exception e) {
             logger.error("Error retrieving scores for tournament ID: {}", tournamentId);
             logger.error(e.getMessage());
@@ -98,7 +98,7 @@ public class ScoreServiceImpl implements ScoreService {
     public List<ScoreDto> getScoresForTournamentsById(Collection<Integer> tournamentIds) {
         try {
             List<Score> scores = scoreRepository.findDistinctScoresByTournamentIdIn(tournamentIds);
-            return convertListScoresToListScoreDto(scores);
+            return map(scores);
         } catch (Exception e) {
             logger.error("Error retrieving scores for tournament ID's.");
             logger.error(e.getMessage());
@@ -106,7 +106,7 @@ public class ScoreServiceImpl implements ScoreService {
         return null;
     }
 
-    private List<ScoreDto> convertListScoresToListScoreDto(List<Score> scores) {
+    private List<ScoreDto> map(List<Score> scores) {
         return scores.stream()
                 .map(scoreMapper::scoreEntityToDto)
                 .collect(Collectors.toList());

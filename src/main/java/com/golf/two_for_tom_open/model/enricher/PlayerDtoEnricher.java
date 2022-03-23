@@ -19,10 +19,9 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     private final ScoreService scoreService;
 
     @Override
-    public PlayerDto enrich(PlayerDto player) {
+    public void enrich(PlayerDto player) {
         enrichedTournaments = tournamentService.getAllTournamentDtos();
         calculateStatistics(player);
-        return player;
     }
 
     private void calculateStatistics(PlayerDto player) {
@@ -74,7 +73,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     }
 
     private long countOfPlayerWinsForCourse(CourseDto course, PlayerDto player) {
-        Collection<PlayerDto> courseWinners = course.getWinnersByTournamentId().values();
+        Collection<PlayerDto> courseWinners = course.getWinnerByTournamentId().values();
         return courseWinners.stream()
                 .filter(winner -> winner.equals(player))
                 .count();
