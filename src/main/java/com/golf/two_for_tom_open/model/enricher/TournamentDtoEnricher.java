@@ -139,11 +139,10 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
                 ));
     }
 
-
     private Comparator<Map.Entry<PlayerDto, Integer>> compareCoursesWonForPlayer(List<ScoreDto> tournamentScores) {
 
         return Comparator.comparingInt((ToIntFunction<Map.Entry<PlayerDto, Integer>>) Map.Entry::getValue)
-                .thenComparingInt(o -> getTotalTournamentStrokes(o.getKey(), tournamentScores));
+                .thenComparing(o -> getTotalTournamentStrokes(o.getKey(), tournamentScores), (int1, int2) -> int2-int1);
     }
 
     private int getTotalTournamentStrokes(PlayerDto player, List<ScoreDto> tournamentScores) {

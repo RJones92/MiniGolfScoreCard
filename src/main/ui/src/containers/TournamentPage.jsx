@@ -77,11 +77,11 @@ function TournamentPage(props) {
       });
 
       const tournamentId = tournament.id;
-      const winner = Object.keys(course.winnersByTournamentId)
+      const winner = Object.keys(course.winnerByTournamentId)
         .filter((key) => parseInt(key) === tournamentId)
         .reduce(
           (accumulator, key) =>
-            (accumulator[key] = course.winnersByTournamentId[key]),
+            (accumulator[key] = course.winnerByTournamentId[key]),
           {}
         );
       newRow["courseWinner"] = winner.firstName + " " + winner.lastName;
