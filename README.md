@@ -7,11 +7,11 @@ The app's purpose is to record annual mini golf tournament scores, and draw up s
 
 ## Run the program in developer mode
 Run the Java Spring application on port 8080:
-- mvn clean install
+- `mvn clean install -Pdev`
 - run programme in your IDE or command line
 
 Run the React frontend:
-- cd /src/main/ui
-- npm start
+- `cd /src/main/ui`
+- `npm start`
 
 
