@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-@Profile("dev")
+@Profile("tbc")
 public class DataInitialiser_Complex implements CommandLineRunner {
 
     private final PlayerService playerService;

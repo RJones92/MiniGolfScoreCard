@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.Year;
 import java.util.*;
 
+import static java.util.Collections.singletonList;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
@@ -60,7 +61,7 @@ class PlayerDtoEnricherTest {
         //GIVEN
         TournamentDto tournament_2015 = TournamentDto.builder()
                 .id(1)
-                .players(Arrays.asList(playerA))
+                .players(singletonList(playerA))
                 .courses(Collections.emptyList())
                 .year(Year.of(2015))
                 .winner(playerA)
@@ -93,7 +94,7 @@ class PlayerDtoEnricherTest {
         //GIVEN
         TournamentDto tournament_2015 = TournamentDto.builder()
                 .id(1)
-                .players(Arrays.asList(playerA))
+                .players(singletonList(playerA))
                 .courses(Collections.emptyList())
                 .year(Year.of(2015))
                 .winner(playerA)
@@ -151,8 +152,8 @@ class PlayerDtoEnricherTest {
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(2)
-                .players(Arrays.asList(playerA))
-                .courses(Arrays.asList(course_Four))
+                .players(singletonList(playerA))
+                .courses(singletonList(course_Four))
                 .year(Year.of(2016))
                 .winner(playerA)
                 .build();
@@ -180,25 +181,25 @@ class PlayerDtoEnricherTest {
                 .id(1)
                 .courseName("Course One")
                 .holes(Collections.emptyList())
-                .winnersByTournamentId(Map.of(TOURNAMENT_2015_ID, playerA))
+                .winnerByTournamentId(Map.of(TOURNAMENT_2015_ID, playerA))
                 .build();
         CourseDto course_Two = CourseDto.builder()
                 .id(2)
                 .courseName("Course Two")
                 .holes(Collections.emptyList())
-                .winnersByTournamentId(Map.of(TOURNAMENT_2015_ID, playerA))
+                .winnerByTournamentId(Map.of(TOURNAMENT_2015_ID, playerA))
                 .build();
         CourseDto course_Three = CourseDto.builder()
                 .id(3)
                 .courseName("Course Three")
                 .holes(Collections.emptyList())
-                .winnersByTournamentId(Map.of(TOURNAMENT_2015_ID, playerB))
+                .winnerByTournamentId(Map.of(TOURNAMENT_2015_ID, playerB))
                 .build();
         CourseDto course_Four = CourseDto.builder()
                 .id(4)
                 .courseName("Course Four")
                 .holes(Collections.emptyList())
-                .winnersByTournamentId(Map.of(TOURNAMENT_2016_ID, playerA))
+                .winnerByTournamentId(Map.of(TOURNAMENT_2016_ID, playerA))
                 .build();
 
         TournamentDto tournament_2015 = TournamentDto.builder()
@@ -210,8 +211,8 @@ class PlayerDtoEnricherTest {
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(TOURNAMENT_2016_ID)
-                .players(Arrays.asList(playerA))
-                .courses(Arrays.asList(course_Four))
+                .players(singletonList(playerA))
+                .courses(singletonList(course_Four))
                 .year(Year.of(2016))
                 .winner(playerA)
                 .build();
@@ -252,7 +253,7 @@ class PlayerDtoEnricherTest {
         CourseDto course_Three = CourseDto.builder()
                 .id(3)
                 .courseName("Course Three")
-                .holes(Arrays.asList(
+                .holes(singletonList(
                         HoleDto.builder().id(6).par(3).holeNumber(1).build()
                 ))
                 .build();
@@ -274,8 +275,8 @@ class PlayerDtoEnricherTest {
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(2)
-                .players(Arrays.asList(playerA))
-                .courses(Arrays.asList(course_Four))
+                .players(singletonList(playerA))
+                .courses(singletonList(course_Four))
                 .year(Year.of(2016))
                 .winner(playerA)
                 .build();

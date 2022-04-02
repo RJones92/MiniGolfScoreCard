@@ -1,7 +1,6 @@
 package com.golf.two_for_tom_open.controller;
 
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
-import com.golf.two_for_tom_open.model.dto.TournamentLiteDto;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +25,7 @@ class TournamentControllerTest {
 
     @InjectMocks
     TournamentController tournamentController;
+
     @Mock
     TournamentService tournamentService;
 
@@ -37,20 +37,7 @@ class TournamentControllerTest {
     }
 
     @Test
-    void testGetAllTournaments_SimpleResponse() throws Exception {
-        List<TournamentLiteDto> tournamentList = new ArrayList<>();
-        tournamentList.add(new TournamentLiteDto());
-
-        when(tournamentService.getAllTournamentLiteDtos()).thenReturn(tournamentList);
-
-        mockMvc.perform(get("/api/tournaments")
-                .queryParam("complex", "false"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
-    void testGetAllTournaments_ComplexResponse() throws Exception {
+    void testGetAllTournaments() throws Exception {
         List<TournamentDto> tournamentList = new ArrayList<>();
         tournamentList.add(new TournamentDto());
 
