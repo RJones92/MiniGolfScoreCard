@@ -63,14 +63,14 @@ class PlayerDtoEnricherTest {
                 .id(1)
                 .players(singletonList(playerA))
                 .courses(Collections.emptyList())
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(2)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Collections.emptyList())
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .winner(playerB)
                 .build();
         List<TournamentDto> allTournaments = new ArrayList<>();
@@ -96,14 +96,14 @@ class PlayerDtoEnricherTest {
                 .id(1)
                 .players(singletonList(playerA))
                 .courses(Collections.emptyList())
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(2)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Collections.emptyList())
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .winner(playerB)
                 .build();
         List<TournamentDto> allTournaments = new ArrayList<>();
@@ -147,14 +147,14 @@ class PlayerDtoEnricherTest {
                 .id(1)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Arrays.asList(course_One, course_Two, course_Three))
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(2)
                 .players(singletonList(playerA))
                 .courses(singletonList(course_Four))
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .winner(playerA)
                 .build();
 
@@ -206,14 +206,14 @@ class PlayerDtoEnricherTest {
                 .id(TOURNAMENT_2015_ID)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Arrays.asList(course_One, course_Two, course_Three))
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(TOURNAMENT_2016_ID)
                 .players(singletonList(playerA))
                 .courses(singletonList(course_Four))
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .winner(playerA)
                 .build();
 
@@ -270,14 +270,14 @@ class PlayerDtoEnricherTest {
                 .id(1)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Arrays.asList(course_One, course_Two, course_Three))
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .winner(playerA)
                 .build();
         TournamentDto tournament_2016 = TournamentDto.builder()
                 .id(2)
                 .players(singletonList(playerA))
                 .courses(singletonList(course_Four))
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .winner(playerA)
                 .build();
 
@@ -321,7 +321,7 @@ class PlayerDtoEnricherTest {
                 .id(TOURNAMENT_2015_ID)
                 .players(Arrays.asList(playerA, playerB))
                 .courses(Arrays.asList(course_One, course_Two))
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .winner(playerA)
                 .build();
 

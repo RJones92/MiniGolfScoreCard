@@ -672,37 +672,37 @@ public class DataInitialiserProd implements CommandLineRunner {
     // ++++++++++++++++ TOURNAMENTS ++++++++++++++++
     private void createTournaments() {
         tournament2016 = Tournament.builder()
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .courses(courses_2016)
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();
 
         tournament2017 = Tournament.builder()
-                .year(Year.of(2017))
+                ._year(Year.of(2017))
                 .courses(courses_2017)
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();
 
         tournament2018 = Tournament.builder()
-                .year(Year.of(2018))
+                ._year(Year.of(2018))
                 .courses(courses_2018)
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();
 
         tournament2019 = Tournament.builder()
-                .year(Year.of(2019))
+                ._year(Year.of(2019))
                 .courses(courses_2019)
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();
 
         tournament2020 = Tournament.builder()
-                .year(Year.of(2020))
+                ._year(Year.of(2020))
                 .courses(courses_2020)
                 .players(Arrays.asList(Rhys, Tom, Jamie, Jade))
                 .build();
 
         tournament2021 = Tournament.builder()
-                .year(Year.of(2021))
+                ._year(Year.of(2021))
                 .courses(courses_2021)
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();

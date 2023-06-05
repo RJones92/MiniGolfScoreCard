@@ -19,7 +19,7 @@ import java.util.List;
 public class TournamentDto {
 
     private int id;
-    private Year year;
+    private Year _year;
     private List<CourseDto> courses;
     private List<PlayerDto> players;
 

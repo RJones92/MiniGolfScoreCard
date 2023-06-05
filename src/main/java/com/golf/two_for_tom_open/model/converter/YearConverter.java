@@ -1,7 +1,8 @@
 package com.golf.two_for_tom_open.model.converter;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+
 import java.time.Year;
 import java.util.Optional;
 

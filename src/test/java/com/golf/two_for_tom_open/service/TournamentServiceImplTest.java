@@ -39,12 +39,12 @@ class TournamentServiceImplTest {
     TournamentMapper tournamentMapper = Mappers.getMapper(TournamentMapper.class);
 
     private final Tournament tournament2015 = Tournament.builder()
-            .year(Year.of(2015))
+            ._year(Year.of(2015))
             .courses(new ArrayList<>())
             .players(new ArrayList<>())
             .build();
     private final Tournament tournament2016 = Tournament.builder()
-            .year(Year.of(2016))
+            ._year(Year.of(2016))
             .courses(new ArrayList<>())
             .players(new ArrayList<>())
             .build();

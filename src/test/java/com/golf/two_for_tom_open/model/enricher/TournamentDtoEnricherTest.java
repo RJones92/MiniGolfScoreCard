@@ -265,7 +265,7 @@ class TournamentDtoEnricherTest {
     private void tournamentSetUp() {
         tournament1 = TournamentDto.builder()
                 .id(1)
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .courses(Arrays.asList(course1, course2, course3))
                 .players(Arrays.asList(playerA, playerB, playerC))
                 .build();

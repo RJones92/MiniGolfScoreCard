@@ -5,12 +5,12 @@ import com.golf.two_for_tom_open.model.dto.ScoreDto;
 import com.golf.two_for_tom_open.model.entity.Score;
 import com.golf.two_for_tom_open.model.mapper.ScoreMapper;
 import com.golf.two_for_tom_open.repository.ScoreRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.Year;
 import java.util.Collection;
 import java.util.List;
