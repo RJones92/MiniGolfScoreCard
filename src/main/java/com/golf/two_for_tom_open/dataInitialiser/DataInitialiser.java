@@ -58,14 +58,14 @@ public class DataInitialiser implements CommandLineRunner {
 
         // +++++ Tournaments +++++
         tournament2015 = Tournament.builder()
-                .year(Year.of(2015))
+                ._year(Year.of(2015))
                 .courses(courses)
                 .players(players)
                 .build();
         tournamentService.save(tournament2015);
 
         tournament2016 = Tournament.builder()
-                .year(Year.of(2016))
+                ._year(Year.of(2016))
                 .courses(courses)
                 .players(players)
                 .build();

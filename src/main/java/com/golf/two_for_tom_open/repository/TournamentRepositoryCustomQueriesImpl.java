@@ -3,9 +3,9 @@ package com.golf.two_for_tom_open.repository;
 import com.golf.two_for_tom_open.model.entity.QTournament;
 import com.golf.two_for_tom_open.model.entity.Tournament;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.Year;
 
 public class TournamentRepositoryCustomQueriesImpl implements TournamentRepositoryCustomQueries {
@@ -19,7 +19,7 @@ public class TournamentRepositoryCustomQueriesImpl implements TournamentReposito
         QTournament qTournament = QTournament.tournament;
 
         Tournament tournament = queryFactory.selectFrom(qTournament)
-                .where(qTournament.year.eq(year))
+                .where(qTournament._year.eq(year))
                 .fetchFirst();
 
         return tournament;

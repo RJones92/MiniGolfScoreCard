@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Table from "../components/Table";
-import { getAllTournaments } from "../services/tournamentService";
+import React, { useEffect, useState } from 'react';
+import Table from '../components/Table';
+import { getAllTournaments } from '../services/tournamentService';
 
 function HomePage() {
   const [formattedRowObjects, setFormattedRowObjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
-  const columnHeaders = ["Tournament", "Winner"];
+  const columnHeaders = ['Tournament', 'Winner'];
 
   useEffect(() => {
     getAllTournaments().then(
@@ -25,9 +25,9 @@ function HomePage() {
       tournamentKeys.forEach((key) => {
         let tournament = tournaments[key];
         let winner =
-          tournament.winner.firstName + " " + tournament.winner.lastName;
+          tournament.winner.firstName + ' ' + tournament.winner.lastName;
         let newRow = {
-          year: tournament.year,
+          year: tournament._year,
           winner: winner,
         };
 
@@ -45,13 +45,13 @@ function HomePage() {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-6">
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-md-6'>
             <Table
               columnHeaders={columnHeaders}
               rows={formattedRowObjects}
-              tableHeader="testing"
+              tableHeader='testing'
             />
           </div>
         </div>

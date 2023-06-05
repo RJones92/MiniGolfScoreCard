@@ -2,9 +2,9 @@ package com.golf.two_for_tom_open.repository;
 
 import com.golf.two_for_tom_open.model.entity.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.Year;
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class ScoreRepositoryCustomQueriesImpl implements ScoreRepositoryCustomQu
 
         List<Score> scores = queryFactory.selectFrom(qScore)
                 .innerJoin(qScore.tournament, qTournament)
-                .on(qTournament.year.eq(year))
+                .on(qTournament._year.eq(year))
                 .fetch();
 
         return scores;
