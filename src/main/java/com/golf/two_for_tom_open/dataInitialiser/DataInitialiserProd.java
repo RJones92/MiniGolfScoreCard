@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
-@Profile("prod")
+@Profile("dev")
 public class DataInitialiserProd implements CommandLineRunner {
 
     private final PlayerService playerService;
@@ -38,6 +39,7 @@ public class DataInitialiserProd implements CommandLineRunner {
     private List<Course> courses_2019;
     private List<Course> courses_2020;
     private List<Course> courses_2021;
+    private List<Course> courses_2022;
 
     private Tournament tournament2016;
     private Tournament tournament2017;
@@ -45,7 +47,7 @@ public class DataInitialiserProd implements CommandLineRunner {
     private Tournament tournament2019;
     private Tournament tournament2020;
     private Tournament tournament2021;
-
+    private Tournament tournament2022;
 
     @Override
     public void run(String... args) throws Exception {
@@ -79,6 +81,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildScoreRhys2019();
         buildScoreRhys2020();
         buildScoreRhys2021();
+        buildScoreRhys2022();
         //Jamie's scores
         buildScoreJamie2016();
         buildScoreJamie2017();
@@ -86,6 +89,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildScoreJamie2019();
         buildScoreJamie2020();
         buildScoreJamie2021();
+        buildScoreJamie2022();
         //Tom's scores
         buildScoreTom2016();
         buildScoreTom2017();
@@ -93,6 +97,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildScoreTom2019();
         buildScoreTom2020();
         buildScoreTom2021();
+        buildScoreTom2022();
         //Jade's scores
         buildScoreJade2020();
 
@@ -206,7 +211,22 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6).collect(Collectors.toList());
-        createScores(total, tournament2021,Rhys);
+        createScores(total, tournament2021, Rhys);
+    }
+
+    private void buildScoreRhys2022() {
+        List<Integer> course1 = Arrays.asList(3,2,3,2,2,3,3,2,3,3,3,1,3,3,2,3,3,2);
+        List<Integer> course2 = Arrays.asList(3,3,3,1,3,3,1,3,2,2,2,4,2,3,3,2,2,2);
+        List<Integer> course3 = Arrays.asList(2,2,2,2,4,2,1,3,6,2,1,2);
+        List<Integer> course4 = Arrays.asList(2,2,4,2,2,2,3,2,2,3,2,3,4,2,3,3,2,2);
+        List<Integer> course5 = Arrays.asList(2,3,1,2,3,3,2,2,3,2,2,3,2,3,3,2,1,3);
+        List<List<Integer>> total = Stream.of(
+                course1,
+                course2,
+                course3,
+                course4,
+                course5).collect(Collectors.toList());
+        createScores(total, tournament2022, Rhys);
     }
 
     private void buildScoreJamie2016(){
@@ -319,6 +339,21 @@ public class DataInitialiserProd implements CommandLineRunner {
         createScores(total, tournament2021,Jamie);
     }
 
+    private void buildScoreJamie2022() {
+        List<Integer> course1 = Arrays.asList(2,3,4,2,3,3,5,2,2,3,1,3,2,4,2,2,5,2);
+        List<Integer> course2 = Arrays.asList(2,3,3,3,4,2,3,3,2,3,2,2,2,2,3,2,2,2);
+        List<Integer> course3 = Arrays.asList(3,1,2,1,2,2,3,2,3,2,2,1);
+        List<Integer> course4 = Arrays.asList(2,2,3,4,2,3,2,2,2,3,4,2,2,2,2,3,3,2);
+        List<Integer> course5 = Arrays.asList(2,3,2,2,3,2,1,3,2,2,2,2,3,2,2,2,5,4);
+        List<List<Integer>> total = Stream.of(
+                course1,
+                course2,
+                course3,
+                course4,
+                course5).collect(Collectors.toList());
+        createScores(total, tournament2022,Jamie);
+    }
+
     private void buildScoreTom2016(){
         List<Integer> course1 = Arrays.asList(5,2,3,3,2,3,3,2,3,4,3,2,6,6,4,6,3,6); //66
         List<Integer> course2 = Arrays.asList(3,1,2,2,2,3,2,3,3,2,3,2,3,2,2,4,2,3);//44
@@ -426,7 +461,22 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6).collect(Collectors.toList());
-        createScores(total, tournament2021,Tom);
+        createScores(total, tournament2021, Tom);
+    }
+
+    private void buildScoreTom2022() {
+        List<Integer> course1 = Arrays.asList(1,3,3,2,2,2,2,6,3,4,3,3,2,2,2,3,1,2);
+        List<Integer> course2 = Arrays.asList(1,3,2,5,2,2,2,2,3,3,2,2,2,3,2,3,3,2);
+        List<Integer> course3 = Arrays.asList(2,1,2,2,2,2,1,2,3,2,1,2);
+        List<Integer> course4 = Arrays.asList(2,2,3,2,2,2,2,3,2,3,2,2,4,2,2,2,2,2);
+        List<Integer> course5 = Arrays.asList(3,2,3,2,2,2,3,3,3,3,2,2,3,3,2,3,6,3);
+        List<List<Integer>> total = Stream.of(
+                course1,
+                course2,
+                course3,
+                course4,
+                course5).collect(Collectors.toList());
+        createScores(total, tournament2022, Tom);
     }
 
     private void buildScoreJade2020() {
@@ -511,6 +561,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildCourses_2019();
         buildCourses_2020();
         buildCourses_2021();
+        buildCourses_2022();
 
         saveCourses(Stream.of(
                 courses_2016,
@@ -518,7 +569,8 @@ public class DataInitialiserProd implements CommandLineRunner {
                 courses_2018,
                 courses_2019,
                 courses_2020,
-                courses_2021).flatMap(List::stream).collect(Collectors.toList()));
+                courses_2021,
+                courses_2022).flatMap(List::stream).collect(Collectors.toList()));
     }
 
     private void saveCourses(List<Course> courses) {
@@ -638,6 +690,21 @@ public class DataInitialiserProd implements CommandLineRunner {
                 createHolesForCourseWithNoPar(18)));
     }
 
+    private void buildCourses_2022() {
+        if (isCourseListAlreadyPopulated(courses_2022)) return;
+        courses_2022 = new LinkedList<>();
+        courses_2022.add(createCourse("Pirate Cove Adventure Golf, Smugglers Course, DA9 95F",
+                createHolesForCourseWithNoPar(18)));
+        courses_2022.add(createCourse("Pirate Cove Adventure Golf, Pirates Course, DA9 95F",
+                createHolesForCourseWithNoPar(18)));
+        courses_2022.add(createCourse("Enchanted Village Adventure Golf, BR4 9BB",
+                createHolesForCourseWithNoPar(12)));
+        courses_2022.add(createCourse("Jurassic Encounter Adventure Golf, KT3 4PM",
+                createHoles(Arrays.asList(2,2,3,2,2,2,3,2,2,2,2,2,3,2,3,2,3,2))));
+        courses_2022.add(createCourse("Jungle Island, KT19 8QG",
+                createHolesForCourseWithNoPar(18)));
+    }
+
     private boolean isCourseListAlreadyPopulated(List<Course> courseList) {
         return ObjectUtils.isNotEmpty(courseList);
     }
@@ -707,18 +774,19 @@ public class DataInitialiserProd implements CommandLineRunner {
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();
 
-        saveTournaments(Arrays.asList(tournament2016,
+        tournament2022 = Tournament.builder()
+                .year(Year.of(2022))
+                .courses(courses_2022)
+                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .build();
+
+        Stream.of(tournament2016,
                 tournament2017,
                 tournament2018,
                 tournament2019,
                 tournament2020,
-                tournament2021));
-    }
-
-    private void saveTournaments(List<Tournament> tournaments) {
-        for (Tournament tournament : tournaments) {
-            tournamentService.save(tournament);
-        }
+                tournament2021,
+                tournament2022).forEach(tournamentService::save);
     }
 
 }
