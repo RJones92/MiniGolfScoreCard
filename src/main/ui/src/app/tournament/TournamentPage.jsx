@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Table from "../components/Table";
-import { getAllTournaments } from "../services/tournamentService";
-import { getAllScores } from "../services/scoreService";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Table from '../../components/Table';
+import { getAllTournaments } from '../../services/tournamentService';
+import { getAllScores } from '../../services/scoreService';
 
 function TournamentPage(props) {
   const [tournamentTableObjects, setTournamentTableObjects] = useState([]);
@@ -32,7 +34,7 @@ function TournamentPage(props) {
       const players = tournament.players;
       const tableName = tournament.year;
       const tournamentWinner =
-        tournament.winner.firstName + " " + tournament.winner.lastName;
+        tournament.winner.firstName + ' ' + tournament.winner.lastName;
       const tableHeaders = createTableHeaders(players);
       const tableRows = tournament.courses.map((course) =>
         createCourseRow(tournament, course, players, allScores)
@@ -46,16 +48,16 @@ function TournamentPage(props) {
     }
 
     function createTableHeaders(players) {
-      const columnHeaders = ["Course"];
+      const columnHeaders = ['Course'];
 
       const playerKeys = Object.keys(players);
       playerKeys.forEach((playerKey) => {
         const player = players[playerKey];
-        const playerColumnHeader = player.firstName + " " + player.lastName;
+        const playerColumnHeader = player.firstName + ' ' + player.lastName;
         columnHeaders.push(playerColumnHeader);
       });
 
-      columnHeaders.push("Course winner");
+      columnHeaders.push('Course winner');
 
       return columnHeaders;
     }
@@ -72,7 +74,7 @@ function TournamentPage(props) {
           course,
           allScores
         );
-        const playerName = player.firstName + " " + player.lastName;
+        const playerName = player.firstName + ' ' + player.lastName;
         newRow[playerName] = playerScoreForCourse;
       });
 
@@ -84,7 +86,7 @@ function TournamentPage(props) {
             (accumulator[key] = course.winnerByTournamentId[key]),
           {}
         );
-      newRow["courseWinner"] = winner.firstName + " " + winner.lastName;
+      newRow['courseWinner'] = winner.firstName + ' ' + winner.lastName;
 
       return newRow;
     }
@@ -117,13 +119,13 @@ function TournamentPage(props) {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className="container-fluid">
+      <div className='container-fluid'>
         {tournamentTableObjects.map((tournamentTableObject, index) => (
           <div key={index}>
             <h2>{tournamentTableObject.tableName}</h2>
             <p>Winner: {tournamentTableObject.tournamentWinner}</p>
-            <div className="row">
-              <div className="col-md-6">
+            <div className='row'>
+              <div className='col-md-6'>
                 <div>
                   <Table
                     key={tournamentTableObject.tableName}
