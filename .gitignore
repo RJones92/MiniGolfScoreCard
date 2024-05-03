@@ -192,3 +192,8 @@ build/
 node_modules/
 node/
 
+# NextJs
+.next
+next-env.d.ts
+dist
+
