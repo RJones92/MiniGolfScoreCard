@@ -9,7 +9,7 @@ Technologies used for the frontend, backend and database:
 - NextJs frontend
   - NodeJs v22.1.0
 - Java backend
-  - Java 11
+  - Java 17
 - SQL DB
   - h2 for local development
   - postgres for production
