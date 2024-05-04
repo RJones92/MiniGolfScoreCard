@@ -1,55 +1,44 @@
-import React from "react";
-import { Route, NavLink, HashRouter } from "react-router-dom";
-import HomePage from "../containers/HomePage";
-import TournamentPage from "../containers/TournamentPage";
-import PlayerPage from "../containers/PlayerPage";
+import Link from 'next/link';
 
 function NavigationBar() {
   return (
     <div>
-      <HashRouter>
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
-          <a href="/" className="navbar-brand">
-            Two For Tom Open
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+      <nav className='navbar navbar-expand-md navbar-light bg-light'>
+        <a href='/' className='navbar-brand'>
+          Two For Tom Open
+        </a>
+        <button
+          className='navbar-toggler'
+          type='button'
+          data-toggle='collapse'
+          data-target='#navbarNav'
+          aria-controls='navbarNav'
+          aria-expanded='false'
+          aria-label='Toggle navigation'
+        >
+          <span className='navbar-toggler-icon'></span>
+        </button>
 
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <NavLink className="nav-link" exact to="/">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/tournaments">
-                  Tournaments
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/players">
-                  Players
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <div className="router">
-          <Route exact path="/" component={HomePage} />
-          <Route path="/tournaments" component={TournamentPage} />
-          <Route path="/players" component={PlayerPage} />
+        <div className='collapse navbar-collapse' id='navbarNav'>
+          <ul className='navbar-nav'>
+            <li className='nav-item'>
+              <Link className='nav-link' href='/'>
+                Home
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link className='nav-link' href='/tournament'>
+                Tournaments
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link className='nav-link' href='/player'>
+                Players
+              </Link>
+            </li>
+          </ul>
         </div>
-      </HashRouter>
+      </nav>
     </div>
   );
 }

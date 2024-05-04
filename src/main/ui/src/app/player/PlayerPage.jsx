@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
-import Table from "../components/Table";
-import { getAllPlayers } from "../services/playerService";
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import Table from '../../components/Table';
+import { getAllPlayers } from '../../services/playerService';
 
 const statTypes = new Map([
-  ["countOfTournamentsPlayed", "Tournaments played"],
-  ["countOfTournamentsWon", "Tournaments won"],
-  ["countOfCoursesPlayed", "Courses played"],
-  ["countOfCoursesWon", "Courses won"],
-  ["countOfHolesPlayed", "Holes played"],
-  ["countOfHolesWon", "Holes won"],
+  ['countOfTournamentsPlayed', 'Tournaments played'],
+  ['countOfTournamentsWon', 'Tournaments won'],
+  ['countOfCoursesPlayed', 'Courses played'],
+  ['countOfCoursesWon', 'Courses won'],
+  ['countOfHolesPlayed', 'Holes played'],
+  ['countOfHolesWon', 'Holes won'],
 ]);
 
 function PlayerPage(props) {
@@ -56,14 +58,14 @@ function PlayerPage(props) {
       );
 
       return {
-        headerColumn: ["", ...statTypes.values()],
+        headerColumn: ['', ...statTypes.values()],
         playerColumns: playerColumns,
       };
     }
 
     function createPlayerColumn(player) {
       const column = [];
-      column.push(player.firstName + " " + player.lastName);
+      column.push(player.firstName + ' ' + player.lastName);
 
       for (const statName of statTypes.keys()) {
         column.push(player[statName]);
@@ -97,13 +99,13 @@ function PlayerPage(props) {
     console.log(playerStatsTableObjects);
     return (
       // <p>placeholder</p>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-6">
+      <div className='container-fluid'>
+        <div className='row'>
+          <div className='col-md-6'>
             <Table
               columnHeaders={playerStatsTableObjects.headers}
               rows={playerStatsTableObjects.rows}
-              tableHeader="testing"
+              tableHeader='testing'
             />
           </div>
         </div>

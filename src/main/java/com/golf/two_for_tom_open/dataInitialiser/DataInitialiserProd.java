@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -775,7 +774,7 @@ public class DataInitialiserProd implements CommandLineRunner {
                 .build();
 
         tournament2022 = Tournament.builder()
-                .year(Year.of(2022))
+                ._year(Year.of(2022))
                 .courses(courses_2022)
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();

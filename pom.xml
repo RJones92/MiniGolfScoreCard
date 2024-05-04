@@ -166,7 +166,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-<!--                    <release>11</release>-->
                     <source>17</source>
                     <target>17</target>
                     <annotationProcessorPaths>
@@ -204,8 +203,8 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v10.15.3</nodeVersion>
-                            <npmVersion>6.9.0</npmVersion>
+                            <nodeVersion>v22.1.0</nodeVersion>
+                            <npmVersion>10.7.0</npmVersion>
                         </configuration>
                     </execution>
                     <execution>
