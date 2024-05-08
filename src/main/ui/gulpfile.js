@@ -4,7 +4,7 @@ const log = require('fancy-log');
 const fs = require('fs');
 
 const paths = {
-  react_src: 'build/**/*',
+  react_src: 'dist/**/*',
   react_dist: '../resources/static/'
 };
 
