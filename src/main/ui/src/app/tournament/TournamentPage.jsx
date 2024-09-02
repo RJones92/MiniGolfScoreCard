@@ -5,7 +5,7 @@ import Table from '../../components/Table';
 import { getAllTournaments } from '../../services/tournamentService';
 import { getAllScores } from '../../services/scoreService';
 
-function TournamentPage(props) {
+function TournamentPage() {
   const [tournamentTableObjects, setTournamentTableObjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -32,7 +32,7 @@ function TournamentPage(props) {
 
     function createTournamentTable(tournament, allScores) {
       const players = tournament.players;
-      const tableName = tournament.year;
+      const tableName = tournament._year;
       const tournamentWinner =
         tournament.winner.firstName + ' ' + tournament.winner.lastName;
       const tableHeaders = createTableHeaders(players);
@@ -131,7 +131,7 @@ function TournamentPage(props) {
                     key={tournamentTableObject.tableName}
                     columnHeaders={tournamentTableObject.headers}
                     rows={tournamentTableObject.rows}
-                    tableHeader={tournamentTableObject.year}
+                    tableHeader={tournamentTableObject.tableName}
                   />
                 </div>
               </div>

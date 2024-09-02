@@ -4,14 +4,16 @@ import com.golf.two_for_tom_open.model.dto.PlayerDto;
 import com.golf.two_for_tom_open.service.PlayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000") //required for local development
 @RequestMapping("/api/players")
 public class PlayerController {
 
