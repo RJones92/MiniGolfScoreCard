@@ -13,7 +13,7 @@ const statTypes = new Map([
   ['countOfHolesWon', 'Holes won'],
 ]);
 
-function PlayerPage(props) {
+function PlayerPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [playerStatsTableObjects, setPlayerStatsTableObjects] = useState([]);
@@ -98,14 +98,12 @@ function PlayerPage(props) {
   } else {
     console.log(playerStatsTableObjects);
     return (
-      // <p>placeholder</p>
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-md-6'>
             <Table
               columnHeaders={playerStatsTableObjects.headers}
               rows={playerStatsTableObjects.rows}
-              tableHeader='testing'
             />
           </div>
         </div>

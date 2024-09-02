@@ -50,11 +50,7 @@ function HomePage() {
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-md-6'>
-            <Table
-              columnHeaders={columnHeaders}
-              rows={formattedRowObjects}
-              tableHeader='testing'
-            />
+            <Table columnHeaders={columnHeaders} rows={formattedRowObjects} />
           </div>
         </div>
       </div>

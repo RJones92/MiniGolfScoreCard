@@ -131,7 +131,6 @@ function TournamentPage() {
                     key={tournamentTableObject.tableName}
                     columnHeaders={tournamentTableObject.headers}
                     rows={tournamentTableObject.rows}
-                    tableHeader={tournamentTableObject.tableName}
                   />
                 </div>
               </div>

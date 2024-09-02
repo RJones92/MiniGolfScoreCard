@@ -1,15 +1,11 @@
-import React from "react";
+import React from 'react';
 
-function Table(props) {
-  //props.columnHeaders = [header1, header2, header3, etc]
-  //props.rows = [{valueCol1, valueCol2, valueCol3}, {valueCol1, valueCol2, valueCol3}, etc]
-
+function Table({ columnHeaders, rows }) {
   const tableRows = [];
   createRows();
 
   function createRows() {
-    console.log(props);
-    props.rows.forEach((row, index) => {
+    rows.forEach((row, index) => {
       let tableDataElements = [];
 
       const keys = Object.keys(row);
@@ -22,11 +18,11 @@ function Table(props) {
   }
 
   return (
-    <table className="table mt-4">
+    <table className='table mt-4'>
       <thead>
-        <tr key="columnHeaders">
-          {props.columnHeaders.map((headerName) => (
-            <th key={headerName} scope="col">
+        <tr key='columnHeaders'>
+          {columnHeaders.map((headerName) => (
+            <th key={headerName} scope='col'>
               {headerName}
             </th>
           ))}
