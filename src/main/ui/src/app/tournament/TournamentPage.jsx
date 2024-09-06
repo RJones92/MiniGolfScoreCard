@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Table from '../../components/Table';
 import { getAllTournaments } from '../../services/tournamentService';
 import { getAllScores } from '../../services/scoreService';
 
-function TournamentPage(props) {
+function TournamentPage() {
   const [tournamentTableObjects, setTournamentTableObjects] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
@@ -16,8 +16,7 @@ function TournamentPage(props) {
         setIsLoaded(true);
         const tableObjects = [];
 
-        const tournamentKeys = Object.keys(allTournaments);
-        tournamentKeys.forEach((key) => {
+        Object.keys(allTournaments).forEach((key) => {
           let tournament = allTournaments[key];
           tableObjects.push(createTournamentTable(tournament, allScores));
         });
@@ -32,7 +31,7 @@ function TournamentPage(props) {
 
     function createTournamentTable(tournament, allScores) {
       const players = tournament.players;
-      const tableName = tournament.year;
+      const tableName = tournament._year;
       const tournamentWinner =
         tournament.winner.firstName + ' ' + tournament.winner.lastName;
       const tableHeaders = createTableHeaders(players);
@@ -131,7 +130,6 @@ function TournamentPage(props) {
                     key={tournamentTableObject.tableName}
                     columnHeaders={tournamentTableObject.headers}
                     rows={tournamentTableObject.rows}
-                    tableHeader={tournamentTableObject.year}
                   />
                 </div>
               </div>

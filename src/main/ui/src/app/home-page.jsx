@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from '../components/Table';
 import { getAllTournaments } from '../services/tournamentService';
 
@@ -23,8 +23,7 @@ function HomePage() {
     );
 
     function createRows(tournaments) {
-      let tournamentKeys = Object.keys(tournaments);
-      tournamentKeys.forEach((key) => {
+      Object.keys(tournaments).forEach((key) => {
         let tournament = tournaments[key];
         let winner =
           tournament.winner.firstName + ' ' + tournament.winner.lastName;
@@ -50,11 +49,7 @@ function HomePage() {
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-md-6'>
-            <Table
-              columnHeaders={columnHeaders}
-              rows={formattedRowObjects}
-              tableHeader='testing'
-            />
+            <Table columnHeaders={columnHeaders} rows={formattedRowObjects} />
           </div>
         </div>
       </div>
