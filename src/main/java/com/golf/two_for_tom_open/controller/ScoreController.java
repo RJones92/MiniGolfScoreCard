@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000") //required for local development
 @RequestMapping("/api/scores")
 public class ScoreController {
     private static Logger logger = LoggerFactory.getLogger(ScoreController.class);

@@ -1,5 +1,5 @@
 async function getAllScores() {
-  const response = await fetch('/api/scores/');
+  const response = await fetch('http://localhost:8080/api/scores/');
   console.log('Request sent to retrieve all scores');
   return await response.json();
 }

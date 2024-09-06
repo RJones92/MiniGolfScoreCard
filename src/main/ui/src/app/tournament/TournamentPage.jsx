@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Table from '../../components/Table';
 import { getAllTournaments } from '../../services/tournamentService';
 import { getAllScores } from '../../services/scoreService';
@@ -16,8 +16,7 @@ function TournamentPage() {
         setIsLoaded(true);
         const tableObjects = [];
 
-        const tournamentKeys = Object.keys(allTournaments);
-        tournamentKeys.forEach((key) => {
+        Object.keys(allTournaments).forEach((key) => {
           let tournament = allTournaments[key];
           tableObjects.push(createTournamentTable(tournament, allScores));
         });

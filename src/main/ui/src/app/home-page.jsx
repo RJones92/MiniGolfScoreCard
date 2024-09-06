@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from '../components/Table';
 import { getAllTournaments } from '../services/tournamentService';
 
@@ -23,8 +23,7 @@ function HomePage() {
     );
 
     function createRows(tournaments) {
-      let tournamentKeys = Object.keys(tournaments);
-      tournamentKeys.forEach((key) => {
+      Object.keys(tournaments).forEach((key) => {
         let tournament = tournaments[key];
         let winner =
           tournament.winner.firstName + ' ' + tournament.winner.lastName;
