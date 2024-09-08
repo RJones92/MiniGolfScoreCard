@@ -219,12 +219,16 @@ public class DataInitialiserProd implements CommandLineRunner {
         List<Integer> course3 = Arrays.asList(2,2,2,2,4,2,1,3,6,2,1,2);
         List<Integer> course4 = Arrays.asList(2,2,4,2,2,2,3,2,2,3,2,3,4,2,3,3,2,2);
         List<Integer> course5 = Arrays.asList(2,3,1,2,3,3,2,2,3,2,2,3,2,3,3,2,1,3);
+        List<Integer> course6 = Arrays.asList(2,2,2,2,2,3,3,2,4,3,2,2);
+        List<Integer> course7 = Arrays.asList(2,4,2,3,2,1,2,2,2,3,2,5,2,2,1,3,2,4);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5,
+                course6,
+                course7).collect(Collectors.toList());
         createScores(total, tournament2022, Rhys);
     }
 
@@ -344,12 +348,16 @@ public class DataInitialiserProd implements CommandLineRunner {
         List<Integer> course3 = Arrays.asList(3,1,2,1,2,2,3,2,3,2,2,1);
         List<Integer> course4 = Arrays.asList(2,2,3,4,2,3,2,2,2,3,4,2,2,2,2,3,3,2);
         List<Integer> course5 = Arrays.asList(2,3,2,2,3,2,1,3,2,2,2,2,3,2,2,2,5,4);
+        List<Integer> course6 = Arrays.asList(3,2,3,3,4,3,2,2,3,3,2,1);
+        List<Integer> course7 = Arrays.asList(2,3,3,3,2,2,2,2,2,4,3,2,3,2,1,2,2,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5,
+                course6,
+                course7).collect(Collectors.toList());
         createScores(total, tournament2022,Jamie);
     }
 
@@ -469,12 +477,16 @@ public class DataInitialiserProd implements CommandLineRunner {
         List<Integer> course3 = Arrays.asList(2,1,2,2,2,2,1,2,3,2,1,2);
         List<Integer> course4 = Arrays.asList(2,2,3,2,2,2,2,3,2,3,2,2,4,2,2,2,2,2);
         List<Integer> course5 = Arrays.asList(3,2,3,2,2,2,3,3,3,3,2,2,3,3,2,3,6,3);
+        List<Integer> course6 = Arrays.asList(3,2,3,3,2,3,2,2,5,2,3,2);
+        List<Integer> course7 = Arrays.asList(2,3,2,2,4,2,2,2,2,2,1,2,2,2,4,2,2,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5,
+                course6,
+                course7).collect(Collectors.toList());
         createScores(total, tournament2022, Tom);
     }
 
@@ -701,6 +713,10 @@ public class DataInitialiserProd implements CommandLineRunner {
         courses_2022.add(createCourse("Jurassic Encounter Adventure Golf, KT3 4PM",
                 createHoles(Arrays.asList(2,2,3,2,2,2,3,2,2,2,2,2,3,2,3,2,3,2))));
         courses_2022.add(createCourse("Jungle Island, KT19 8QG",
+                createHolesForCourseWithNoPar(18)));
+        courses_2022.add(createCourse("Galloping MiniGolf, KT10 8AN",
+                createHolesForCourseWithNoPar(12)));
+        courses_2022.add(createCourse("Safari Adventure Golf, Hershom Golf Club, KT12 4RA",
                 createHolesForCourseWithNoPar(18)));
     }
 
