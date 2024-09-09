@@ -39,6 +39,7 @@ public class DataInitialiserProd implements CommandLineRunner {
     private List<Course> courses_2020;
     private List<Course> courses_2021;
     private List<Course> courses_2022;
+    private List<Course> courses_2023;
 
     private Tournament tournament2016;
     private Tournament tournament2017;
@@ -47,6 +48,7 @@ public class DataInitialiserProd implements CommandLineRunner {
     private Tournament tournament2020;
     private Tournament tournament2021;
     private Tournament tournament2022;
+    private Tournament tournament2023;
 
     @Override
     public void run(String... args) throws Exception {
@@ -81,6 +83,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildScoreRhys2020();
         buildScoreRhys2021();
         buildScoreRhys2022();
+        buildScoreRhys2023();
         //Jamie's scores
         buildScoreJamie2016();
         buildScoreJamie2017();
@@ -89,6 +92,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildScoreJamie2020();
         buildScoreJamie2021();
         buildScoreJamie2022();
+        buildScoreJamie2023();
         //Tom's scores
         buildScoreTom2016();
         buildScoreTom2017();
@@ -97,6 +101,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildScoreTom2020();
         buildScoreTom2021();
         buildScoreTom2022();
+        buildScoreTom2023();
         //Jade's scores
         buildScoreJade2020();
 
@@ -232,6 +237,23 @@ public class DataInitialiserProd implements CommandLineRunner {
         createScores(total, tournament2022, Rhys);
     }
 
+    private void buildScoreRhys2023() {
+        var course1 = Arrays.asList(2,2,3,3,3,2,5,3,4,2,2,2,2,4,3,4,3,2);
+        var course2 = Arrays.asList(2,4,2,4,3,4,2,3,3,2,3,2,2,2,2,4,2,4);
+        var course3 = Arrays.asList(5,3,2,2,3,3,4,3,2,3,3,1);
+        var course4 = Arrays.asList(3,3,2,4,2,2,1,2,2,2,2,2);
+        var course5 = Arrays.asList(2,5,2,6,2,3,4,4,3,3,3,4,3,3,4,2,6,2);
+        var course6 = Arrays.asList(3,2,3,2,2,2,4,3);
+        var course7 = Arrays.asList(2,2,2,2,2,2,2,5);
+        var course8 = Arrays.asList(3,4,3,3,3,2,2,3,6,2,2,2,2,4,2,2,3,6,1);
+        var course9 = Arrays.asList(2,1,3,4,2,2,2,4,2,3,2,3,2,3,2,4,3,4);
+        List<List<Integer>> total = Stream.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9).collect(Collectors.toList());
+        createScores(total, tournament2023, Rhys);
+    }
+
     private void buildScoreJamie2016(){
         List<Integer> course1 = Arrays.asList(3,2,3,3,3,3,4,3,4,4,2,2,4,2,4,2,2,2);//52
         List<Integer> course2 = Arrays.asList(4,2,2,2,2,2,3,2,5,3,3,4,2,3,3,1,1,1);//45
@@ -359,6 +381,23 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course6,
                 course7).collect(Collectors.toList());
         createScores(total, tournament2022,Jamie);
+    }
+
+    private void buildScoreJamie2023() {
+        var course1 = Arrays.asList(3,3,3,4,3,2,2,3,4,3,2,2,2,2,2,5,3,2);
+        var course2 = Arrays.asList(3,3,2,2,3,2,2,4,3,2,2,3,2,3,2,4,2,3);
+        var course3 = Arrays.asList(4,3,3,2,4,5,4,1,2,3,3,2);
+        var course4 = Arrays.asList(2,5,2,2,3,2,3,2,3,2,2,3);
+        var course5 = Arrays.asList(2,2,4,3,2,2,3,2,3,3,2,4,2,4,3,2,4,2);
+        var course6 = Arrays.asList(2,2,3,2,3,2,3,3);
+        var course7 = Arrays.asList(2,2,2,1,2,2,4,2);
+        var course8 = Arrays.asList(2,3,4,4,5,2,2,3,4,2,2,3,3,2,3,3,2,4,2);
+        var course9 = Arrays.asList(2,2,2,2,2,2,2,3,4,5,2,2,2,3,2,2,3,6);
+        List<List<Integer>> total = Stream.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9).collect(Collectors.toList());
+        createScores(total, tournament2023, Jamie);
     }
 
     private void buildScoreTom2016(){
@@ -490,6 +529,23 @@ public class DataInitialiserProd implements CommandLineRunner {
         createScores(total, tournament2022, Tom);
     }
 
+    private void buildScoreTom2023() {
+        var course1 = Arrays.asList(3,3,2,2,4,2,3,1,6,4,3,2,3,3,2,3,3,3);
+        var course2 = Arrays.asList(3,3,2,3,4,3,2,4,3,2,1,4,2,3,3,4,2,6);
+        var course3 = Arrays.asList(6,2,2,3,1,2,5,1,2,2,4,1);
+        var course4 = Arrays.asList(2,5,2,3,2,2,2,2,3,2,1,1);
+        var course5 = Arrays.asList(3,2,3,2,4,3,4,2,4,3,3,5,2,5,2,2,3,4);
+        var course6 = Arrays.asList(2,2,2,2,2,2,3,2);
+        var course7 = Arrays.asList(2,2,3,3,2,2,2,2);
+        var course8 = Arrays.asList(4,4,2,3,5,2,2,4,2,1,1,3,3,2,2,2,3,5,2);
+        var course9 = Arrays.asList(2,3,2,2,2,4,2,3,6,2,2,3,1,5,2,2,3,2);
+        List<List<Integer>> total = Stream.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9).collect(Collectors.toList());
+        createScores(total, tournament2023, Tom);
+    }
+
     private void buildScoreJade2020() {
         List<Integer> course1 = Arrays.asList(5,4,5,3,4,2,3,2,2,3,6,3,5,3,5,6,3,2);
         List<Integer> course2 = Arrays.asList(2,5,2,4,2,3,3,2,4,2,4,5,1,2,5,3,2,4);
@@ -573,6 +629,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         buildCourses_2020();
         buildCourses_2021();
         buildCourses_2022();
+        buildCourses_2023();
 
         saveCourses(Stream.of(
                 courses_2016,
@@ -581,7 +638,8 @@ public class DataInitialiserProd implements CommandLineRunner {
                 courses_2019,
                 courses_2020,
                 courses_2021,
-                courses_2022).flatMap(List::stream).collect(Collectors.toList()));
+                courses_2022,
+                courses_2023).flatMap(List::stream).collect(Collectors.toList()));
     }
 
     private void saveCourses(List<Course> courses) {
@@ -720,6 +778,29 @@ public class DataInitialiserProd implements CommandLineRunner {
                 createHolesForCourseWithNoPar(18)));
     }
 
+    private void buildCourses_2023() {
+        if (isCourseListAlreadyPopulated(courses_2023)) return;
+        courses_2023 = new LinkedList<>();
+        courses_2023.add(createCourse("Meadow Croft Garden Centre, SS11 7QU",
+                createHoles(Arrays.asList(2,2,2,3,2,2,3,2,3,2,2,2,3,2,2,3,2,3))));
+        courses_2023.add(createCourse("Garon Castler Adventures, SS2 4FA",
+                createHolesForCourseWithNoPar(18)));
+        courses_2023.add(createCourse("Mr Mulligans Basildon, Game 1, SS14 3WB",
+                createHolesForCourseWithNoPar(12)));
+        courses_2023.add(createCourse("Mr Mulligans Basildon, Game 2, SS14 3WB",
+                createHolesForCourseWithNoPar(12)));
+        courses_2023.add(createCourse("Noahs Park Adventrue Golf, CM11 2UD",
+                createHolesForCourseWithNoPar(18)));
+        courses_2023.add(createCourse("Hackers, Explore Azura, CM12 9BQ",
+                createHolesForCourseWithNoPar(8)));
+        courses_2023.add(createCourse("Hackers, Explore Rosa, CM12 9BQ",
+                createHolesForCourseWithNoPar(8)));
+        courses_2023.add(createCourse("Rascal Bay Adventure Golf, CM1 2QT",
+                createHolesForCourseWithNoPar(19)));
+        courses_2023.add(createCourse("The Notelys Golf Club, CM8 1ST",
+                createHolesForCourseWithNoPar(18)));
+    }
+
     private boolean isCourseListAlreadyPopulated(List<Course> courseList) {
         return ObjectUtils.isNotEmpty(courseList);
     }
@@ -795,13 +876,20 @@ public class DataInitialiserProd implements CommandLineRunner {
                 .players(Arrays.asList(Rhys, Tom, Jamie))
                 .build();
 
+        tournament2023 = Tournament.builder()
+                ._year(Year.of(2023))
+                .courses(courses_2023)
+                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .build();
+
         Stream.of(tournament2016,
                 tournament2017,
                 tournament2018,
                 tournament2019,
                 tournament2020,
                 tournament2021,
-                tournament2022).forEach(tournamentService::save);
+                tournament2022,
+                tournament2023).forEach(tournamentService::save);
     }
 
 }
