@@ -109,28 +109,28 @@ public class DataInitialiserProd implements CommandLineRunner {
 
     // ++++++++++++++++ PLAYERS ++++++++++++++++
     private void buildScoreRhys2016(){
-        List<Integer> course1 = Arrays.asList(2,4,5,5,4,5,2,2,5,6,4,5,5,2,6,2,6,1);//71
-        List<Integer> course2 = Arrays.asList(3,2,2,3,3,3,4,2,2,5,2,2,2,2,3,5,2,2);//49
-        List<Integer> course3 = Arrays.asList(4,3,3,3,4,2,5,3,2,2,5,3,2,3,3,1,3,2);
-        List<Integer> course4 = Arrays.asList(2,2,4,6,2,2,3,3,2,5,2,3,3,2,3,3,2,1);
-        List<Integer> course5 = Arrays.asList(2,3,2,4,6,2,5,2,3,2,2,2,5,3,2,3,2,4);
+        var course1 = List.of(2,4,5,5,4,5,2,2,5,6,4,5,5,2,6,2,6,1);//71
+        var course2 = List.of(3,2,2,3,3,3,4,2,2,5,2,2,2,2,3,5,2,2);//49
+        var course3 = List.of(4,3,3,3,4,2,5,3,2,2,5,3,2,3,3,1,3,2);
+        var course4 = List.of(2,2,4,6,2,2,3,3,2,5,2,3,3,2,3,3,2,1);
+        var course5 = List.of(2,3,2,4,6,2,5,2,3,2,2,2,5,3,2,3,2,4);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2016, Rhys);
     }
 
-    private void buildScoreRhys2017(){
-        List<Integer> course1 = Arrays.asList(4,6,5,2,5,4,5,2,2,5,2,2,3,2,1,3,7,5);
-        List<Integer> course2 = Arrays.asList(3,2,4,2,3,3,2,2,2,2,3,3,3,2,5,2,3,3);
-        List<Integer> course3 = Arrays.asList(2,2,4,5,3,4,2,2,4);
-        List<Integer> course4 = Arrays.asList(2,2,2,2,3,3,3,3,2,3,3,2,3,5,2,2,2,7);
-        List<Integer> course5 = Arrays.asList(3,2,2,3,3,4,2,2,3,3,2,2,3,4,2,2,2,4);
-        List<Integer> course6 = Arrays.asList(3,2,2,2,4,3,3,2,3,3,4,2,2,3,2,3,2,3);
-        List<Integer> course7 = Arrays.asList(2,4,4,2,3,7,7,4,3,2,3,5,4,2,3,2,3,2);
+    private void buildScoreRhys2017() {
+        var course1 = List.of(4,6,5,2,5,4,5,2,2,5,2,2,3,2,1,3,7,5);
+        var course2 = List.of(3,2,4,2,3,3,2,2,2,2,3,3,3,2,5,2,3,3);
+        var course3 = List.of(2,2,4,5,3,4,2,2,4);
+        var course4 = List.of(2,2,2,2,3,3,3,3,2,3,3,2,3,5,2,2,2,7);
+        var course5 = List.of(3,2,2,3,3,4,2,2,3,3,2,2,3,4,2,2,2,4);
+        var course6 = List.of(3,2,2,2,4,3,3,2,3,3,4,2,2,3,2,3,2,3);
+        var course7 = List.of(2,4,4,2,3,7,7,4,3,2,3,5,4,2,3,2,3,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -138,19 +138,19 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6,
-                course7).collect(Collectors.toList());
+                course7).toList();
         createScores(total, tournament2017, Rhys);
     }
 
-    private void buildScoreRhys2018(){
-        List<Integer> course1 = Arrays.asList(6,2,2,6,6,2,4,5,4,2,2,2);
-        List<Integer> course2 = Arrays.asList(5,4,3,2,4,6,3,3,6,3,6,6,6);
-        List<Integer> course3 = Arrays.asList(4,5,4,2,2,2,2,2,5);
-        List<Integer> course4 = Arrays.asList(3,2,3,2,2,3,2,2,4,1,2,3);
-        List<Integer> course5 = Arrays.asList(3,2,2,3,2,3,2,2,3,3,1,2,3,2,3,4,3,2);
-        List<Integer> course6 = Arrays.asList(4,2,3,2,4,6,2,3,6);
-        List<Integer> course7 = Arrays.asList(6,1,1,6,2,2,3,2,2,2,2,5,2,3,4,3,2,4);
-        List<Integer> course8 = Arrays.asList(2,3,2,3,2,2,3,2,3,2,1,2,1,1,4,2,2,5);
+    private void buildScoreRhys2018() {
+        var course1 = List.of(6,2,2,6,6,2,4,5,4,2,2,2);
+        var course2 = List.of(5,4,3,2,4,6,3,3,6,3,6,6,6);
+        var course3 = List.of(4,5,4,2,2,2,2,2,5);
+        var course4 = List.of(3,2,3,2,2,3,2,2,4,1,2,3);
+        var course5 = List.of(3,2,2,3,2,3,2,2,3,3,1,2,3,2,3,4,3,2);
+        var course6 = List.of(4,2,3,2,4,6,2,3,6);
+        var course7 = List.of(6,1,1,6,2,2,3,2,2,2,2,5,2,3,4,3,2,4);
+        var course8 = List.of(2,3,2,3,2,2,3,2,3,2,1,2,1,1,4,2,2,5);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -159,20 +159,20 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course5,
                 course6,
                 course7,
-                course8).collect(Collectors.toList());
+                course8).toList();
         createScores(total, tournament2018, Rhys);
     }
 
     private void buildScoreRhys2019(){
-        List<Integer> course1 = Arrays.asList(2,2,2,4,1,1,3,3,4,2,3,2,2,2,3,3,2,3);
-        List<Integer> course2 = Arrays.asList(3,6,3,3,5,3,2,3,4);
-        List<Integer> course3 = Arrays.asList(2,3,3,2,3,3,3,3,3,4,2,4,4,3,2,2,3,3);
-        List<Integer> course4 = Arrays.asList(3,3,2,3,3,2,4,3,1,3,2,2,2,4,2,3,2,3);
-        List<Integer> course5 = Arrays.asList(2,3,5,3,4,3,2,3,3,2,3,4,3,3,4,2,3,3);
-        List<Integer> course6 = Arrays.asList(3,2,2,4,5,2,2,2,4,1,2,2,2,2,2,3,2,2);
-        List<Integer> course7 = Arrays.asList(1,3,4,2,3,2,2,2,4,2,6,2,3,2,3,2,4,3);
-        List<Integer> course8 = Arrays.asList(2,3,2,2,2,4,1,2,2,6,2,3,2,3,2,2,2,2);
-        List<Integer> course9 = Arrays.asList(2,6,3,5,2,3,2,3,2,2,4,2);
+        var course1 = List.of(2,2,2,4,1,1,3,3,4,2,3,2,2,2,3,3,2,3);
+        var course2 = List.of(3,6,3,3,5,3,2,3,4);
+        var course3 = List.of(2,3,3,2,3,3,3,3,3,4,2,4,4,3,2,2,3,3);
+        var course4 = List.of(3,3,2,3,3,2,4,3,1,3,2,2,2,4,2,3,2,3);
+        var course5 = List.of(2,3,5,3,4,3,2,3,3,2,3,4,3,3,4,2,3,3);
+        var course6 = List.of(3,2,2,4,5,2,2,2,4,1,2,2,2,2,2,3,2,2);
+        var course7 = List.of(1,3,4,2,3,2,2,2,4,2,6,2,3,2,3,2,4,3);
+        var course8 = List.of(2,3,2,2,2,4,1,2,2,6,2,3,2,3,2,2,2,2);
+        var course9 = List.of(2,6,3,5,2,3,2,3,2,2,4,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -182,50 +182,50 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course6,
                 course7,
                 course8,
-                course9).collect(Collectors.toList());
+                course9).toList();
         createScores(total, tournament2019, Rhys);
     }
 
     private void buildScoreRhys2020() {
-        List<Integer> course1 = Arrays.asList(4,2,3,4,2,2,3,3,3,3,4,3,6,3,2,3,6,2);
-        List<Integer> course2 = Arrays.asList(3,4,2,1,2,3,3,2,4,2,4,3,2,1,3,1,2,2);
-        List<Integer> course3 = Arrays.asList(2,3,3,5,2,2,2,3,6,2,5,3,2,4,2,3,3,3,1);
-        List<Integer> course4 = Arrays.asList(2,2,3,2,3,2,2,2,2,2,2,2,3,2,2,2,2,3);
-        List<Integer> course5 = Arrays.asList(2,2,2,2,2,5,2,2,3,3,4,3,3,2,3,2,3,2);
+        var course1 = List.of(4,2,3,4,2,2,3,3,3,3,4,3,6,3,2,3,6,2);
+        var course2 = List.of(3,4,2,1,2,3,3,2,4,2,4,3,2,1,3,1,2,2);
+        var course3 = List.of(2,3,3,5,2,2,2,3,6,2,5,3,2,4,2,3,3,3,1);
+        var course4 = List.of(2,2,3,2,3,2,2,2,2,2,2,2,3,2,2,2,2,3);
+        var course5 = List.of(2,2,2,2,2,5,2,2,3,3,4,3,3,2,3,2,3,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2020, Rhys);
     }
 
     private void buildScoreRhys2021() {
-        List<Integer> course1 = Arrays.asList(2,2,2,1,2,3,4,2,2,2,2,3,2,2,2,3,3,3);
-        List<Integer> course2 = Arrays.asList(3,2,3,2,3,2,2,3,1,2,3,3,2,2,2,3,3,3);
-        List<Integer> course3 = Arrays.asList(2,2,2,2,4,3,6,6,5,2,3,3,3,2,2,6,2,4);
-        List<Integer> course4 = Arrays.asList(2,2,3,3,2,4,3,3,2,2,3,2,3,2,2,2,2,3);
-        List<Integer> course5 = Arrays.asList(3,2,2,5,2,2,1,2,2,5,3,1);
-        List<Integer> course6 = Arrays.asList(2,5,4,2,2,2,2,2,5,3,3,4,4,4,3,3,4,1);
+        var course1 = List.of(2,2,2,1,2,3,4,2,2,2,2,3,2,2,2,3,3,3);
+        var course2 = List.of(3,2,3,2,3,2,2,3,1,2,3,3,2,2,2,3,3,3);
+        var course3 = List.of(2,2,2,2,4,3,6,6,5,2,3,3,3,2,2,6,2,4);
+        var course4 = List.of(2,2,3,3,2,4,3,3,2,2,3,2,3,2,2,2,2,3);
+        var course5 = List.of(3,2,2,5,2,2,1,2,2,5,3,1);
+        var course6 = List.of(2,5,4,2,2,2,2,2,5,3,3,4,4,4,3,3,4,1);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
                 course5,
-                course6).collect(Collectors.toList());
+                course6).toList();
         createScores(total, tournament2021, Rhys);
     }
 
     private void buildScoreRhys2022() {
-        List<Integer> course1 = Arrays.asList(3,2,3,2,2,3,3,2,3,3,3,1,3,3,2,3,3,2);
-        List<Integer> course2 = Arrays.asList(3,3,3,1,3,3,1,3,2,2,2,4,2,3,3,2,2,2);
-        List<Integer> course3 = Arrays.asList(2,2,2,2,4,2,1,3,6,2,1,2);
-        List<Integer> course4 = Arrays.asList(2,2,4,2,2,2,3,2,2,3,2,3,4,2,3,3,2,2);
-        List<Integer> course5 = Arrays.asList(2,3,1,2,3,3,2,2,3,2,2,3,2,3,3,2,1,3);
-        List<Integer> course6 = Arrays.asList(2,2,2,2,2,3,3,2,4,3,2,2);
-        List<Integer> course7 = Arrays.asList(2,4,2,3,2,1,2,2,2,3,2,5,2,2,1,3,2,4);
+        var course1 = List.of(3,2,3,2,2,3,3,2,3,3,3,1,3,3,2,3,3,2);
+        var course2 = List.of(3,3,3,1,3,3,1,3,2,2,2,4,2,3,3,2,2,2);
+        var course3 = List.of(2,2,2,2,4,2,1,3,6,2,1,2);
+        var course4 = List.of(2,2,4,2,2,2,3,2,2,3,2,3,4,2,3,3,2,2);
+        var course5 = List.of(2,3,1,2,3,3,2,2,3,2,2,3,2,3,3,2,1,3);
+        var course6 = List.of(2,2,2,2,2,3,3,2,4,3,2,2);
+        var course7 = List.of(2,4,2,3,2,1,2,2,2,3,2,5,2,2,1,3,2,4);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -233,50 +233,49 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6,
-                course7).collect(Collectors.toList());
+                course7).toList();
         createScores(total, tournament2022, Rhys);
     }
 
     private void buildScoreRhys2023() {
-        var course1 = Arrays.asList(2,2,3,3,3,2,5,3,4,2,2,2,2,4,3,4,3,2);
-        var course2 = Arrays.asList(2,4,2,4,3,4,2,3,3,2,3,2,2,2,2,4,2,4);
-        var course3 = Arrays.asList(5,3,2,2,3,3,4,3,2,3,3,1);
-        var course4 = Arrays.asList(3,3,2,4,2,2,1,2,2,2,2,2);
-        var course5 = Arrays.asList(2,5,2,6,2,3,4,4,3,3,3,4,3,3,4,2,6,2);
-        var course6 = Arrays.asList(3,2,3,2,2,2,4,3);
-        var course7 = Arrays.asList(2,2,2,2,2,2,2,5);
-        var course8 = Arrays.asList(3,4,3,3,3,2,2,3,6,2,2,2,2,4,2,2,3,6,1);
-        var course9 = Arrays.asList(2,1,3,4,2,2,2,4,2,3,2,3,2,3,2,4,3,4);
+        var course1 = List.of(2,2,3,3,3,2,5,3,4,2,2,2,2,4,3,4,3,2);
+        var course2 = List.of(2,4,2,4,3,4,2,3,3,2,3,2,2,2,2,4,2,4);
+        var course3 = List.of(5,3,2,2,3,3,4,3,2,3,3,1);
+        var course4 = List.of(3,3,2,4,2,2,1,2,2,2,2,2);
+        var course5 = List.of(2,5,2,6,2,3,4,4,3,3,3,4,3,3,4,2,6,2);
+        var course6 = List.of(3,2,3,2,2,2,4,3,2,2,2,2,2,2,2,5);
+        var course7 = List.of(3,4,3,3,3,2,2,3,6,2,2,2,2,4,2,2,3,6,1);
+        var course8 = List.of(2,1,3,4,2,2,2,4,2,3,2,3,2,3,2,4,3,4);
         List<List<Integer>> total = Stream.of(
                 course1, course2, course3,
                 course4, course5, course6,
-                course7, course8, course9).collect(Collectors.toList());
+                course7, course8).toList();
         createScores(total, tournament2023, Rhys);
     }
 
     private void buildScoreJamie2016(){
-        List<Integer> course1 = Arrays.asList(3,2,3,3,3,3,4,3,4,4,2,2,4,2,4,2,2,2);//52
-        List<Integer> course2 = Arrays.asList(4,2,2,2,2,2,3,2,5,3,3,4,2,3,3,1,1,1);//45
-        List<Integer> course3 = Arrays.asList(1,3,3,1,3,2,2,3,2,3,3,2,2,2,2,1,4,2);
-        List<Integer> course4 = Arrays.asList(3,2,4,2,4,2,3,3,4,3,3,3,2,1,2,5,3,2);
-        List<Integer> course5 = Arrays.asList(2,3,4,3,3,2,2,2,2,2,3,3,3,3,3,3,2,3);
+        var course1 = List.of(3,2,3,3,3,3,4,3,4,4,2,2,4,2,4,2,2,2);//52
+        var course2 = List.of(4,2,2,2,2,2,3,2,5,3,3,4,2,3,3,1,1,1);//45
+        var course3 = List.of(1,3,3,1,3,2,2,3,2,3,3,2,2,2,2,1,4,2);
+        var course4 = List.of(3,2,4,2,4,2,3,3,4,3,3,3,2,1,2,5,3,2);
+        var course5 = List.of(2,3,4,3,3,2,2,2,2,2,3,3,3,3,3,3,2,3);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2016, Jamie);
     }
 
     private void buildScoreJamie2017(){
-        List<Integer> course1 = Arrays.asList(7,2,2,2,3,3,2,2,4,3,1,4,2,4,3,3,7,1);
-        List<Integer> course2 = Arrays.asList(3,2,2,3,3,2,3,3,2,4,3,2,3,5,4,2,3,6);
-        List<Integer> course3 = Arrays.asList(2,2,3,5,2,2,2,2,4);
-        List<Integer> course4 = Arrays.asList(2,2,2,2,2,2,2,4,3,3,7,2,2,4,2,2,2,3);
-        List<Integer> course5 = Arrays.asList(3,2,3,3,3,5,2,2,3,2,3,2,4,2,3,4,2,3);
-        List<Integer> course6 = Arrays.asList(5,2,2,5,5,2,2,2,3,4,6,3,3,3,3,4,2,2);
-        List<Integer> course7 = Arrays.asList(2,2,3,2,2,3,7,7,4,2,3,4,2,2,3,2,3,2);
+        var course1 = List.of(7,2,2,2,3,3,2,2,4,3,1,4,2,4,3,3,7,1);
+        var course2 = List.of(3,2,2,3,3,2,3,3,2,4,3,2,3,5,4,2,3,6);
+        var course3 = List.of(2,2,3,5,2,2,2,2,4);
+        var course4 = List.of(2,2,2,2,2,2,2,4,3,3,7,2,2,4,2,2,2,3);
+        var course5 = List.of(3,2,3,3,3,5,2,2,3,2,3,2,4,2,3,4,2,3);
+        var course6 = List.of(5,2,2,5,5,2,2,2,3,4,6,3,3,3,3,4,2,2);
+        var course7 = List.of(2,2,3,2,2,3,7,7,4,2,3,4,2,2,3,2,3,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -284,19 +283,19 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6,
-                course7).collect(Collectors.toList());
+                course7).toList();
         createScores(total, tournament2017, Jamie);
     }
 
     private void buildScoreJamie2018(){
-        List<Integer> course1 = Arrays.asList(2,4,2,3,3,1,3,2,2,2,3,4);
-        List<Integer> course2 = Arrays.asList(4,3,4,3,3,6,3,2,5,2,3,5,3);
-        List<Integer> course3 = Arrays.asList(2,5,3,4,3,4,2,3,5);
-        List<Integer> course4 = Arrays.asList(3,5,2,2,2,3,2,2,2,2,2,2);
-        List<Integer> course5 = Arrays.asList(2,2,2,2,2,3,2,1,6,3,1,1,3,4,3,2,2,5);
-        List<Integer> course6 = Arrays.asList(3,2,3,6,3,4,3,3,6);
-        List<Integer> course7 = Arrays.asList(4,2,1,3,2,2,3,2,2,2,2,3,2,2,2,3,3,2);
-        List<Integer> course8 = Arrays.asList(3,2,4,2,2,1,2,2,3,5,2,3,3,3,4,4,3,3);
+        var course1 = List.of(2,4,2,3,3,1,3,2,2,2,3,4);
+        var course2 = List.of(4,3,4,3,3,6,3,2,5,2,3,5,3);
+        var course3 = List.of(2,5,3,4,3,4,2,3,5);
+        var course4 = List.of(3,5,2,2,2,3,2,2,2,2,2,2);
+        var course5 = List.of(2,2,2,2,2,3,2,1,6,3,1,1,3,4,3,2,2,5);
+        var course6 = List.of(3,2,3,6,3,4,3,3,6);
+        var course7 = List.of(4,2,1,3,2,2,3,2,2,2,2,3,2,2,2,3,3,2);
+        var course8 = List.of(3,2,4,2,2,1,2,2,3,5,2,3,3,3,4,4,3,3);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -305,20 +304,20 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course5,
                 course6,
                 course7,
-                course8).collect(Collectors.toList());
+                course8).toList();
         createScores(total, tournament2018, Jamie);
     }
 
     private void buildScoreJamie2019(){
-        List<Integer> course1 = Arrays.asList(3,3,3,2,2,1,3,3,3,2,2,2,6,2,3,2,2,6);
-        List<Integer> course2 = Arrays.asList(3,6,3,1,3,2,3,2,3);
-        List<Integer> course3 = Arrays.asList(3,3,2,2,3,3,2,2,2,3,3,2,3,3,2,3,2,2);
-        List<Integer> course4 = Arrays.asList(2,2,2,3,2,3,3,3,2,3,3,2,3,2,2,2,2,2);
-        List<Integer> course5 = Arrays.asList(2,3,4,3,1,3,1,4,2,2,2,2,2,1,3,3,2,5);
-        List<Integer> course6 = Arrays.asList(3,3,2,3,2,2,3,3,2,3,2,2,4,2,2,4,6,2);
-        List<Integer> course7 = Arrays.asList(3,3,2,2,3,3,2,3,4,4,5,2,3,2,3,2,5,3);
-        List<Integer> course8 = Arrays.asList(3,2,5,3,3,3,3,2,2,4,2,2,2,3,3,3,3,3);
-        List<Integer> course9 = Arrays.asList(2,2,3,3,5,3,4,3,4,2,4,5);
+        var course1 = List.of(3,3,3,2,2,1,3,3,3,2,2,2,6,2,3,2,2,6);
+        var course2 = List.of(3,6,3,1,3,2,3,2,3);
+        var course3 = List.of(3,3,2,2,3,3,2,2,2,3,3,2,3,3,2,3,2,2);
+        var course4 = List.of(2,2,2,3,2,3,3,3,2,3,3,2,3,2,2,2,2,2);
+        var course5 = List.of(2,3,4,3,1,3,1,4,2,2,2,2,2,1,3,3,2,5);
+        var course6 = List.of(3,3,2,3,2,2,3,3,2,3,2,2,4,2,2,4,6,2);
+        var course7 = List.of(3,3,2,2,3,3,2,3,4,4,5,2,3,2,3,2,5,3);
+        var course8 = List.of(3,2,5,3,3,3,3,2,2,4,2,2,2,3,3,3,3,3);
+        var course9 = List.of(2,2,3,3,5,3,4,3,4,2,4,5);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -328,50 +327,50 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course6,
                 course7,
                 course8,
-                course9).collect(Collectors.toList());
+                course9).toList();
         createScores(total, tournament2019, Jamie);
     }
 
     private void buildScoreJamie2020() {
-        List<Integer> course1 = Arrays.asList(2,3,2,2,4,4,2,3,2,3,6,3,4,3,2,3,3,2);
-        List<Integer> course2 = Arrays.asList(3,4,3,3,2,2,3,1,3,4,3,2,2,1,2,2,3,2);
-        List<Integer> course3 = Arrays.asList(3,4,3,3,2,6,4,3,6,4,3,3,2,4,2,1,2,2,2);
-        List<Integer> course4 = Arrays.asList(2,3,2,2,2,3,2,2,4,3,3,2,2,1,3,2,3,2);
-        List<Integer> course5 = Arrays.asList(2,2,4,2,3,1,2,5,2,2,2,2,3,2,3,3,2,2);
+        var course1 = List.of(2,3,2,2,4,4,2,3,2,3,6,3,4,3,2,3,3,2);
+        var course2 = List.of(3,4,3,3,2,2,3,1,3,4,3,2,2,1,2,2,3,2);
+        var course3 = List.of(3,4,3,3,2,6,4,3,6,4,3,3,2,4,2,1,2,2,2);
+        var course4 = List.of(2,3,2,2,2,3,2,2,4,3,3,2,2,1,3,2,3,2);
+        var course5 = List.of(2,2,4,2,3,1,2,5,2,2,2,2,3,2,3,3,2,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2020, Jamie);
     }
 
     private void buildScoreJamie2021() {
-        List<Integer> course1 = Arrays.asList(2,2,2,2,2,3,4,2,3,2,2,3,2,2,2,2,2,1);
-        List<Integer> course2 = Arrays.asList(3,4,3,5,6,6,2,6,2,2,3,3,3,4,2,6,4,6);
-        List<Integer> course3 = Arrays.asList(2,3,4,2,2,2,6,3,4,2,6,2,3,4,3,2,3,2);
-        List<Integer> course4 = Arrays.asList(2,2,3,2,3,3,2,2,2,3,2,2,2,1,2,2,2,3);
-        List<Integer> course5 = Arrays.asList(4,3,3,2,1,2,5,2,6,3,2,2);
-        List<Integer> course6 = Arrays.asList(2,4,2,2,1,2,2,3,3,4,4,3,6,4,2,4,2,1);
+        var course1 = List.of(2,2,2,2,2,3,4,2,3,2,2,3,2,2,2,2,2,1);
+        var course2 = List.of(3,4,3,5,6,6,2,6,2,2,3,3,3,4,2,6,4,6);
+        var course3 = List.of(2,3,4,2,2,2,6,3,4,2,6,2,3,4,3,2,3,2);
+        var course4 = List.of(2,2,3,2,3,3,2,2,2,3,2,2,2,1,2,2,2,3);
+        var course5 = List.of(4,3,3,2,1,2,5,2,6,3,2,2);
+        var course6 = List.of(2,4,2,2,1,2,2,3,3,4,4,3,6,4,2,4,2,1);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
                 course5,
-                course6).collect(Collectors.toList());
+                course6).toList();
         createScores(total, tournament2021,Jamie);
     }
 
     private void buildScoreJamie2022() {
-        List<Integer> course1 = Arrays.asList(2,3,4,2,3,3,5,2,2,3,1,3,2,4,2,2,5,2);
-        List<Integer> course2 = Arrays.asList(2,3,3,3,4,2,3,3,2,3,2,2,2,2,3,2,2,2);
-        List<Integer> course3 = Arrays.asList(3,1,2,1,2,2,3,2,3,2,2,1);
-        List<Integer> course4 = Arrays.asList(2,2,3,4,2,3,2,2,2,3,4,2,2,2,2,3,3,2);
-        List<Integer> course5 = Arrays.asList(2,3,2,2,3,2,1,3,2,2,2,2,3,2,2,2,5,4);
-        List<Integer> course6 = Arrays.asList(3,2,3,3,4,3,2,2,3,3,2,1);
-        List<Integer> course7 = Arrays.asList(2,3,3,3,2,2,2,2,2,4,3,2,3,2,1,2,2,2);
+        var course1 = List.of(2,3,4,2,3,3,5,2,2,3,1,3,2,4,2,2,5,2);
+        var course2 = List.of(2,3,3,3,4,2,3,3,2,3,2,2,2,2,3,2,2,2);
+        var course3 = List.of(3,1,2,1,2,2,3,2,3,2,2,1);
+        var course4 = List.of(2,2,3,4,2,3,2,2,2,3,4,2,2,2,2,3,3,2);
+        var course5 = List.of(2,3,2,2,3,2,1,3,2,2,2,2,3,2,2,2,5,4);
+        var course6 = List.of(3,2,3,3,4,3,2,2,3,3,2,1);
+        var course7 = List.of(2,3,3,3,2,2,2,2,2,4,3,2,3,2,1,2,2,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -379,50 +378,49 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6,
-                course7).collect(Collectors.toList());
+                course7).toList();
         createScores(total, tournament2022,Jamie);
     }
 
     private void buildScoreJamie2023() {
-        var course1 = Arrays.asList(3,3,3,4,3,2,2,3,4,3,2,2,2,2,2,5,3,2);
-        var course2 = Arrays.asList(3,3,2,2,3,2,2,4,3,2,2,3,2,3,2,4,2,3);
-        var course3 = Arrays.asList(4,3,3,2,4,5,4,1,2,3,3,2);
-        var course4 = Arrays.asList(2,5,2,2,3,2,3,2,3,2,2,3);
-        var course5 = Arrays.asList(2,2,4,3,2,2,3,2,3,3,2,4,2,4,3,2,4,2);
-        var course6 = Arrays.asList(2,2,3,2,3,2,3,3);
-        var course7 = Arrays.asList(2,2,2,1,2,2,4,2);
-        var course8 = Arrays.asList(2,3,4,4,5,2,2,3,4,2,2,3,3,2,3,3,2,4,2);
-        var course9 = Arrays.asList(2,2,2,2,2,2,2,3,4,5,2,2,2,3,2,2,3,6);
+        var course1 = List.of(3,3,3,4,3,2,2,3,4,3,2,2,2,2,2,5,3,2);
+        var course2 = List.of(3,3,2,2,3,2,2,4,3,2,2,3,2,3,2,4,2,3);
+        var course3 = List.of(4,3,3,2,4,5,4,1,2,3,3,2);
+        var course4 = List.of(2,5,2,2,3,2,3,2,3,2,2,3);
+        var course5 = List.of(2,2,4,3,2,2,3,2,3,3,2,4,2,4,3,2,4,2);
+        var course6 = List.of(2,2,3,2,3,2,3,3,2,2,2,1,2,2,4,2);
+        var course7 = List.of(2,3,4,4,5,2,2,3,4,2,2,3,3,2,3,3,2,4,2);
+        var course8 = List.of(2,2,2,2,2,2,2,3,4,5,2,2,2,3,2,2,3,6);
         List<List<Integer>> total = Stream.of(
                 course1, course2, course3,
                 course4, course5, course6,
-                course7, course8, course9).collect(Collectors.toList());
+                course7, course8).toList();
         createScores(total, tournament2023, Jamie);
     }
 
     private void buildScoreTom2016(){
-        List<Integer> course1 = Arrays.asList(5,2,3,3,2,3,3,2,3,4,3,2,6,6,4,6,3,6); //66
-        List<Integer> course2 = Arrays.asList(3,1,2,2,2,3,2,3,3,2,3,2,3,2,2,4,2,3);//44
-        List<Integer> course3 = Arrays.asList(2,4,4,2,3,2,2,4,1,3,3,2,3,2,1,2,3,4);
-        List<Integer> course4 = Arrays.asList(2,3,3,4,4,2,2,4,3,3,2,6,3,3,2,4,3,4);
-        List<Integer> course5 = Arrays.asList(2,2,3,3,4,4,2,2,2,3,2,3,3,6,2,2,2,2);
+        var course1 = List.of(5,2,3,3,2,3,3,2,3,4,3,2,6,6,4,6,3,6); //66
+        var course2 = List.of(3,1,2,2,2,3,2,3,3,2,3,2,3,2,2,4,2,3);//44
+        var course3 = List.of(2,4,4,2,3,2,2,4,1,3,3,2,3,2,1,2,3,4);
+        var course4 = List.of(2,3,3,4,4,2,2,4,3,3,2,6,3,3,2,4,3,4);
+        var course5 = List.of(2,2,3,3,4,4,2,2,2,3,2,3,3,6,2,2,2,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2016, Tom);
     }
 
     private void buildScoreTom2017(){
-        List<Integer> course1 = Arrays.asList(7,3,3,2,7,4,3,4,4,3,3,2,4,3,3,3,4,3);
-        List<Integer> course2 = Arrays.asList(3,3,3,3,2,2,3,2,2,2,3,2,3,3,3,4,2,5);
-        List<Integer> course3 = Arrays.asList(2,2,4,5,2,3,2,2,4);
-        List<Integer> course4 = Arrays.asList(4,3,2,2,5,2,3,4,3,3,5,2,2,4,2,2,3,7);
-        List<Integer> course5 = Arrays.asList(3,4,4,2,3,3,3,2,3,3,3,3,2,2,3,4,3,2);
-        List<Integer> course6 = Arrays.asList(2,2,3,3,3,3,2,3,3,2,5,2,3,3,4,3,3,2);
-        List<Integer> course7 = Arrays.asList(4,2,4,2,2,2,7,2,3,2,2,4,2,2,2,2,7,3);
+        var course1 = List.of(7,3,3,2,7,4,3,4,4,3,3,2,4,3,3,3,4,3);
+        var course2 = List.of(3,3,3,3,2,2,3,2,2,2,3,2,3,3,3,4,2,5);
+        var course3 = List.of(2,2,4,5,2,3,2,2,4);
+        var course4 = List.of(4,3,2,2,5,2,3,4,3,3,5,2,2,4,2,2,3,7);
+        var course5 = List.of(3,4,4,2,3,3,3,2,3,3,3,3,2,2,3,4,3,2);
+        var course6 = List.of(2,2,3,3,3,3,2,3,3,2,5,2,3,3,4,3,3,2);
+        var course7 = List.of(4,2,4,2,2,2,7,2,3,2,2,4,2,2,2,2,7,3);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -430,19 +428,19 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6,
-                course7).collect(Collectors.toList());
+                course7).toList();
         createScores(total, tournament2017, Tom);
     }
 
     private void buildScoreTom2018(){
-        List<Integer> course1 = Arrays.asList(3,4,2,4,4,1,4,4,2,2,2,6);
-        List<Integer> course2 = Arrays.asList(3,3,4,3,3,4,3,2,5,2,3,2,3);
-        List<Integer> course3 = Arrays.asList(2,4,5,4,3,3,2,4,6);
-        List<Integer> course4 = Arrays.asList(3,3,2,2,3,2,2,3,2,3,2,3);
-        List<Integer> course5 = Arrays.asList(2,2,2,2,1,6,2,1,1,3,1,2,5,3,3,2,2,3);
-        List<Integer> course6 = Arrays.asList(3,6,6,6,3,2,3,4,6);
-        List<Integer> course7 = Arrays.asList(1,4,4,5,1,2,2,2,2,2,3,2,2,2,2,2,3,2);
-        List<Integer> course8 = Arrays.asList(2,2,2,2,3,2,4,3,2,2,4,2,2,2,5,3,1,4);
+        var course1 = List.of(3,4,2,4,4,1,4,4,2,2,2,6);
+        var course2 = List.of(3,3,4,3,3,4,3,2,5,2,3,2,3);
+        var course3 = List.of(2,4,5,4,3,3,2,4,6);
+        var course4 = List.of(3,3,2,2,3,2,2,3,2,3,2,3);
+        var course5 = List.of(2,2,2,2,1,6,2,1,1,3,1,2,5,3,3,2,2,3);
+        var course6 = List.of(3,6,6,6,3,2,3,4,6);
+        var course7 = List.of(1,4,4,5,1,2,2,2,2,2,3,2,2,2,2,2,3,2);
+        var course8 = List.of(2,2,2,2,3,2,4,3,2,2,4,2,2,2,5,3,1,4);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -451,20 +449,20 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course5,
                 course6,
                 course7,
-                course8).collect(Collectors.toList());
+                course8).toList();
         createScores(total, tournament2018, Tom);
     }
 
     private void buildScoreTom2019(){
-        List<Integer> course1 = Arrays.asList(4,3,3,2,1,2,5,4,2,2,3,1,2,2,3,2,2,2);
-        List<Integer> course2 = Arrays.asList(3,3,2,1,6,3,5,3,4);
-        List<Integer> course3 = Arrays.asList(2,2,2,2,3,4,3,3,2,3,4,4,4,3,3,2,3,4);
-        List<Integer> course4 = Arrays.asList(4,3,3,5,3,2,4,3,2,4,3,2,2,2,2,2,2,2);
-        List<Integer> course5 = Arrays.asList(2,2,4,5,2,2,3,3,3,3,2,3,2,1,3,2,3,3);
-        List<Integer> course6 = Arrays.asList(3,2,3,3,5,4,2,2,2,2,3,3,4,3,2,3,2,2);
-        List<Integer> course7 = Arrays.asList(2,2,2,5,4,2,2,2,3,4,6,2,2,2,4,2,2,2);
-        List<Integer> course8 = Arrays.asList(2,3,3,5,4,3,3,2,2,3,3,2,3,3,3,4,3,2);
-        List<Integer> course9 = Arrays.asList(2,3,4,3,4,5,2,3,5,2,4,2);
+        var course1 = List.of(4,3,3,2,1,2,5,4,2,2,3,1,2,2,3,2,2,2);
+        var course2 = List.of(3,3,2,1,6,3,5,3,4);
+        var course3 = List.of(2,2,2,2,3,4,3,3,2,3,4,4,4,3,3,2,3,4);
+        var course4 = List.of(4,3,3,5,3,2,4,3,2,4,3,2,2,2,2,2,2,2);
+        var course5 = List.of(2,2,4,5,2,2,3,3,3,3,2,3,2,1,3,2,3,3);
+        var course6 = List.of(3,2,3,3,5,4,2,2,2,2,3,3,4,3,2,3,2,2);
+        var course7 = List.of(2,2,2,5,4,2,2,2,3,4,6,2,2,2,4,2,2,2);
+        var course8 = List.of(2,3,3,5,4,3,3,2,2,3,3,2,3,3,3,4,3,2);
+        var course9 = List.of(2,3,4,3,4,5,2,3,5,2,4,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -474,50 +472,50 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course6,
                 course7,
                 course8,
-                course9).collect(Collectors.toList());
+                course9).toList();
         createScores(total, tournament2019, Tom);
     }
 
     private void buildScoreTom2020() {
-        List<Integer> course1 = Arrays.asList(3,2,1,3,2,2,2,2,3,3,5,3,2,2,3,3,4,2);
-        List<Integer> course2 = Arrays.asList(3,4,2,3,3,2,2,1,3,2,4,2,2,1,2,2,3,2);
-        List<Integer> course3 = Arrays.asList(4,3,3,3,3,2,4,2,4,2,3,3,3,4,3,4,3,2,2);
-        List<Integer> course4 = Arrays.asList(2,2,3,4,2,2,3,2,4,5,2,2,2,1,2,3,2,4);
-        List<Integer> course5 = Arrays.asList(2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,3,2);
+        var course1 = List.of(3,2,1,3,2,2,2,2,3,3,5,3,2,2,3,3,4,2);
+        var course2 = List.of(3,4,2,3,3,2,2,1,3,2,4,2,2,1,2,2,3,2);
+        var course3 = List.of(4,3,3,3,3,2,4,2,4,2,3,3,3,4,3,4,3,2,2);
+        var course4 = List.of(2,2,3,4,2,2,3,2,4,5,2,2,2,1,2,3,2,4);
+        var course5 = List.of(2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,3,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2020, Tom);
     }
 
     private void buildScoreTom2021() {
-        List<Integer> course1 = Arrays.asList(4,3,4,3,2,4,3,2,2,2,2,3,2,2,4,3,3,2);
-        List<Integer> course2 = Arrays.asList(3,3,4,2,3,3,3,3,1,3,3,6,6,2,3,1,2,3);
-        List<Integer> course3 = Arrays.asList(2,2,5,5,6,2,4,4,4,3,2,2,4,2,4,2,4,3);
-        List<Integer> course4 = Arrays.asList(2,3,3,2,3,2,2,4,2,3,3,3,2,2,3,1,3,3);
-        List<Integer> course5 = Arrays.asList(2,2,2,4,2,2,3,2,2,3,5,2);
-        List<Integer> course6 = Arrays.asList(3,4,2,4,5,2,2,2,3,3,2,3,5,2,3,2,3,1);
+        var course1 = List.of(4,3,4,3,2,4,3,2,2,2,2,3,2,2,4,3,3,2);
+        var course2 = List.of(3,3,4,2,3,3,3,3,1,3,3,6,6,2,3,1,2,3);
+        var course3 = List.of(2,2,5,5,6,2,4,4,4,3,2,2,4,2,4,2,4,3);
+        var course4 = List.of(2,3,3,2,3,2,2,4,2,3,3,3,2,2,3,1,3,3);
+        var course5 = List.of(2,2,2,4,2,2,3,2,2,3,5,2);
+        var course6 = List.of(3,4,2,4,5,2,2,2,3,3,2,3,5,2,3,2,3,1);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
                 course5,
-                course6).collect(Collectors.toList());
+                course6).toList();
         createScores(total, tournament2021, Tom);
     }
 
     private void buildScoreTom2022() {
-        List<Integer> course1 = Arrays.asList(1,3,3,2,2,2,2,6,3,4,3,3,2,2,2,3,1,2);
-        List<Integer> course2 = Arrays.asList(1,3,2,5,2,2,2,2,3,3,2,2,2,3,2,3,3,2);
-        List<Integer> course3 = Arrays.asList(2,1,2,2,2,2,1,2,3,2,1,2);
-        List<Integer> course4 = Arrays.asList(2,2,3,2,2,2,2,3,2,3,2,2,4,2,2,2,2,2);
-        List<Integer> course5 = Arrays.asList(3,2,3,2,2,2,3,3,3,3,2,2,3,3,2,3,6,3);
-        List<Integer> course6 = Arrays.asList(3,2,3,3,2,3,2,2,5,2,3,2);
-        List<Integer> course7 = Arrays.asList(2,3,2,2,4,2,2,2,2,2,1,2,2,2,4,2,2,2);
+        var course1 = List.of(1,3,3,2,2,2,2,6,3,4,3,3,2,2,2,3,1,2);
+        var course2 = List.of(1,3,2,5,2,2,2,2,3,3,2,2,2,3,2,3,3,2);
+        var course3 = List.of(2,1,2,2,2,2,1,2,3,2,1,2);
+        var course4 = List.of(2,2,3,2,2,2,2,3,2,3,2,2,4,2,2,2,2,2);
+        var course5 = List.of(3,2,3,2,2,2,3,3,3,3,2,2,3,3,2,3,6,3);
+        var course6 = List.of(3,2,3,3,2,3,2,2,5,2,3,2);
+        var course7 = List.of(2,3,2,2,4,2,2,2,2,2,1,2,2,2,4,2,2,2);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
@@ -525,39 +523,38 @@ public class DataInitialiserProd implements CommandLineRunner {
                 course4,
                 course5,
                 course6,
-                course7).collect(Collectors.toList());
+                course7).toList();
         createScores(total, tournament2022, Tom);
     }
 
     private void buildScoreTom2023() {
-        var course1 = Arrays.asList(3,3,2,2,4,2,3,1,6,4,3,2,3,3,2,3,3,3);
-        var course2 = Arrays.asList(3,3,2,3,4,3,2,4,3,2,1,4,2,3,3,4,2,6);
-        var course3 = Arrays.asList(6,2,2,3,1,2,5,1,2,2,4,1);
-        var course4 = Arrays.asList(2,5,2,3,2,2,2,2,3,2,1,1);
-        var course5 = Arrays.asList(3,2,3,2,4,3,4,2,4,3,3,5,2,5,2,2,3,4);
-        var course6 = Arrays.asList(2,2,2,2,2,2,3,2);
-        var course7 = Arrays.asList(2,2,3,3,2,2,2,2);
-        var course8 = Arrays.asList(4,4,2,3,5,2,2,4,2,1,1,3,3,2,2,2,3,5,2);
-        var course9 = Arrays.asList(2,3,2,2,2,4,2,3,6,2,2,3,1,5,2,2,3,2);
+        var course1 = List.of(3,3,2,2,4,2,3,1,6,4,3,2,3,3,2,3,3,3);
+        var course2 = List.of(3,3,2,3,4,3,2,4,3,2,1,4,2,3,3,4,2,6);
+        var course3 = List.of(6,2,2,3,1,2,5,1,2,2,4,1);
+        var course4 = List.of(2,5,2,3,2,2,2,2,3,2,1,1);
+        var course5 = List.of(3,2,3,2,4,3,4,2,4,3,3,5,2,5,2,2,3,4);
+        var course6 = List.of(2,2,2,2,2,2,3,2,2,2,3,3,2,2,2,2);
+        var course7 = List.of(4,4,2,3,5,2,2,4,2,1,1,3,3,2,2,2,3,5,2);
+        var course8 = List.of(2,3,2,2,2,4,2,3,6,2,2,3,1,5,2,2,3,2);
         List<List<Integer>> total = Stream.of(
                 course1, course2, course3,
                 course4, course5, course6,
-                course7, course8, course9).collect(Collectors.toList());
+                course7, course8).toList();
         createScores(total, tournament2023, Tom);
     }
 
     private void buildScoreJade2020() {
-        List<Integer> course1 = Arrays.asList(5,4,5,3,4,2,3,2,2,3,6,3,5,3,5,6,3,2);
-        List<Integer> course2 = Arrays.asList(2,5,2,4,2,3,3,2,4,2,4,5,1,2,5,3,2,4);
-        List<Integer> course3 = Arrays.asList(3,6,6,2,4,6,4,2,6,3,6,3,4,6,5,4,2,2,2);
-        List<Integer> course4 = Arrays.asList(3,2,4,3,2,3,2,2,2,2,4,2,2,2,2,3,3,4);
-        List<Integer> course5 = Arrays.asList(3,3,3,3,3,2,3,2,2,3,2,3,2,4,4,3,2,4);
+        var course1 = List.of(5,4,5,3,4,2,3,2,2,3,6,3,5,3,5,6,3,2);
+        var course2 = List.of(2,5,2,4,2,3,3,2,4,2,4,5,1,2,5,3,2,4);
+        var course3 = List.of(3,6,6,2,4,6,4,2,6,3,6,3,4,6,5,4,2,2,2);
+        var course4 = List.of(3,2,4,3,2,3,2,2,2,2,4,2,2,2,2,3,3,4);
+        var course5 = List.of(3,3,3,3,3,2,3,2,2,3,2,3,2,4,4,3,2,4);
         List<List<Integer>> total = Stream.of(
                 course1,
                 course2,
                 course3,
                 course4,
-                course5).collect(Collectors.toList());
+                course5).toList();
         createScores(total, tournament2020, Jade);
     }
 
@@ -611,7 +608,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         Tom = Player.builder().firstName("Thomas").lastName("Millican").build();
         Jamie = Player.builder().firstName("Jamie").lastName("Acres").build();
         Jade = Player.builder().firstName("Jade").lastName("Richmond").build();
-        savePlayers(Arrays.asList(Rhys, Tom, Jamie, Jade));
+        savePlayers(List.of(Rhys, Tom, Jamie, Jade));
     }
 
     private void savePlayers(List<Player> players) {
@@ -639,7 +636,7 @@ public class DataInitialiserProd implements CommandLineRunner {
                 courses_2020,
                 courses_2021,
                 courses_2022,
-                courses_2023).flatMap(List::stream).collect(Collectors.toList()));
+                courses_2023).flatMap(List::stream).toList());
     }
 
     private void saveCourses(List<Course> courses) {
@@ -668,15 +665,15 @@ public class DataInitialiserProd implements CommandLineRunner {
         courses_2017.add(createCourse("Congo Rapids Adventure Golf",
                 createHolesForCourseWithNoPar(18)));
         courses_2017.add(createCourse("Clippesby Family Golf",
-                createHoles(Arrays.asList(2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2,2,2,2,2,2,3,4))));
+                createHoles(List.of(2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2,2,2,2,2,2,3,4))));
         courses_2017.add(createCourse("Lost world Adventure golf, Hemsby",
-                createHoles(Arrays.asList(2,2,3,4,2,2,2,3,4))));
+                createHoles(List.of(2,2,3,4,2,2,2,3,4))));
         courses_2017.add(createCourse("Stonehenge, the BIG minigolf",
-                createHoles(Arrays.asList(3,2,3,3,4, 3,3,4,3, 3,4,3,3, 4,2,3,2,4))));
+                createHoles(List.of(3,2,3,3,4, 3,3,4,3, 3,4,3,3, 4,2,3,2,4))));
         courses_2017.add(createCourse("Castaway Island, Great Yarmouth",
-                createHoles(Arrays.asList(2,2,3,2,2,3,3,2,3,2,3,3,2,3,2,3,2,3))));
+                createHoles(List.of(2,2,3,2,2,3,3,2,3,2,3,3,2,3,2,3,2,3))));
         courses_2017.add(createCourse("Pirates Cover, Great Yarmouth",
-                createHoles(Arrays.asList(2,3,3,3,4,3,2,2,3,3, 5,3,2,3,2,3,3,3))));
+                createHoles(List.of(2,3,3,3,4,3,2,2,3,3, 5,3,2,3,2,3,3,3))));
         courses_2017.add(createCourse("Congo Rapids Lost World Adventure Golf, Woodbridge",
                 createHolesForCourseWithNoPar(18)));
     }
@@ -687,40 +684,40 @@ public class DataInitialiserProd implements CommandLineRunner {
         courses_2018.add(createCourse("Bear Creek Adventure Golf",
                 createHolesForCourseWithNoPar(12)));
         courses_2018.add(createCourse("The Pavilion Fun Park, Clacton",
-                createHoles(Arrays.asList(2,3,4,3,4,4,4,3,3,3,3,4,4))));
+                createHoles(List.of(2,3,4,3,4,4,4,3,3,3,3,4,4))));
         courses_2018.add(createCourse("Greensward Adventure Golf, Clacton-on-sea",
                 createHolesForCourseWithNoPar(9)));
         courses_2018.add(createCourse("St Osyth Mini 12 Hole Adventure Golf",
                 createHolesForCourseWithNoPar(12)));
         courses_2018.add(createCourse("Mighty Claws Adventure Golf, Colchester",
-                createHoles(Arrays.asList(2,2,2,3,2,2,3,3,4,2,2,3,3,2,3,3,3,3))));
+                createHoles(List.of(2,2,2,3,2,2,3,3,4,2,2,3,3,2,3,3,3,3))));
         courses_2018.add(createCourse("Mersea Island, Crazy golf",
                 createHolesForCourseWithNoPar(9)));
         courses_2018.add(createCourse("Arnold Palmer Minigolf",
-                createHoles(Arrays.asList(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2))));
+                createHoles(List.of(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2))));
         courses_2018.add(createCourse("Pirates Bay Adventure Gold, Maldon",
-                createHoles(Arrays.asList(2,3,3,2,3,2,2,3,2,3,2,3,3,3,5,2,3,4))));
+                createHoles(List.of(2,3,3,2,3,2,2,3,2,3,2,3,3,3,5,2,3,4))));
     }
 
     private void buildCourses_2019() {
         if (isCourseListAlreadyPopulated(courses_2019)) return;
         courses_2019 = new LinkedList<>();
         courses_2019.add(createCourse("Jungle Falls Adventure Golf, Trent Park Country Club",
-                createHoles(Arrays.asList(2,2,2,3,2,2,2,2,2,3,2,2,2,2,2,2,2,3))));
+                createHoles(List.of(2,2,2,3,2,2,2,2,2,3,2,2,2,2,2,2,2,3))));
         courses_2019.add(createCourse("Captain's Bay Adventure Golf, London",
-                createHoles(Arrays.asList(2,2,2,2,3,2,3,2,3))));
+                createHoles(List.of(2,2,2,2,3,2,3,2,3))));
         courses_2019.add(createCourse("Lost Jungle London, Amazon course",
-                createHoles(Arrays.asList(2,2,2,3,2,2,2,3,2,2,2,2,2,3,2,2,2,3))));
+                createHoles(List.of(2,2,2,3,2,2,2,3,2,2,2,2,2,3,2,2,2,3))));
         courses_2019.add(createCourse("Lost Jungle London, Congo course",
                 createHolesForCourseWithNoPar(18)));
         courses_2019.add(createCourse("TopGolf Adventure Golf",
-                createHoles(Arrays.asList(3,2,4,3,3,3,3,3,4,2,3,4,3,4,3,3,3,4))));
+                createHoles(List.of(3,2,4,3,3,3,3,3,4,2,3,4,3,4,3,3,3,4))));
         courses_2019.add(createCourse("Dinosaur Safari Adventure Golf",
-                createHoles(Arrays.asList(2,2,2,3,2,2,2,3,2,2,2,2,2,2,3,2,3,2))));
+                createHoles(List.of(2,2,2,3,2,2,2,3,2,2,2,2,2,2,3,2,3,2))));
         courses_2019.add(createCourse("Mr Mulligan's Jaws-some Journeys - Lost World Jungle Explorer, Stevenage",
-                createHoles(Arrays.asList(2,2,2,2,3,2,2,2,3,2,3,2,2,2,3,2,2,2))));
+                createHoles(List.of(2,2,2,2,3,2,2,2,3,2,3,2,2,2,3,2,2,2))));
         courses_2019.add(createCourse("Mr Mulligan's Jaws-some Journeys - OCean Adventures, Stevenage",
-                createHoles(Arrays.asList(2,2,3,2,2,3,2,2,2,3,2,2,2,2,2,3,2,2))));
+                createHoles(List.of(2,2,3,2,2,3,2,2,2,3,2,2,2,2,2,3,2,2))));
         courses_2019.add(createCourse("Glo Crazy",
                 createHolesForCourseWithNoPar(12)));
     }
@@ -729,7 +726,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         if (isCourseListAlreadyPopulated(courses_2020)) return;
         courses_2020 = new LinkedList<>();
         courses_2020.add(createCourse("1066 Adventure Golf",
-                createHoles(Arrays.asList(2,3,2,3,2,3,3,2,3,3,2,2,3,3,4,3,3,2))));
+                createHoles(List.of(2,3,2,3,2,3,3,2,3,3,2,2,3,3,4,3,3,2))));
         courses_2020.add(createCourse("DIY minigolf, White Roding",
                 createHolesForCourseWithNoPar(18)));
         List<Hole> farmyardHoles = createHolesForCourseWithNoPar(18);
@@ -739,7 +736,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         courses_2020.add(createCourse("Jurassic Falls Adventure Golf",
                 createHolesForCourseWithNoPar(18)));
         courses_2020.add(createCourse("Moby Adventure Golf",
-                createHoles(Arrays.asList(2,2,3,2,2,3,2,3,2,2,2,2,3,2,2,2,3,2))));
+                createHoles(List.of(2,2,3,2,2,3,2,3,2,2,2,2,3,2,2,2,3,2))));
     }
 
     private void buildCourses_2021() {
@@ -754,7 +751,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         courses_2021.add(createCourse("Lost Island Adventure Golf",
                 createHolesForCourseWithNoPar(18)));
         courses_2021.add(createCourse("Lillyputt Minigolf",
-                createHoles(Arrays.asList(2,2,2,2,2,2,2,2,2,2,2,2))));
+                createHoles(List.of(2,2,2,2,2,2,2,2,2,2,2,2))));
         courses_2021.add(createCourse("Rascal Bay Manston",
                 createHolesForCourseWithNoPar(18)));
     }
@@ -769,7 +766,7 @@ public class DataInitialiserProd implements CommandLineRunner {
         courses_2022.add(createCourse("Enchanted Village Adventure Golf, BR4 9BB",
                 createHolesForCourseWithNoPar(12)));
         courses_2022.add(createCourse("Jurassic Encounter Adventure Golf, KT3 4PM",
-                createHoles(Arrays.asList(2,2,3,2,2,2,3,2,2,2,2,2,3,2,3,2,3,2))));
+                createHoles(List.of(2,2,3,2,2,2,3,2,2,2,2,2,3,2,3,2,3,2))));
         courses_2022.add(createCourse("Jungle Island, KT19 8QG",
                 createHolesForCourseWithNoPar(18)));
         courses_2022.add(createCourse("Galloping MiniGolf, KT10 8AN",
@@ -782,8 +779,8 @@ public class DataInitialiserProd implements CommandLineRunner {
         if (isCourseListAlreadyPopulated(courses_2023)) return;
         courses_2023 = new LinkedList<>();
         courses_2023.add(createCourse("Meadow Croft Garden Centre, SS11 7QU",
-                createHoles(Arrays.asList(2,2,2,3,2,2,3,2,3,2,2,2,3,2,2,3,2,3))));
-        courses_2023.add(createCourse("Garon Castler Adventures, SS2 4FA",
+                createHoles(List.of(2,2,2,3,2,2,3,2,3,2,2,2,3,2,2,3,2,3))));
+        courses_2023.add(createCourse("Garon Castle Adventures, SS2 4FA",
                 createHolesForCourseWithNoPar(18)));
         courses_2023.add(createCourse("Mr Mulligans Basildon, Game 1, SS14 3WB",
                 createHolesForCourseWithNoPar(12)));
@@ -791,10 +788,8 @@ public class DataInitialiserProd implements CommandLineRunner {
                 createHolesForCourseWithNoPar(12)));
         courses_2023.add(createCourse("Noahs Park Adventrue Golf, CM11 2UD",
                 createHolesForCourseWithNoPar(18)));
-        courses_2023.add(createCourse("Hackers, Explore Azura, CM12 9BQ",
-                createHolesForCourseWithNoPar(8)));
-        courses_2023.add(createCourse("Hackers, Explore Rosa, CM12 9BQ",
-                createHolesForCourseWithNoPar(8)));
+        courses_2023.add(createCourse("Hackers, Explore Azura & Rosa, CM12 9BQ",
+                createHolesForCourseWithNoPar(16)));
         courses_2023.add(createCourse("Rascal Bay Adventure Golf, CM1 2QT",
                 createHolesForCourseWithNoPar(19)));
         courses_2023.add(createCourse("The Notelys Golf Club, CM8 1ST",
@@ -837,49 +832,49 @@ public class DataInitialiserProd implements CommandLineRunner {
         tournament2016 = Tournament.builder()
                 ._year(Year.of(2016))
                 .courses(courses_2016)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         tournament2017 = Tournament.builder()
                 ._year(Year.of(2017))
                 .courses(courses_2017)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         tournament2018 = Tournament.builder()
                 ._year(Year.of(2018))
                 .courses(courses_2018)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         tournament2019 = Tournament.builder()
                 ._year(Year.of(2019))
                 .courses(courses_2019)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         tournament2020 = Tournament.builder()
                 ._year(Year.of(2020))
                 .courses(courses_2020)
-                .players(Arrays.asList(Rhys, Tom, Jamie, Jade))
+                .players(List.of(Rhys, Tom, Jamie, Jade))
                 .build();
 
         tournament2021 = Tournament.builder()
                 ._year(Year.of(2021))
                 .courses(courses_2021)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         tournament2022 = Tournament.builder()
                 ._year(Year.of(2022))
                 .courses(courses_2022)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         tournament2023 = Tournament.builder()
                 ._year(Year.of(2023))
                 .courses(courses_2023)
-                .players(Arrays.asList(Rhys, Tom, Jamie))
+                .players(List.of(Rhys, Tom, Jamie))
                 .build();
 
         Stream.of(tournament2016,
