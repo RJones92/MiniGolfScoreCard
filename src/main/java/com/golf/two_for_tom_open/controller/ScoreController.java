@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000") //required for local development
 @RequestMapping("/api/scores")
 public class ScoreController {
-    private static Logger logger = LoggerFactory.getLogger(ScoreController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScoreController.class);
     private final ScoreService scoreService;
 
     public ScoreController(ScoreService scoreService) {
@@ -29,7 +29,7 @@ public class ScoreController {
         return getResponseEntityFromListOfScores(scores, "all scores");
     }
 
-    private ResponseEntity<?> getResponseEntityFromListOfScores(List<ScoreDto> scores,String textToIdentifyRequestedObjects) {
+    private ResponseEntity<?> getResponseEntityFromListOfScores(List<ScoreDto> scores, String textToIdentifyRequestedObjects) {
         if (!scores.isEmpty()) {
             logger.info("There are {} results returned for {}.", scores.size(), textToIdentifyRequestedObjects);
             return ResponseEntity.ok(scores);
