@@ -77,7 +77,7 @@ class PlayerDtoEnricherTest {
         allTournaments.add(tournament_2015);
         allTournaments.add(tournament_2016);
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+        when(tournamentService.getAll()).thenReturn(allTournaments);
 
         //WHEN
         playerDtoEnricher.enrich(playerA);
@@ -110,7 +110,7 @@ class PlayerDtoEnricherTest {
         allTournaments.add(tournament_2015);
         allTournaments.add(tournament_2016);
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+        when(tournamentService.getAll()).thenReturn(allTournaments);
 
         //WHEN
         playerDtoEnricher.enrich(playerA);
@@ -162,7 +162,7 @@ class PlayerDtoEnricherTest {
         allTournaments.add(tournament_2015);
         allTournaments.add(tournament_2016);
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+        when(tournamentService.getAll()).thenReturn(allTournaments);
 
         //WHEN
         playerDtoEnricher.enrich(playerA);
@@ -221,7 +221,7 @@ class PlayerDtoEnricherTest {
         allTournaments.add(tournament_2015);
         allTournaments.add(tournament_2016);
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+        when(tournamentService.getAll()).thenReturn(allTournaments);
 
         //WHEN
         playerDtoEnricher.enrich(playerA);
@@ -285,7 +285,7 @@ class PlayerDtoEnricherTest {
         allTournaments.add(tournament_2015);
         allTournaments.add(tournament_2016);
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+        when(tournamentService.getAll()).thenReturn(allTournaments);
 
         //WHEN
         playerDtoEnricher.enrich(playerA);
@@ -328,7 +328,7 @@ class PlayerDtoEnricherTest {
         List<TournamentDto> allTournaments = new ArrayList<>();
         allTournaments.add(tournament_2015);
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(allTournaments);
+        when(tournamentService.getAll()).thenReturn(allTournaments);
 
         List<ScoreDto> scores = new ArrayList<>();
         scores.add(ScoreDto.builder().id(1).player(playerA).tournament(tournament_2015).hole(hole_1_Course_1).strokes(2).build());

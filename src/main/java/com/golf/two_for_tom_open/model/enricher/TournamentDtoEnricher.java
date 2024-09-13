@@ -42,7 +42,7 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
     private List<ScoreDto> getCourseScores(CourseDto course, List<ScoreDto> scores) {
         List<Integer> courseHoleIds = course.getHoles().stream()
                 .map(HoleDto::getId)
-                .collect(Collectors.toList());
+                .toList();
         return scores.stream()
                 .filter(score -> courseHoleIds.contains(score.getHole().getId()))
                 .collect(Collectors.toList());

@@ -52,18 +52,7 @@ class ScoreServiceImplTest {
     void testGetAll() {
         when(scoreRepository.findAll()).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
 
-        List<Score> scores = scoreService.getAll();
-
-        assertThat(scores, contains(score1ForPlayerX, score2ForPlayerX));
-        assertThat(scores, hasSize(2));
-        verify(scoreRepository, times(1)).findAll();
-    }
-
-    @Test
-    void testGetAllScoreDto() {
-        when(scoreRepository.findAll()).thenReturn(Arrays.asList(score1ForPlayerX, score2ForPlayerX));
-
-        List<ScoreDto> scores = scoreService.getAllScoreDto();
+        List<ScoreDto> scores = scoreService.getAll();
 
         assertThat(scores, contains(scoreMapper.scoreEntityToDto(score1ForPlayerX), scoreMapper.scoreEntityToDto(score2ForPlayerX)));
         assertThat(scores, hasSize(2));

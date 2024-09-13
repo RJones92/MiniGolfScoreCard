@@ -42,12 +42,12 @@ class PlayerControllerTest {
         List<PlayerDto> playerList = new ArrayList<>();
         playerList.add(new PlayerDto());
 
-        when(playerService.getAllPlayerDtos()).thenReturn(playerList);
+        when(playerService.getAll()).thenReturn(playerList);
 
         mockMvc.perform(get("/api/players"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
 
-        verify(playerService, times(1)).getAllPlayerDtos();
+        verify(playerService, times(1)).getAll();
     }
 }

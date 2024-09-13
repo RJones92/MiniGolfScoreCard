@@ -12,11 +12,9 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
@@ -30,7 +28,7 @@ class PlayerServiceImplTest {
     @Mock
     PlayerRepository playerRepository;
     @Mock
-    DtoEnricher playerDtoEnricher;
+    DtoEnricher<PlayerDto> playerDtoEnricher;
     PlayerMapper playerMapper = Mappers.getMapper(PlayerMapper.class);
 
     private final Player playerX = Player.builder().firstName("John").lastName("Smith").build();
@@ -43,17 +41,9 @@ class PlayerServiceImplTest {
 
     @Test
     void getAll() {
-        when(playerRepository.findAll()).thenReturn(Arrays.asList(playerX, playerY));
-        List<Player> players = playerService.getAll();
-        assertThat(players, contains(playerX, playerY));
-        assertThat(players, hasSize(2));
-    }
+        when(playerRepository.findAll()).thenReturn(List.of(playerX, playerY));
 
-    @Test
-    void testGetAllPlayerDtos() {
-        when(playerRepository.findAll()).thenReturn(Arrays.asList(playerX, playerY));
-
-        List<PlayerDto> players = playerService.getAllPlayerDtos();
+        List<PlayerDto> players = playerService.getAll();
 
         assertThat(players, hasSize(2));
         verify(playerRepository, times(1)).findAll();

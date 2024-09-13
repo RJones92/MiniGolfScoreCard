@@ -2,8 +2,6 @@ package com.golf.two_for_tom_open.controller;
 
 import com.golf.two_for_tom_open.model.dto.ScoreDto;
 import com.golf.two_for_tom_open.service.ScoreService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000") //required for local development
 @RequestMapping("/api/scores")
 public class ScoreController {
-    private static final Logger logger = LoggerFactory.getLogger(ScoreController.class);
+
     private final ScoreService scoreService;
 
     public ScoreController(ScoreService scoreService) {
@@ -24,19 +22,9 @@ public class ScoreController {
     }
 
     @GetMapping(value = {"/", ""})
-    public ResponseEntity<?> getScores() {
-        List<ScoreDto> scores = scoreService.getAllScoreDto();
-        return getResponseEntityFromListOfScores(scores, "all scores");
-    }
-
-    private ResponseEntity<?> getResponseEntityFromListOfScores(List<ScoreDto> scores, String textToIdentifyRequestedObjects) {
-        if (!scores.isEmpty()) {
-            logger.info("There are {} results returned for {}.", scores.size(), textToIdentifyRequestedObjects);
-            return ResponseEntity.ok(scores);
-        } else {
-            logger.info("There are no results for {}.", textToIdentifyRequestedObjects);
-            return ResponseEntity.noContent().build();
-        }
+    public ResponseEntity<List<ScoreDto>> getScores() {
+        List<ScoreDto> scores = scoreService.getAll();
+        return scores.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(scores);
     }
 
 }

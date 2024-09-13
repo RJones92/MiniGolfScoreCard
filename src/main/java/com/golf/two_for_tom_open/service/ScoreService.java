@@ -7,18 +7,16 @@ import java.time.Year;
 import java.util.Collection;
 import java.util.List;
 
-public interface ScoreService extends BaseService<Score> {
+public abstract class ScoreService implements BaseRepositoryService<Score>, BaseDtoService<ScoreDto> {
 
-    List<ScoreDto> getScoresForPlayerById(int playerId);
+    abstract List<ScoreDto> getScoresForPlayerById(int playerId);
 
-    List<ScoreDto> getScoresForPlayerByName(String firstName, String lastName);
+    abstract List<ScoreDto> getScoresForPlayerByName(String firstName, String lastName);
 
-    List<ScoreDto> getScoresForTournamentByYear(Year tournamentYear);
+    abstract List<ScoreDto> getScoresForTournamentByYear(Year tournamentYear);
 
-    List<ScoreDto> getScoresForTournamentById(int tournamentId);
+    public abstract List<ScoreDto> getScoresForTournamentById(int tournamentId);
 
-    List<ScoreDto> getScoresForTournamentsById(Collection<Integer> tournamentIds);
+    public abstract List<ScoreDto> getScoresForTournamentsById(Collection<Integer> tournamentIds);
 
-    List<ScoreDto> getAllScoreDto();
-
-    }
+}

@@ -26,7 +26,7 @@ public class PlayerController {
     @GetMapping(value = {"/", ""})
     public ResponseEntity<List<PlayerDto>> getAllPlayers() {
         log.info("Getting all players");
-        List<PlayerDto> players = playerService.getAllPlayerDtos();
+        List<PlayerDto> players = playerService.getAll();
         log.info("All tournaments received and being returned to consumer");
         return ResponseEntity.ok(players);
     }

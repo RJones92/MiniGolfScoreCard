@@ -8,13 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 
@@ -30,18 +26,6 @@ class CourseServiceImplTest {
             .courseName("Course A")
             .holes(Collections.emptyList())
             .build();
-    private final Course courseB = Course.builder()
-            .courseName("Course B")
-            .holes(Collections.emptyList())
-            .build();
-    
-    @Test
-    void getAll() {
-        when(courseRepository.findAll()).thenReturn(Arrays.asList(courseA, courseB));
-        List<Course> courses = courseService.getAll();
-        assertThat(courses, contains(courseA, courseB));
-        assertThat(courses, hasSize(2));
-    }
 
     @Test
     void save() {

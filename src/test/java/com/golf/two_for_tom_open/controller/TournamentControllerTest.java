@@ -41,7 +41,7 @@ class TournamentControllerTest {
         List<TournamentDto> tournamentList = new ArrayList<>();
         tournamentList.add(new TournamentDto());
 
-        when(tournamentService.getAllTournamentDtos()).thenReturn(tournamentList);
+        when(tournamentService.getAll()).thenReturn(tournamentList);
 
         mockMvc.perform(get("/api/tournaments"))
                 .andExpect(status().isOk())

@@ -20,7 +20,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
 
     @Override
     public void enrich(PlayerDto player) {
-        enrichedTournaments = tournamentService.getAllTournamentDtos();
+        enrichedTournaments = tournamentService.getAll();
         calculateStatistics(player);
     }
 
