@@ -9,7 +9,7 @@ function HomePage() {
 	const [rows, setRows] = useState<Array<TableRow>>([]);
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [error, setError] = useState<Error>();
-	const columnHeaders = ["Tournament", "Winner"];
+	const columnHeaders : TableRow = {cellValues : ["Tournament", "Winner"]};
 
 	useEffect(() => {
 		getAllTournaments()
@@ -23,19 +23,22 @@ function HomePage() {
 			});
 
 		function createRows(tournaments: Array<Tournament>) {
-      let formattedRows : Array<TableRow> = [];
+      		let formattedRows : Array<TableRow> = [];
 
 			Object.keys(tournaments).forEach((key) => {
 				let tournament = tournaments[key];
 				let winner =
 					tournament.winner.firstName + " " + tournament.winner.lastName;
 				let newRow : TableRow = {
-          cellValues: [tournament._year, winner]
+					cellValues: [tournament._year, winner]
 				};
-        formattedRows.push(newRow);
+				formattedRows.push(newRow);
 			})
-      setRows(formattedRows);
+
+      		setRows(formattedRows);
+			
 		}
+		
 	}, []);
 
 	if (error) {

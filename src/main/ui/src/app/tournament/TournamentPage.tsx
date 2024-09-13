@@ -12,18 +12,16 @@ import { Score } from "src/types/score";
 type TournamentTable = {
 	tableName: string | number,
 	table: ITable,
-  tournamentWinner: string
+  	tournamentWinner: string
 };
 
 function TournamentPage() {
-	const [tournamentTables, setTournamentTables] = useState<Array<TournamentTable>>([]);
-	const [isLoaded, setIsLoaded] = useState(false);
 	const [error, setError] = useState<Error>();
+	const [html, setHtml] = useState<JSX.Element>(<div>Loading...</div>);
 
 	useEffect(() => {
 		Promise.all([getAllTournaments(), getAllScores()])
 			.then(([allTournaments, allScores]) => {
-				setIsLoaded(true);
 				const tableObjects : Array<TournamentTable> = [];
 
 				Object.keys(allTournaments).forEach((key) => {
@@ -31,10 +29,9 @@ function TournamentPage() {
 					tableObjects.push(createTournamentTable(tournament, allScores));
 				});
 
-				setTournamentTables(tableObjects);
+				setHtml(createHtml(tableObjects));
 			})
 			.catch((error) => {
-				setIsLoaded(true);
 				setError(error);
 			});
 
@@ -48,9 +45,9 @@ function TournamentPage() {
 			return {
 				tableName: tournament._year,
 				table: {
-          columnHeaders: tableHeaders,
-          rows: tableRows
-        },
+					columnHeaders: {cellValues : tableHeaders},
+					rows: tableRows
+				},
 				tournamentWinner: tournament.winner.firstName + " " + tournament.winner.lastName
 			};
 		}
@@ -76,11 +73,11 @@ function TournamentPage() {
 			players: Array<Player>,
 			allScores: Array<Score>
 		): TableRow {
-      let rowValues : Array<number | string> = [];
-      // first cell
-      rowValues["courseName"] = course.courseName;
-      
-      // score cells
+			let rowValues : Array<number | string> = [];
+			// first cell
+			rowValues["courseName"] = course.courseName;
+			
+			// score cells
 			Object.keys(players).forEach((playerKey) => {
 				const player = players[playerKey];
 				const playerScoreForCourse: number = getScoreForCourseForPlayer(
@@ -133,36 +130,38 @@ function TournamentPage() {
 			return totalCourseScoreForPlayer;
 		}
 
+		function createHtml(tables : Array<TournamentTable>) : JSX.Element {
+			return (
+				<div className="container-fluid">
+					{tables.map((tournamentTable, index) => (
+						<div key={index}>
+							<h2>{tournamentTable.tableName}</h2>
+							<p>Winner: {tournamentTable.tournamentWinner}</p>
+							<div className="row">
+								<div className="col-md-6">
+									<div>
+										<Table
+											key={tournamentTable.tableName}
+											columnHeaders={tournamentTable.table.columnHeaders}
+											rows={tournamentTable.table.rows}
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			);
+		}
+
 	}, []);
 
 
 
 	if (error) {
 		return <div>Error: {error.message}</div>;
-	} else if (!isLoaded) {
-		return <div>Loading...</div>;
 	} else {
-		return (
-			<div className="container-fluid">
-				{tournamentTables.map((tournamentTable, index) => (
-					<div key={index}>
-						<h2>{tournamentTable.tableName}</h2>
-						<p>Winner: {tournamentTable.tournamentWinner}</p>
-						<div className="row">
-							<div className="col-md-6">
-								<div>
-									<Table
-										key={tournamentTable.tableName}
-										columnHeaders={tournamentTable.table.columnHeaders}
-										rows={tournamentTable.table.rows}
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
-				))}
-			</div>
-		);
+		return html;		
 	}
 }
 

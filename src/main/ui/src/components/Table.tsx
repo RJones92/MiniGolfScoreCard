@@ -1,15 +1,15 @@
 import React from 'react';
 
 export interface ITable {
-  columnHeaders: Array<string>,
-  rows: Array<TableRow>
+  columnHeaders: TableRow,
+  rows: Array<TableRow>,
 }
 
 export interface TableRow {
   cellValues: Array<string | number>
 }
 
-function Table({ columnHeaders, rows }) {
+function Table({ columnHeaders, rows } : ITable) {
   const tableRows : Array<Array<JSX.Element>> = [];
   createRows();
 
@@ -18,7 +18,7 @@ function Table({ columnHeaders, rows }) {
       let tableDataElements : Array<JSX.Element> = [];
 
       Object.keys(row.cellValues).forEach((key, columnIndex) => {
-        let elementKey : string = index + columnIndex;
+        let elementKey : string | number = index + columnIndex;
         let elementText : string = row.cellValues[key];
         let element = <td key={elementKey}>{elementText}</td>;
         tableDataElements.push(element);
@@ -26,13 +26,14 @@ function Table({ columnHeaders, rows }) {
 
       tableRows.push(tableDataElements);
     });
+
   }
 
   return (
     <table className='table mt-4'>
       <thead>
         <tr key='columnHeaders'>
-          {columnHeaders.map((headerName : string) => (
+          {columnHeaders.cellValues.map((headerName : string) => (
             <th key={headerName} scope='col'>
               {headerName}
             </th>
