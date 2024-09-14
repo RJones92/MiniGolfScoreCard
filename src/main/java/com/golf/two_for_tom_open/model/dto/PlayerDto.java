@@ -1,8 +1,13 @@
 package com.golf.two_for_tom_open.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.Objects;
 
 @Builder
 @Getter
@@ -10,19 +15,12 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-@Component
 public class PlayerDto {
 
     private int id;
     private String firstName;
     private String lastName;
-    private long countOfTournamentsPlayed;
-    private long countOfTournamentsWon;
-    private long countOfCoursesPlayed;
-    private long countOfCoursesWon;
-    private long countOfHolesPlayed;
-    private long countOfHolesWon;
-
+    private PlayerStatsDto playerStats;
 
     @Override
     public boolean equals(Object o) {
@@ -32,8 +30,8 @@ public class PlayerDto {
         PlayerDto playerDto = (PlayerDto) o;
 
         if (id != playerDto.id) return false;
-        if (firstName != null ? !firstName.equals(playerDto.firstName) : playerDto.firstName != null) return false;
-        return lastName != null ? lastName.equals(playerDto.lastName) : playerDto.lastName == null;
+        return Objects.equals(firstName, playerDto.firstName) &&
+                Objects.equals(lastName, playerDto.lastName);
     }
 
     @Override

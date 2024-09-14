@@ -1,14 +1,21 @@
 package com.golf.two_for_tom_open.model.enricher;
 
-import com.golf.two_for_tom_open.model.dto.*;
+import com.golf.two_for_tom_open.model.dto.CourseDto;
+import com.golf.two_for_tom_open.model.dto.HoleDto;
+import com.golf.two_for_tom_open.model.dto.PlayerDto;
+import com.golf.two_for_tom_open.model.dto.PlayerStatsDto;
+import com.golf.two_for_tom_open.model.dto.ScoreDto;
+import com.golf.two_for_tom_open.model.dto.TournamentDto;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.BiPredicate;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -21,18 +28,17 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     @Override
     public void enrich(PlayerDto player) {
         enrichedTournaments = tournamentService.getAll();
-        calculateStatistics(player);
+        player.setPlayerStats(calculateStatistics(player));
     }
 
-    private void calculateStatistics(PlayerDto player) {
-        player.setCountOfTournamentsPlayed(countTournamentsPlayed(player));
-        player.setCountOfTournamentsWon(countTournamentsWon(player));
-
-        player.setCountOfCoursesPlayed(countCoursesPlayed(player));
-        player.setCountOfCoursesWon(countCoursesWon(player));
-
-        player.setCountOfHolesPlayed(countHolesPlayed(player));
-        player.setCountOfHolesWon(countHolesWon(player));
+    private PlayerStatsDto calculateStatistics(PlayerDto player) {
+        return new PlayerStatsDto(
+                countTournamentsPlayed(player),
+                countTournamentsWon(player),
+                countCoursesPlayed(player),
+                countCoursesWon(player),
+                countHolesPlayed(player),
+                countHolesWon(player));
     }
 
     private long countTournamentsPlayed(PlayerDto player) {
@@ -42,11 +48,13 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     private List<TournamentDto> tournamentsPlayed(PlayerDto player) {
         return enrichedTournaments.stream()
                 .filter(tournament -> isPlayerInTournament.test(tournament, player))
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    private final BiPredicate<TournamentDto, PlayerDto> isPlayerInTournament = (tournament, player) -> tournament.getPlayers().stream()
-            .anyMatch(tournamentPlayer -> tournamentPlayer.equals(player));
+    private final BiPredicate<TournamentDto, PlayerDto> isPlayerInTournament = (tournament, player) ->
+            tournament.getPlayers()
+                    .stream()
+                    .anyMatch(tournamentPlayer -> tournamentPlayer.equals(player));
 
     private long countTournamentsWon(PlayerDto player) {
         return enrichedTournaments.stream()
@@ -63,7 +71,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                 .filter(tournament -> isPlayerInTournament.test(tournament, player))
                 .map(TournamentDto::getCourses)
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private long countCoursesWon(PlayerDto player) {
@@ -89,7 +97,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
         return coursesPlayed.stream()
                 .map(CourseDto::getHoles)
                 .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private long countHolesWon(PlayerDto player) throws NoSuchElementException {
@@ -97,7 +105,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
 
         List<ScoreDto> scoresForThisPlayer = allScoresForTournamentsThisPlayerPlayed.stream()
                 .filter(score -> score.getPlayer().equals(player))
-                .collect(Collectors.toList());
+                .toList();
 
         return scoresForThisPlayer.stream()
                 .filter(playerScore -> {
@@ -114,14 +122,14 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     private List<ScoreDto> scoresForTournamentsPlayerPlayedIn(PlayerDto player) {
         List<Integer> tournamentIdsOfTournamentsPlayed = tournamentsPlayed(player).stream()
                 .map(TournamentDto::getId)
-                .collect(Collectors.toList());
+                .toList();
         return scoreService.getScoresForTournamentsById(tournamentIdsOfTournamentsPlayed);
     }
 
     private List<ScoreDto> getScoresWithSameHoleAndSameTournament(List<ScoreDto> allScores, ScoreDto scoreToTest) {
         return allScores.stream()
                 .filter(score -> isScoreSameHoleAndSameTournament.test(score, scoreToTest))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private final BiPredicate<ScoreDto, ScoreDto> isScoreSameHoleAndSameTournament = (ScoreDto score1, ScoreDto score2) ->
@@ -137,7 +145,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
         return scoresForHole.stream()
                 .filter(score -> score.getStrokes() == lowestStrokesForHole)
                 .map(ScoreDto::getPlayer)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

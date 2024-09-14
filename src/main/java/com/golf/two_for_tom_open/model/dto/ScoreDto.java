@@ -1,7 +1,11 @@
 package com.golf.two_for_tom_open.model.dto;
 
-import lombok.*;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -9,7 +13,6 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 public class ScoreDto {
 
     private int id;

@@ -61,7 +61,7 @@ function PlayerPage() {
       column.push(player.firstName + ' ' + player.lastName);
 
       for (const statName of statTypes.keys()) {
-        column.push(player[statName]);
+        column.push(player.playerStats[statName]);
       }
 
       return column;
