@@ -2,14 +2,10 @@ export type Player = {
     id: number,
     firstName: string,
     lastName: string,
-    playerStats: PlayerStats
+    playerStats: Array<Statistic>
 }
 
-type PlayerStats = {
-    countOfTournamentsPlayed: number,
-    countOfTournamentsWon : number,
-    countOfCoursesPlayed: number,
-    countOfCoursesWon: number,
-    countOfHolesPlayed: number,
-    countOfHolesWon: number,
+type Statistic = {
+    statName: string,
+    statValue : string
 }

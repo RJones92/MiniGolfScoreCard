@@ -61,7 +61,8 @@ function PlayerPage() {
       column.push(player.firstName + ' ' + player.lastName);
 
       for (const statName of statTypes.keys()) {
-        column.push(player.playerStats[statName]);
+        let statistic = player.playerStats.find((stat => stat.statName === statName));
+        statistic != null ?column.push(statistic.statValue) : "";
       }
 
       return column;

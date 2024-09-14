@@ -1,26 +1,24 @@
 package com.golf.two_for_tom_open.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
+import com.golf.two_for_tom_open.model.dto.stat.Stat;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class PlayerDto {
 
     private int id;
     private String firstName;
     private String lastName;
-    private PlayerStatsDto playerStats;
+    private List<Stat> playerStats;
 
     @Override
     public boolean equals(Object o) {

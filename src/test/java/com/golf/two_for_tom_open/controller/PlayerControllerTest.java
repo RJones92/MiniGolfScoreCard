@@ -40,7 +40,7 @@ class PlayerControllerTest {
     @Test
     void getAllPlayers() throws Exception {
         List<PlayerDto> playerList = new ArrayList<>();
-        playerList.add(new PlayerDto());
+        playerList.add(PlayerDto.builder().build());
 
         when(playerService.getAll()).thenReturn(playerList);
 

@@ -3,9 +3,9 @@ package com.golf.two_for_tom_open.model.enricher;
 import com.golf.two_for_tom_open.model.dto.CourseDto;
 import com.golf.two_for_tom_open.model.dto.HoleDto;
 import com.golf.two_for_tom_open.model.dto.PlayerDto;
-import com.golf.two_for_tom_open.model.dto.PlayerStatsDto;
 import com.golf.two_for_tom_open.model.dto.ScoreDto;
 import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.dto.stat.Stat;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +16,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.BiPredicate;
+
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.COURSES_PLAYED;
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.COURSES_WON;
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.HOLES_PLAYED;
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.HOLES_WON;
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.TOURNAMENTS_PLAYED;
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.TOURNAMENTS_WON;
 
 @RequiredArgsConstructor
 @Component
@@ -31,14 +38,15 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
         player.setPlayerStats(calculateStatistics(player));
     }
 
-    private PlayerStatsDto calculateStatistics(PlayerDto player) {
-        return new PlayerStatsDto(
-                countTournamentsPlayed(player),
-                countTournamentsWon(player),
-                countCoursesPlayed(player),
-                countCoursesWon(player),
-                countHolesPlayed(player),
-                countHolesWon(player));
+    private List<Stat> calculateStatistics(PlayerDto player) {
+        return List.of(
+                TOURNAMENTS_PLAYED.buildStat().apply(countTournamentsPlayed(player)),
+                TOURNAMENTS_WON.buildStat().apply(countTournamentsWon(player)),
+                COURSES_PLAYED.buildStat().apply(countCoursesPlayed(player)),
+                COURSES_WON.buildStat().apply(countCoursesWon(player)),
+                HOLES_PLAYED.buildStat().apply(countHolesPlayed(player)),
+                HOLES_WON.buildStat().apply(countHolesWon(player))
+        );
     }
 
     private long countTournamentsPlayed(PlayerDto player) {
