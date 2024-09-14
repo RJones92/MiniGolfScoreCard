@@ -42,10 +42,10 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
     private List<ScoreDto> getCourseScores(CourseDto course, List<ScoreDto> scores) {
         List<Integer> courseHoleIds = course.getHoles().stream()
                 .map(HoleDto::getId)
-                .collect(Collectors.toList());
+                .toList();
         return scores.stream()
                 .filter(score -> courseHoleIds.contains(score.getHole().getId()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private PlayerDto getCourseWinner(List<ScoreDto> courseScores, List<PlayerDto> tournamentPlayers) {
@@ -54,7 +54,7 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
         List<Integer> lowestStrokePlayerIds = getPlayerIdsWithLowestStroke(playerId_countOfStrokes);
         List<PlayerDto> lowestStrokePlayers = tournamentPlayers.stream()
                 .filter(tournamentPlayer -> lowestStrokePlayerIds.contains(tournamentPlayer.getId()))
-                .collect(Collectors.toList());
+                .toList();
 
         if (lowestStrokePlayers.size() > 1) {
             return playerWithMostHolesInOne(courseScores, lowestStrokePlayers);
@@ -87,7 +87,7 @@ public class TournamentDtoEnricher implements DtoEnricher<TournamentDto> {
         return playerId_countOfStrokes.entrySet().stream()
                 .filter(entry -> entry.getValue() == lowestNumberOfStrokes)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .toList();
 
     }
 

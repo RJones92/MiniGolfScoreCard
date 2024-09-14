@@ -14,10 +14,11 @@ import org.springframework.stereotype.Service;
 import java.time.Year;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.Collections.emptyList;
 
 @Service
-public class ScoreServiceImpl implements ScoreService {
+public class ScoreServiceImpl extends ScoreService {
     private static Logger logger = LoggerFactory.getLogger(ScoreController.class);
 
     @PersistenceContext
@@ -31,13 +32,8 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<Score> getAll() {
-        return scoreRepository.findAll();
-    }
-
-    @Override
-    public List<ScoreDto> getAllScoreDto() {
-        List<Score> scores = this.getAll();
+    public List<ScoreDto> getAll() {
+        List<Score> scores = scoreRepository.findAll();
         return map(scores);
     }
 
@@ -103,13 +99,13 @@ public class ScoreServiceImpl implements ScoreService {
             logger.error("Error retrieving scores for tournament ID's.");
             logger.error(e.getMessage());
         }
-        return null;
+        return emptyList();
     }
 
     private List<ScoreDto> map(List<Score> scores) {
         return scores.stream()
                 .map(scoreMapper::scoreEntityToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Table from '../../components/Table';
+import Table, { ITable, TableRow } from '../../components/Table';
 import { getAllPlayers } from '../../services/playerService';
+import { Player } from 'src/types/player';
 
 const statTypes = new Map([
   ['countOfTournamentsPlayed', 'Tournaments played'],
@@ -14,46 +15,38 @@ const statTypes = new Map([
 ]);
 
 function PlayerPage() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(null);
-  const [playerStatsTableObjects, setPlayerStatsTableObjects] = useState([]);
+  const [error, setError] = useState<Error>();
+  const [html, setHtml] = useState<JSX.Element>(<div>Loading...</div>);
 
   useEffect(() => {
     getAllPlayers().then(
       (allPlayers) => {
         let statsTable = createStatsTable(allPlayers);
-        setPlayerStatsTableObjects(statsTable);
-        setIsLoaded(true);
-      },
-      (error) => {
+        setHtml(createHtml(statsTable));
+      })
+      .catch((error) => {
         setError(error);
-        setIsLoaded(true);
-      }
-    );
+      });
 
-    function createStatsTable(allPlayers) {
+    function createStatsTable(allPlayers : Array<Player>) : ITable {
       const tableColumns = createStatsTableColumns(allPlayers);
       const tableAsRows = transposeColumnsToRows(tableColumns);
 
-      let headerRow = [];
-      let otherRows = [];
-      for (let i = 0; i < tableAsRows.length; i++) {
-        if (i === 0) {
-          headerRow = tableAsRows[0];
-        } else {
-          otherRows.push(tableAsRows[i]);
-        }
+      let headerRow : TableRow = tableAsRows[0];
+      let otherRows : Array<TableRow> = [];
+      for (let i = 1; i < tableAsRows.length; i++) {
+        otherRows.push(tableAsRows[i]);
       }
 
       return {
-        headers: headerRow,
-        rows: otherRows,
+        columnHeaders : headerRow,
+        rows: [...otherRows],
       };
+
     }
 
-    function createStatsTableColumns(allPlayers) {
-      const playerKeys = Object.keys(allPlayers);
-      const playerColumns = playerKeys.map((playerKey) =>
+    function createStatsTableColumns(allPlayers : Array<Player>) {
+      const playerColumns : Array<Array<string>> = Object.keys(allPlayers).map((playerKey) =>
         createPlayerColumn(allPlayers[playerKey])
       );
 
@@ -63,52 +56,54 @@ function PlayerPage() {
       };
     }
 
-    function createPlayerColumn(player) {
-      const column = [];
+    function createPlayerColumn(player : Player) : Array<string> {
+      const column : Array<string> = [];
       column.push(player.firstName + ' ' + player.lastName);
 
       for (const statName of statTypes.keys()) {
-        column.push(player[statName]);
+        column.push(player.playerStats[statName]);
       }
 
       return column;
     }
 
-    function transposeColumnsToRows(tableColumns) {
-      let rows = [];
+    function transposeColumnsToRows(tableColumns : {headerColumn : Array<string>, playerColumns : Array<Array<string>>}) : Array<TableRow> {
+      let rows : Array<TableRow> = [];
       for (let i = 0; i < tableColumns.headerColumn.length; i++) {
-        let row = [];
+        let row : Array<string> = [];
         row.push(tableColumns.headerColumn[i]);
 
         for (let x = 0; x < tableColumns.playerColumns.length; x++) {
           row.push(tableColumns.playerColumns[x][i]);
         }
 
-        rows.push(row);
+        rows.push({cellValues : row});
       }
 
       return rows;
     }
-  }, []);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  } else if (!isLoaded) {
-    return <div>Loading...</div>;
-  } else {
-    console.log(playerStatsTableObjects);
-    return (
-      <div className='container-fluid'>
+    function createHtml(table : ITable) : JSX.Element {
+      return (
+        <div className='container-fluid'>
         <div className='row'>
           <div className='col-md-6'>
             <Table
-              columnHeaders={playerStatsTableObjects.headers}
-              rows={playerStatsTableObjects.rows}
+              columnHeaders={table.columnHeaders}
+              rows={table.rows}
             />
           </div>
         </div>
       </div>
-    );
+      )
+    }
+
+  }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else {
+    return html;
   }
 }
 

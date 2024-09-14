@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -35,7 +34,7 @@ class TournamentServiceImplTest {
     @Mock
     TournamentRepository tournamentRepository;
     @Mock
-    DtoEnricher tournamentDtoEnricher;
+    DtoEnricher<TournamentDto> tournamentDtoEnricher;
     TournamentMapper tournamentMapper = Mappers.getMapper(TournamentMapper.class);
 
     private final Tournament tournament2015 = Tournament.builder()
@@ -55,21 +54,10 @@ class TournamentServiceImplTest {
     }
 
     @Test
-    void getAll() {
-        when(tournamentRepository.findAll()).thenReturn(Arrays.asList(tournament2015, tournament2016));
-
-        List<Tournament> tournaments = tournamentService.getAll();
-
-        assertThat(tournaments, contains(tournament2015, tournament2016));
-        assertThat(tournaments, hasSize(2));
-        verify(tournamentRepository, times(1)).findAll();
-    }
-
-    @Test
     void testGetAllTournamentDtos() {
         when(tournamentRepository.findAll()).thenReturn(Arrays.asList(tournament2015, tournament2016));
 
-        List<TournamentDto> tournaments = tournamentService.getAllTournamentDtos();
+        List<TournamentDto> tournaments = tournamentService.getAll();
 
         assertThat(tournaments, hasSize(2));
         verify(tournamentRepository, times(1)).findAll();
