@@ -1,31 +1,51 @@
 package com.golf.two_for_tom_open.model.enricher;
 
-import com.golf.two_for_tom_open.model.dto.*;
+import com.golf.two_for_tom_open.model.dto.CourseDto;
+import com.golf.two_for_tom_open.model.dto.HoleDto;
+import com.golf.two_for_tom_open.model.dto.PlayerDto;
+import com.golf.two_for_tom_open.model.dto.ScoreDto;
+import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.dto.stat.Stat;
+import com.golf.two_for_tom_open.model.enricher.calculator.PlayerStatCalculator;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Year;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiFunction;
 
+import static com.golf.two_for_tom_open.model.dto.stat.Stat.COUNT_OF_PREFIX;
 import static java.util.Collections.singletonList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerDtoEnricherTest {
 
+    // TODO move most these tests to the PlaywerStatCalculator
+    // they will fail until they are moved as we aren't mocking the PlayerStatCal response
+
     @Mock
-    TournamentService tournamentService;
+    private TournamentService tournamentService;
     @Mock
-    ScoreService scoreService;
-    PlayerDtoEnricher playerDtoEnricher;
+    private PlayerStatCalculator playerStatCalculator;
+    @InjectMocks
+    private PlayerDtoEnricher playerDtoEnricher;
+    @Mock
+    private ScoreService scoreService;
 
     private static final int PLAYER_A_ID = 1;
     private static final String PLAYER_A_FIRST_NAME = "John";
@@ -37,10 +57,14 @@ class PlayerDtoEnricherTest {
     private PlayerDto playerA;
     private PlayerDto playerB;
 
+    private static final BiFunction<PlayerDto, String, List<Stat>> getStatsByName = (player, statName) ->
+            player.getPlayerStats().stream()
+                    .filter(stat -> stat.getStatName().equals(statName))
+                    .toList();
+
     @BeforeEach
     void setUp() {
         initialisePlayers();
-        playerDtoEnricher = new PlayerDtoEnricher(tournamentService, scoreService);
     }
 
     private void initialisePlayers() {
@@ -79,13 +103,19 @@ class PlayerDtoEnricherTest {
 
         when(tournamentService.getAll()).thenReturn(allTournaments);
 
+//        when(playerStatCalculator.countTournamentsWon(playerA, playerB))
+
         //WHEN
         playerDtoEnricher.enrich(playerA);
         playerDtoEnricher.enrich(playerB);
 
         //THEN
-        assertThat(playerA.getPlayerStats().countOfTournamentsPlayed(), equalTo(2L));
-        assertThat(playerB.getPlayerStats().countOfTournamentsPlayed(), equalTo(1L));
+        assertThat(playerA.getPlayerStats().size(), is(6));
+        String statName = COUNT_OF_PREFIX.concat("TournamentsPlayed");
+        assertThat(getStatsByName.apply(playerA, statName).size(), is(1));
+        assertThat(getStatsByName.apply(playerA, statName).get(0).getStatValue(), equalTo(2L));
+        assertThat(getStatsByName.apply(playerB, statName).size(), is(1));
+        assertThat(getStatsByName.apply(playerB, statName).get(0).getStatValue(), equalTo(1L));
 
     }
 
@@ -116,7 +146,8 @@ class PlayerDtoEnricherTest {
         playerDtoEnricher.enrich(playerA);
 
         //THEN
-        assertThat(playerA.getPlayerStats().countOfTournamentsWon(), equalTo(1L));
+        String statName = COUNT_OF_PREFIX.concat("TournamentsWon");
+        assertThat(getStatsByName.apply(playerA, statName), equalTo(1L));
     }
 
     @Test
@@ -168,7 +199,8 @@ class PlayerDtoEnricherTest {
         playerDtoEnricher.enrich(playerA);
 
         //THEN
-        assertThat(playerA.getPlayerStats().countOfCoursesPlayed(), equalTo(4L));
+        String statName = COUNT_OF_PREFIX.concat("CoursesPlayed");
+        assertThat(getStatsByName.apply(playerA, statName), equalTo(4L));
     }
 
     @Test
@@ -227,7 +259,8 @@ class PlayerDtoEnricherTest {
         playerDtoEnricher.enrich(playerA);
 
         //THEN
-        assertThat(playerA.getPlayerStats().countOfCoursesWon(), equalTo(3L));
+        String statName = COUNT_OF_PREFIX.concat("CoursesWon");
+        assertThat(getStatsByName.apply(playerA, statName), equalTo(3L));
     }
 
     @Test
@@ -291,7 +324,8 @@ class PlayerDtoEnricherTest {
         playerDtoEnricher.enrich(playerA);
 
         //THEN
-        assertThat(playerA.getPlayerStats().countOfHolesPlayed(), equalTo(8L));
+        String statName = COUNT_OF_PREFIX.concat("HolesPlayed");
+        assertThat(getStatsByName.apply(playerA, statName).size(), equalTo(8L));
     }
 
     @Test
@@ -348,6 +382,7 @@ class PlayerDtoEnricherTest {
         playerDtoEnricher.enrich(playerA);
 
         //THEN
-        assertThat(playerA.getPlayerStats().countOfHolesWon(), equalTo(4L));
+        String statName = COUNT_OF_PREFIX.concat("HoleWon");
+        assertThat(getStatsByName.apply(playerA, statName), equalTo(4L));
     }
 }
