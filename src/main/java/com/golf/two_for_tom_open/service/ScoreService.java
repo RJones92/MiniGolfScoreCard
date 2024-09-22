@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class ScoreService implements BaseRepositoryService<Score>, BaseDtoService<ScoreDto> {
 
-    abstract List<ScoreDto> getScoresForPlayerById(int playerId);
+    public abstract List<ScoreDto> getScoresForPlayerById(int playerId);
 
     abstract List<ScoreDto> getScoresForPlayerByName(String firstName, String lastName);
 

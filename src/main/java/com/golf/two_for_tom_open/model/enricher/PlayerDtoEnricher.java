@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.AVG_STROKES_PER_HOLE;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.COURSES_PLAYED;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.COURSES_WON;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.HOLES_IN_ONE;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.HOLES_PLAYED;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.HOLES_WON;
+import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.TOTAL_STROKES;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.TOURNAMENTS_PLAYED;
 import static com.golf.two_for_tom_open.model.dto.stat.StatBuilder.TOURNAMENTS_WON;
 
@@ -57,7 +59,13 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                         .apply(playerStatCalculator.countHolesWon(player, tournaments)),
                 HOLES_IN_ONE
                         .buildStat()
-                        .apply(playerStatCalculator.countHolesInOne(player, tournaments))
+                        .apply(playerStatCalculator.countHolesInOne(player, tournaments)),
+                TOTAL_STROKES
+                        .buildStat()
+                        .apply(playerStatCalculator.totalStrokes(player)),
+                AVG_STROKES_PER_HOLE
+                        .buildStat()
+                        .apply(playerStatCalculator.averageStrokesPerHole(player, tournaments))
         );
     }
 

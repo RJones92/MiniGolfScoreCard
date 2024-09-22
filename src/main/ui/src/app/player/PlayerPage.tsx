@@ -12,7 +12,9 @@ const statTypes = new Map([
   ['countOfCoursesWon', 'Courses won'],
   ['countOfHolesPlayed', 'Holes played'],
   ['countOfHolesWon', 'Holes won'],
-  ['countOfHolesInOne', 'Holes in one']
+  ['countOfHolesInOne', 'Holes in one'],
+  ['countOfStrokes', 'Total strokes'],
+  ['avgStrokesPerHole', 'Average Strokes per hole']
 ]);
 
 function PlayerPage() {

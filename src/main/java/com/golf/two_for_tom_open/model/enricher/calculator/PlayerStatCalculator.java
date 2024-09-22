@@ -80,4 +80,17 @@ public class PlayerStatCalculator {
                 .count();
     }
 
+    public long totalStrokes(PlayerDto playerDto) {
+        return scoreService.getScoresForPlayerById(playerDto.getId())
+                .stream()
+                .map(ScoreDto::getStrokes)
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public long averageStrokesPerHole(PlayerDto playerDto, List<TournamentDto> tournaments) {
+        // TODO this needs to be to two decimal places
+        return totalStrokes(playerDto) / countHolesPlayed(playerDto, tournaments);
+    }
+
 }

@@ -12,7 +12,9 @@ public enum StatBuilder {
     COURSES_WON(value -> new AbstractStat(COUNT_OF_PREFIX.concat("CoursesWon"), value) {}),
     HOLES_PLAYED(value -> new AbstractStat(COUNT_OF_PREFIX.concat("HolesPlayed"), value) {}),
     HOLES_WON(value -> new AbstractStat(COUNT_OF_PREFIX.concat("HolesWon"), value) {}),
-    HOLES_IN_ONE(value -> new AbstractStat(COUNT_OF_PREFIX.concat("HolesInOne"), value) {});
+    HOLES_IN_ONE(value -> new AbstractStat(COUNT_OF_PREFIX.concat("HolesInOne"), value) {}),
+    TOTAL_STROKES(value -> new AbstractStat(COUNT_OF_PREFIX.concat("Strokes"), value) {}),
+    AVG_STROKES_PER_HOLE(value -> new AbstractStat("avgStrokesPerHole", value) {});
 
     private final Function<Long, Stat> buildStat;
 
