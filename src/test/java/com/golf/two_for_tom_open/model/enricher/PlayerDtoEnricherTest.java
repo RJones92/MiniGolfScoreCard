@@ -44,8 +44,6 @@ class PlayerDtoEnricherTest {
     private PlayerStatCalculator playerStatCalculator;
     @InjectMocks
     private PlayerDtoEnricher playerDtoEnricher;
-    @Mock
-    private ScoreService scoreService;
 
     private static final int PLAYER_A_ID = 1;
     private static final String PLAYER_A_FIRST_NAME = "John";
