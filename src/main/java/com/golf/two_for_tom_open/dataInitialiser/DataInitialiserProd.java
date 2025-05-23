@@ -1,10 +1,7 @@
 package com.golf.two_for_tom_open.dataInitialiser;
 
-import com.golf.two_for_tom_open.model.entity.Course;
-import com.golf.two_for_tom_open.model.entity.Hole;
-import com.golf.two_for_tom_open.model.entity.Player;
-import com.golf.two_for_tom_open.model.entity.Score;
-import com.golf.two_for_tom_open.model.entity.Tournament;
+import com.golf.two_for_tom_open.dataInitialiser.prod.CourseCreator;
+import com.golf.two_for_tom_open.model.entity.*;
 import com.golf.two_for_tom_open.service.CourseService;
 import com.golf.two_for_tom_open.service.PlayerService;
 import com.golf.two_for_tom_open.service.ScoreService;
@@ -18,8 +15,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -34,6 +29,8 @@ public class DataInitialiserProd implements CommandLineRunner {
     private final ScoreService scoreService;
     private final TournamentService tournamentService;
 
+    private final CourseCreator courseCreator;
+
     private Player Rhys;
     private Player Tom;
     private Player Jamie;
@@ -47,6 +44,7 @@ public class DataInitialiserProd implements CommandLineRunner {
     private List<Course> courses_2021;
     private List<Course> courses_2022;
     private List<Course> courses_2023;
+    private List<Course> courses_2024;
 
     private Tournament tournament2016;
     private Tournament tournament2017;
@@ -56,6 +54,22 @@ public class DataInitialiserProd implements CommandLineRunner {
     private Tournament tournament2021;
     private Tournament tournament2022;
     private Tournament tournament2023;
+    private Tournament tournament2024;
+
+    private static final Map<Year, List<Course>> COURSES_BY_YEAR;
+
+    static {
+        COURSES_BY_YEAR = Map.of(
+                Year.of(2016), new ArrayList<>(),
+                Year.of(2017), new ArrayList<>(),
+                Year.of(2018), new ArrayList<>(),
+                Year.of(2019), new ArrayList<>(),
+                Year.of(2020), new ArrayList<>(),
+                Year.of(2021), new ArrayList<>(),
+                Year.of(2022), new ArrayList<>(),
+                Year.of(2023), new ArrayList<>(),
+                Year.of(2024), new ArrayList<>());
+    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -626,272 +640,37 @@ public class DataInitialiserProd implements CommandLineRunner {
 
     // ++++++++++++++++ COURSES ++++++++++++++++
     private void createCourses() {
-        buildCourses_2016();
-        buildCourses_2017();
-        buildCourses_2018();
-        buildCourses_2019();
-        buildCourses_2020();
-        buildCourses_2021();
-        buildCourses_2022();
-        buildCourses_2023();
-
-        saveCourses(Stream.of(
-                courses_2016,
-                courses_2017,
-                courses_2018,
-                courses_2019,
-                courses_2020,
-                courses_2021,
-                courses_2022,
-                courses_2023).flatMap(List::stream).toList());
-    }
-
-    private void saveCourses(List<Course> courses) {
-        for (Course course : courses) {
-            courseService.save(course);
-        }
-    }
-
-    private void buildCourses_2016() {
-        if (isCourseListAlreadyPopulated(courses_2016)) return;
-        Map<String, Integer> courseNameWithNumberOfHoles = new LinkedHashMap<>();
-        courseNameWithNumberOfHoles.put("Hastings course 1", 18);
-        courseNameWithNumberOfHoles.put("Hastings course 2", 18);
-        courseNameWithNumberOfHoles.put("Hastings course 3", 18);
-        courseNameWithNumberOfHoles.put("Brighton Jungle Rumble course 1", 18);
-        courseNameWithNumberOfHoles.put("Brighton Caveman course", 18);
-        courses_2016 = new LinkedList<>();
-        for (Map.Entry<String, Integer> entry : courseNameWithNumberOfHoles.entrySet()) {
-            courses_2016.add(createCourse(entry.getKey(), createHolesForCourseWithNoPar(entry.getValue())));
-        }
-    }
-
-    private void buildCourses_2017() {
-        if (isCourseListAlreadyPopulated(courses_2017)) return;
-        courses_2017 = new LinkedList<>();
-        courses_2017.add(createCourse("Congo Rapids Adventure Golf",
-                createHolesForCourseWithNoPar(18)));
-        courses_2017.add(createCourse("Clippesby Family Golf",
-                createHoles(List.of(2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2,2,2,2,2,2,3,4))));
-        courses_2017.add(createCourse("Lost world Adventure golf, Hemsby",
-                createHoles(List.of(2,2,3,4,2,2,2,3,4))));
-        courses_2017.add(createCourse("Stonehenge, the BIG minigolf",
-                createHoles(List.of(3,2,3,3,4, 3,3,4,3, 3,4,3,3, 4,2,3,2,4))));
-        courses_2017.add(createCourse("Castaway Island, Great Yarmouth",
-                createHoles(List.of(2,2,3,2,2,3,3,2,3,2,3,3,2,3,2,3,2,3))));
-        courses_2017.add(createCourse("Pirates Cover, Great Yarmouth",
-                createHoles(List.of(2,3,3,3,4,3,2,2,3,3, 5,3,2,3,2,3,3,3))));
-        courses_2017.add(createCourse("Congo Rapids Lost World Adventure Golf, Woodbridge",
-                createHolesForCourseWithNoPar(18)));
-    }
-
-    private void buildCourses_2018() {
-        if (isCourseListAlreadyPopulated(courses_2018)) return;
-        courses_2018 = new LinkedList<>();
-        courses_2018.add(createCourse("Bear Creek Adventure Golf",
-                createHolesForCourseWithNoPar(12)));
-        courses_2018.add(createCourse("The Pavilion Fun Park, Clacton",
-                createHoles(List.of(2,3,4,3,4,4,4,3,3,3,3,4,4))));
-        courses_2018.add(createCourse("Greensward Adventure Golf, Clacton-on-sea",
-                createHolesForCourseWithNoPar(9)));
-        courses_2018.add(createCourse("St Osyth Mini 12 Hole Adventure Golf",
-                createHolesForCourseWithNoPar(12)));
-        courses_2018.add(createCourse("Mighty Claws Adventure Golf, Colchester",
-                createHoles(List.of(2,2,2,3,2,2,3,3,4,2,2,3,3,2,3,3,3,3))));
-        courses_2018.add(createCourse("Mersea Island, Crazy golf",
-                createHolesForCourseWithNoPar(9)));
-        courses_2018.add(createCourse("Arnold Palmer Minigolf",
-                createHoles(List.of(2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2))));
-        courses_2018.add(createCourse("Pirates Bay Adventure Gold, Maldon",
-                createHoles(List.of(2,3,3,2,3,2,2,3,2,3,2,3,3,3,5,2,3,4))));
-    }
-
-    private void buildCourses_2019() {
-        if (isCourseListAlreadyPopulated(courses_2019)) return;
-        courses_2019 = new LinkedList<>();
-        courses_2019.add(createCourse("Jungle Falls Adventure Golf, Trent Park Country Club",
-                createHoles(List.of(2,2,2,3,2,2,2,2,2,3,2,2,2,2,2,2,2,3))));
-        courses_2019.add(createCourse("Captain's Bay Adventure Golf, London",
-                createHoles(List.of(2,2,2,2,3,2,3,2,3))));
-        courses_2019.add(createCourse("Lost Jungle London, Amazon course",
-                createHoles(List.of(2,2,2,3,2,2,2,3,2,2,2,2,2,3,2,2,2,3))));
-        courses_2019.add(createCourse("Lost Jungle London, Congo course",
-                createHolesForCourseWithNoPar(18)));
-        courses_2019.add(createCourse("TopGolf Adventure Golf",
-                createHoles(List.of(3,2,4,3,3,3,3,3,4,2,3,4,3,4,3,3,3,4))));
-        courses_2019.add(createCourse("Dinosaur Safari Adventure Golf",
-                createHoles(List.of(2,2,2,3,2,2,2,3,2,2,2,2,2,2,3,2,3,2))));
-        courses_2019.add(createCourse("Mr Mulligan's Jaws-some Journeys - Lost World Jungle Explorer, Stevenage",
-                createHoles(List.of(2,2,2,2,3,2,2,2,3,2,3,2,2,2,3,2,2,2))));
-        courses_2019.add(createCourse("Mr Mulligan's Jaws-some Journeys - OCean Adventures, Stevenage",
-                createHoles(List.of(2,2,3,2,2,3,2,2,2,3,2,2,2,2,2,3,2,2))));
-        courses_2019.add(createCourse("Glo Crazy",
-                createHolesForCourseWithNoPar(12)));
-    }
-
-    private void buildCourses_2020() {
-        if (isCourseListAlreadyPopulated(courses_2020)) return;
-        courses_2020 = new LinkedList<>();
-        courses_2020.add(createCourse("1066 Adventure Golf",
-                createHoles(List.of(2,3,2,3,2,3,3,2,3,3,2,2,3,3,4,3,3,2))));
-        courses_2020.add(createCourse("DIY minigolf, White Roding",
-                createHolesForCourseWithNoPar(18)));
-        List<Hole> farmyardHoles = createHolesForCourseWithNoPar(18);
-        farmyardHoles.add(createHole(19,2));
-        courses_2020.add(createCourse("Farmyard Crazy Golf, Broxbourne",
-                farmyardHoles));
-        courses_2020.add(createCourse("Jurassic Falls Adventure Golf",
-                createHolesForCourseWithNoPar(18)));
-        courses_2020.add(createCourse("Moby Adventure Golf",
-                createHoles(List.of(2,2,3,2,2,3,2,3,2,2,2,2,3,2,2,2,3,2))));
-    }
-
-    private void buildCourses_2021() {
-        if (isCourseListAlreadyPopulated(courses_2021)) return;
-        courses_2021 = new LinkedList<>();
-        courses_2021.add(createCourse("Herne Bay Minigolf",
-                createHolesForCourseWithNoPar(18)));
-        courses_2021.add(createCourse("Quex Adventure Golf",
-                createHolesForCourseWithNoPar(18)));
-        courses_2021.add(createCourse("Strokes Adventure Golf",
-                createHolesForCourseWithNoPar(18)));
-        courses_2021.add(createCourse("Lost Island Adventure Golf",
-                createHolesForCourseWithNoPar(18)));
-        courses_2021.add(createCourse("Lillyputt Minigolf",
-                createHoles(List.of(2,2,2,2,2,2,2,2,2,2,2,2))));
-        courses_2021.add(createCourse("Rascal Bay Manston",
-                createHolesForCourseWithNoPar(18)));
-    }
-
-    private void buildCourses_2022() {
-        if (isCourseListAlreadyPopulated(courses_2022)) return;
-        courses_2022 = new LinkedList<>();
-        courses_2022.add(createCourse("Pirate Cove Adventure Golf, Smugglers Course, DA9 95F",
-                createHolesForCourseWithNoPar(18)));
-        courses_2022.add(createCourse("Pirate Cove Adventure Golf, Pirates Course, DA9 95F",
-                createHolesForCourseWithNoPar(18)));
-        courses_2022.add(createCourse("Enchanted Village Adventure Golf, BR4 9BB",
-                createHolesForCourseWithNoPar(12)));
-        courses_2022.add(createCourse("Jurassic Encounter Adventure Golf, KT3 4PM",
-                createHoles(List.of(2,2,3,2,2,2,3,2,2,2,2,2,3,2,3,2,3,2))));
-        courses_2022.add(createCourse("Jungle Island, KT19 8QG",
-                createHolesForCourseWithNoPar(18)));
-        courses_2022.add(createCourse("Galloping MiniGolf, KT10 8AN",
-                createHolesForCourseWithNoPar(12)));
-        courses_2022.add(createCourse("Safari Adventure Golf, Hershom Golf Club, KT12 4RA",
-                createHolesForCourseWithNoPar(18)));
-    }
-
-    private void buildCourses_2023() {
-        if (isCourseListAlreadyPopulated(courses_2023)) return;
-        courses_2023 = new LinkedList<>();
-        courses_2023.add(createCourse("Meadow Croft Garden Centre, SS11 7QU",
-                createHoles(List.of(2,2,2,3,2,2,3,2,3,2,2,2,3,2,2,3,2,3))));
-        courses_2023.add(createCourse("Garon Castle Adventures, SS2 4FA",
-                createHolesForCourseWithNoPar(18)));
-        courses_2023.add(createCourse("Mr Mulligans Basildon, Game 1, SS14 3WB",
-                createHolesForCourseWithNoPar(12)));
-        courses_2023.add(createCourse("Mr Mulligans Basildon, Game 2, SS14 3WB",
-                createHolesForCourseWithNoPar(12)));
-        courses_2023.add(createCourse("Noahs Park Adventrue Golf, CM11 2UD",
-                createHolesForCourseWithNoPar(18)));
-        courses_2023.add(createCourse("Hackers, Explore Azura & Rosa, CM12 9BQ",
-                createHolesForCourseWithNoPar(16)));
-        courses_2023.add(createCourse("Rascal Bay Adventure Golf, CM1 2QT",
-                createHolesForCourseWithNoPar(19)));
-        courses_2023.add(createCourse("The Notelys Golf Club, CM8 1ST",
-                createHolesForCourseWithNoPar(18)));
+        COURSES_BY_YEAR
+                .entrySet()
+                .stream()
+                .filter(entry -> !isCourseListAlreadyPopulated(entry.getValue()))
+                .map(entry -> courseCreator.create(entry.getKey()))
+                .flatMap(List::stream)
+                .forEach(courseService::save);
     }
 
     private boolean isCourseListAlreadyPopulated(List<Course> courseList) {
         return ObjectUtils.isNotEmpty(courseList);
     }
 
-    private Course createCourse(String courseName, List<Hole> holesForCourse) {
-        return Course.builder()
-                .courseName(courseName)
-                .holes(holesForCourse)
-                .build();
-    }
-
-    private List<Hole> createHoles(List<Integer> orderedListOfPars) {
-        List<Hole> holes = new LinkedList<>();
-        for (int i = 0; i < orderedListOfPars.size(); i++) {
-            holes.add(createHole(i, orderedListOfPars.get(i)));
-        }
-        return holes;
-    }
-
-    private List<Hole> createHolesForCourseWithNoPar(Integer numberOfHoles) {
-        List<Hole> holes = new ArrayList<>();
-        for (int i = 0; i < numberOfHoles; i++) {
-            holes.add(createHole(i + 1, 0));
-        }
-        return holes;
-    }
-
-    private Hole createHole(Integer holeNumber, Integer par) {
-        return Hole.builder().holeNumber(holeNumber).par(par).build();
-    }
-
     // ++++++++++++++++ TOURNAMENTS ++++++++++++++++
     private void createTournaments() {
-        tournament2016 = Tournament.builder()
-                ._year(Year.of(2016))
-                .courses(courses_2016)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
+        COURSES_BY_YEAR
+                .entrySet()
+                .stream()
+                .map(entry -> Tournament.builder()
+                        ._year(entry.getKey())
+                        .courses(entry.getValue())
+                        .players(List.of(Rhys, Tom, Jamie))
+                        .build())
+                .map(tournament -> {
+                    if (tournament.get_year().equals(Year.of(2020))) {
+                        tournament.getPlayers().add(Jade);
+                    }
+                    return tournament;
+                })
+                .forEach(tournamentService::save);
 
-        tournament2017 = Tournament.builder()
-                ._year(Year.of(2017))
-                .courses(courses_2017)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
-
-        tournament2018 = Tournament.builder()
-                ._year(Year.of(2018))
-                .courses(courses_2018)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
-
-        tournament2019 = Tournament.builder()
-                ._year(Year.of(2019))
-                .courses(courses_2019)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
-
-        tournament2020 = Tournament.builder()
-                ._year(Year.of(2020))
-                .courses(courses_2020)
-                .players(List.of(Rhys, Tom, Jamie, Jade))
-                .build();
-
-        tournament2021 = Tournament.builder()
-                ._year(Year.of(2021))
-                .courses(courses_2021)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
-
-        tournament2022 = Tournament.builder()
-                ._year(Year.of(2022))
-                .courses(courses_2022)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
-
-        tournament2023 = Tournament.builder()
-                ._year(Year.of(2023))
-                .courses(courses_2023)
-                .players(List.of(Rhys, Tom, Jamie))
-                .build();
-
-        Stream.of(tournament2016,
-                tournament2017,
-                tournament2018,
-                tournament2019,
-                tournament2020,
-                tournament2021,
-                tournament2022,
-                tournament2023).forEach(tournamentService::save);
     }
 
 }
