@@ -7,7 +7,7 @@ import java.time.Year;
 import java.util.*;
 import java.util.stream.Stream;
 
-public class CourseCreator implements Creator<Course> {
+public class CourseCreator {
 
     public List<Course> create(Year year) {
         return switch (year.getValue()) {
