@@ -27,7 +27,7 @@ public class PlayerController {
     public ResponseEntity<List<PlayerDto>> getAllPlayers() {
         log.info("Getting all players");
         List<PlayerDto> players = playerService.getAll();
-        log.info("All tournaments received and being returned to consumer");
+        log.info("All players received and being returned to consumer");
         return ResponseEntity.ok(players);
     }
 }

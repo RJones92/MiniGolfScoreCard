@@ -6,7 +6,6 @@ import com.golf.two_for_tom_open.model.entity.Tournament;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.Collections.emptyList;
 
@@ -23,7 +22,7 @@ public class TomScoreCreator extends ScoreCreator {
             case 2021 -> buildScoreTom2021();
             case 2022 -> buildScoreTom2022();
             case 2023 -> buildScoreTom2023();
-//                case 2024 -> buildScoreTom2024(tournament, player);
+            case 2024 -> buildScoreTom2024();
             default -> Collections.emptyList();
         };
 
@@ -37,13 +36,9 @@ public class TomScoreCreator extends ScoreCreator {
         var course3 = List.of(2,4,4,2,3,2,2,4,1,3,3,2,3,2,1,2,3,4);
         var course4 = List.of(2,3,3,4,4,2,2,4,3,3,2,6,3,3,2,4,3,4);
         var course5 = List.of(2,2,3,3,4,4,2,2,2,3,2,3,3,6,2,2,2,2);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5);
     }
 
     private List<List<Integer>> buildScoreTom2017() {
@@ -54,15 +49,10 @@ public class TomScoreCreator extends ScoreCreator {
         var course5 = List.of(3,4,4,2,3,3,3,2,3,3,3,3,2,2,3,4,3,2);
         var course6 = List.of(2,2,3,3,3,3,2,3,3,2,5,2,3,3,4,3,3,2);
         var course7 = List.of(4,2,4,2,2,2,7,2,3,2,2,4,2,2,2,2,7,3);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5,
-                course6,
-                course7).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7);
     }
 
     private List<List<Integer>> buildScoreTom2018() {
@@ -74,16 +64,10 @@ public class TomScoreCreator extends ScoreCreator {
         var course6 = List.of(3,6,6,6,3,2,3,4,6);
         var course7 = List.of(1,4,4,5,1,2,2,2,2,2,3,2,2,2,2,2,3,2);
         var course8 = List.of(2,2,2,2,3,2,4,3,2,2,4,2,2,2,5,3,1,4);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5,
-                course6,
-                course7,
-                course8).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8);
     }
 
     private List<List<Integer>> buildScoreTom2019() {
@@ -96,17 +80,10 @@ public class TomScoreCreator extends ScoreCreator {
         var course7 = List.of(2,2,2,5,4,2,2,2,3,4,6,2,2,2,4,2,2,2);
         var course8 = List.of(2,3,3,5,4,3,3,2,2,3,3,2,3,3,3,4,3,2);
         var course9 = List.of(2,3,4,3,4,5,2,3,5,2,4,2);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5,
-                course6,
-                course7,
-                course8,
-                course9).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9);
     }
 
     private List<List<Integer>> buildScoreTom2020() {
@@ -115,13 +92,9 @@ public class TomScoreCreator extends ScoreCreator {
         var course3 = List.of(4,3,3,3,3,2,4,2,4,2,3,3,3,4,3,4,3,2,2);
         var course4 = List.of(2,2,3,4,2,2,3,2,4,5,2,2,2,1,2,3,2,4);
         var course5 = List.of(2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,3,2);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5);
     }
 
     private List<List<Integer>> buildScoreTom2021() {
@@ -131,14 +104,9 @@ public class TomScoreCreator extends ScoreCreator {
         var course4 = List.of(2,3,3,2,3,2,2,4,2,3,3,3,2,2,3,1,3,3);
         var course5 = List.of(2,2,2,4,2,2,3,2,2,3,5,2);
         var course6 = List.of(3,4,2,4,5,2,2,2,3,3,2,3,5,2,3,2,3,1);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5,
-                course6).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6);
     }
 
     private List<List<Integer>> buildScoreTom2022() {
@@ -149,15 +117,10 @@ public class TomScoreCreator extends ScoreCreator {
         var course5 = List.of(3,2,3,2,2,2,3,3,3,3,2,2,3,3,2,3,6,3);
         var course6 = List.of(3,2,3,3,2,3,2,2,5,2,3,2);
         var course7 = List.of(2,3,2,2,4,2,2,2,2,2,1,2,2,2,4,2,2,2);
-        return Stream.of(
-                course1,
-                course2,
-                course3,
-                course4,
-                course5,
-                course6,
-                course7).toList();
-        
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7);
     }
 
     private List<List<Integer>> buildScoreTom2023() {
@@ -169,10 +132,24 @@ public class TomScoreCreator extends ScoreCreator {
         var course6 = List.of(2,2,2,2,2,2,3,2,2,2,3,3,2,2,2,2);
         var course7 = List.of(4,4,2,3,5,2,2,4,2,1,1,3,3,2,2,2,3,5,2);
         var course8 = List.of(2,3,2,2,2,4,2,3,6,2,2,3,1,5,2,2,3,2);
-        return Stream.of(
+        return List.of(
                 course1, course2, course3,
                 course4, course5, course6,
-                course7, course8).toList();
+                course7, course8);
+    }
+
+    private List<List<Integer>> buildScoreTom2024() {
+        var course1 = List.of(2,3,2,2,2,3,2,2,3,3,4,2,2,2,4,2,2,2);
+        var course2 = List.of(2,2,2,2,2,3,3,2,3,3,4,2,3,2,3,2,3,2);
+        var course3 = List.of(6,2,2,1,3,1,2,1,2,3,2,2,2,4,2,1,2,2);
+        var course4 = List.of(2,5,4,4,3,2,2,2,5,3,3,3,4,4,3,4,3,4);
+        var course5 = List.of(2,3,3,3,2,3,4,3,2,3,2,2,2,2,3,1,2,2);
+        var course6 = List.of(1,2,6,4,3,4,2,6,2);
+        var course7 = List.of(3,3,1,3,2,2,2,3,2,2,1,1,2,2,2,2,3,4);
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7);
     }
 
 }
