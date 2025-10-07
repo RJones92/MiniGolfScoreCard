@@ -1,11 +1,6 @@
 package com.golf.two_for_tom_open.model.enricher;
 
-import com.golf.two_for_tom_open.model.dto.CourseDto;
-import com.golf.two_for_tom_open.model.dto.HoleDto;
-import com.golf.two_for_tom_open.model.dto.PlayerDto;
-import com.golf.two_for_tom_open.model.dto.PlayerStatsDto;
-import com.golf.two_for_tom_open.model.dto.ScoreDto;
-import com.golf.two_for_tom_open.model.dto.TournamentDto;
+import com.golf.two_for_tom_open.model.dto.*;
 import com.golf.two_for_tom_open.service.ScoreService;
 import com.golf.two_for_tom_open.service.TournamentService;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +27,24 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
     }
 
     private PlayerStatsDto calculateStatistics(PlayerDto player) {
+
+        List<ScoreDto> allScoresForTournamentsThisPlayerPlayed = scoresForTournamentsPlayerPlayedIn(player);
+
+        List<ScoreDto> scoresForThisPlayer = allScoresForTournamentsThisPlayerPlayed.stream()
+                .filter(score -> score.getPlayer().equals(player))
+                .toList();
+
+        long countHolesWon = countHolesWon(player, allScoresForTournamentsThisPlayerPlayed, scoresForThisPlayer);
+        int lowest18HoleScore = lowest18HoleScore(player, scoresForThisPlayer);
+
         return new PlayerStatsDto(
                 countTournamentsPlayed(player),
                 countTournamentsWon(player),
                 countCoursesPlayed(player),
                 countCoursesWon(player),
                 countHolesPlayed(player),
-                countHolesWon(player));
+                countHolesWon,
+                lowest18HoleScore);
     }
 
     private long countTournamentsPlayed(PlayerDto player) {
@@ -100,12 +106,9 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                 .toList();
     }
 
-    private long countHolesWon(PlayerDto player) throws NoSuchElementException {
-        List<ScoreDto> allScoresForTournamentsThisPlayerPlayed = scoresForTournamentsPlayerPlayedIn(player);
-
-        List<ScoreDto> scoresForThisPlayer = allScoresForTournamentsThisPlayerPlayed.stream()
-                .filter(score -> score.getPlayer().equals(player))
-                .toList();
+    private long countHolesWon(PlayerDto player,
+                               List<ScoreDto> allScoresForTournamentsThisPlayerPlayed,
+                               List<ScoreDto> scoresForThisPlayer) throws NoSuchElementException {
 
         return scoresForThisPlayer.stream()
                 .filter(playerScore -> {
@@ -118,6 +121,7 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                 })
                 .count();
     }
+
 
     private List<ScoreDto> scoresForTournamentsPlayerPlayedIn(PlayerDto player) {
         List<Integer> tournamentIdsOfTournamentsPlayed = tournamentsPlayed(player).stream()
@@ -146,6 +150,44 @@ public class PlayerDtoEnricher implements DtoEnricher<PlayerDto> {
                 .filter(score -> score.getStrokes() == lowestStrokesForHole)
                 .map(ScoreDto::getPlayer)
                 .toList();
+    }
+
+    private int lowest18HoleScore(PlayerDto player,
+                                    List<ScoreDto> scoresForThisPlayer) {
+
+        int lowestScoreForPlayer = Integer.MAX_VALUE;
+
+        for (TournamentDto tourn : enrichedTournaments) {
+            for (CourseDto course : tourn.getCourses()) {
+
+                if (course.getHoles().size() != 18) {
+                    break;
+                }
+
+                int totalCourseScoreForPlayer = 0;
+
+                for (HoleDto hole : course.getHoles()) {
+                    for (ScoreDto score : scoresForThisPlayer) {
+
+                        if (hole.getId() == score.getHole().getId() &&
+                                player.getId() == score.getPlayer().getId() &&
+                                tourn.getId() == score.getTournament().getId()) {
+                            totalCourseScoreForPlayer += score.getStrokes();
+                        }
+
+                    }
+                }
+
+                if (totalCourseScoreForPlayer < lowestScoreForPlayer &&
+                        totalCourseScoreForPlayer != 0) { // need to make sure it's not 0 for the year(s) this player didn't play
+                    lowestScoreForPlayer = totalCourseScoreForPlayer;
+                }
+
+            }
+        }
+
+        return lowestScoreForPlayer;
+
     }
 
 }

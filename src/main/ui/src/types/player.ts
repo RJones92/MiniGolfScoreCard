@@ -12,4 +12,5 @@ type PlayerStats = {
     countOfCoursesWon: number,
     countOfHolesPlayed: number,
     countOfHolesWon: number,
+    lowest18HoleScore: number,
 }
