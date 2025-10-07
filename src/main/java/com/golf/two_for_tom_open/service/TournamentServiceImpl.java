@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Comparator.comparing;
+
 @RequiredArgsConstructor
 @Service
 public class TournamentServiceImpl extends TournamentService {
@@ -24,6 +26,7 @@ public class TournamentServiceImpl extends TournamentService {
         return tournaments.stream()
                 .map(tournamentMapper::tournamentEntityToDto)
                 .peek(tournamentDtoEnricher::enrich)
+                .sorted(comparing(TournamentDto::get_year).reversed())
                 .toList();
     }
 

@@ -23,6 +23,7 @@ public class TomScoreCreator extends ScoreCreator {
             case 2022 -> buildScoreTom2022();
             case 2023 -> buildScoreTom2023();
             case 2024 -> buildScoreTom2024();
+            case 2025 -> buildScoreTom2025();
             default -> Collections.emptyList();
         };
 
@@ -150,6 +151,22 @@ public class TomScoreCreator extends ScoreCreator {
                 course1, course2, course3,
                 course4, course5, course6,
                 course7);
+    }
+
+    private List<List<Integer>> buildScoreTom2025() {
+        var course1 = List.of(2,3,2,2,2,1,3,3,2,2,3,2,2,1,3,2,3,1);
+        var course2 = List.of(4,3,2,3,2,3,6,4,5,5,2,4,5,2,6,2,3,2);
+        var course3 = List.of(1,2,3,2,4,3,2,2,3,3,5,3,4,3,3,2,4,4);
+        var course4 = List.of(2,2,3,2,1,4,2,2,2,2,3,6,2,2,3,3,2,3);
+        var course5 = List.of(3,1,4,4,2,1,2,3,3,3,3,2,2,4,5,3,2,2);
+        var course6 = List.of(2,2,3,4,3,3,2,2,2,2,2,4,3,2,3,2,2,2);
+        var course7 = List.of(3,3,2,3,3,2,3,6,3,2,2,1,2,2,3,2,2,2);
+        var course8 = List.of(2,2,3,2,2,4,3,3,3,3,2,6,3,2,2,2,4,2);
+        var course9 = List.of(3,3,5,2,2,4,2,2,3,1,2,2,2,2,2,3,3,2);
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9);
     }
 
 }

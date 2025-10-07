@@ -61,7 +61,8 @@ public class DataInitialiserProd implements CommandLineRunner {
                 Year.of(2021), new ArrayList<>(),
                 Year.of(2022), new ArrayList<>(),
                 Year.of(2023), new ArrayList<>(),
-                Year.of(2024), new ArrayList<>());
+                Year.of(2024), new ArrayList<>(),
+                Year.of(2025), new ArrayList<>());
     }
 
     @Override

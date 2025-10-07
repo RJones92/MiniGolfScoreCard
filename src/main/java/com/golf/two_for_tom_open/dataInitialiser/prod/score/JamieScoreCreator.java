@@ -23,6 +23,7 @@ public class JamieScoreCreator extends ScoreCreator {
             case 2022 -> buildScoreJamie2022();
             case 2023 -> buildScoreJamie2023();
             case 2024 -> buildScoreJamie2024();
+            case 2025 -> buildScoreJamie2025();
             default -> Collections.emptyList();
         };
 
@@ -151,6 +152,22 @@ public class JamieScoreCreator extends ScoreCreator {
                 course1, course2, course3,
                 course4, course5, course6,
                 course7);
+    }
+
+    private List<List<Integer>> buildScoreJamie2025() {
+        var course1 = List.of(2,2,2,2,3,2,3,3,2,1,3,2,2,2,2,2,4,1);
+        var course2 = List.of(3,3,5,5,3,3,2,5,5,3,3,2,4,2,5,2,2,6);
+        var course3 = List.of(3,2,3,3,1,1,3,3,3,2,5,2,3,1,2,2,2,3);
+        var course4 = List.of(2,1,3,2,4,4,1,3,2,1,3,3,3,3,4,2,2,4);
+        var course5 = List.of(2,3,3,3,2,2,2,2,2,3,2,2,3,2,1,2,2,2);
+        var course6 = List.of(2,2,2,3,2,3,2,2,3,2,3,5,4,3,3,1,4,2);
+        var course7 = List.of(2,3,4,3,3,1,3,3,2,3,2,1,2,1,2,1,2,2);
+        var course8 = List.of(3,3,4,4,2,4,4,2,2,2,2,5,6,2,2,2,2,2);
+        var course9 = List.of(3,2,4,2,3,2,5,3,3,3,2,2,3,3,3,2,4,3);
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9);
     }
 
 }
