@@ -12,7 +12,7 @@ import { Score } from "src/types/score";
 type TournamentTable = {
 	tableName: string | number,
 	table: ITable,
-  	tournamentWinner: string
+  tournamentWinner: string
 };
 
 function TournamentPage() {

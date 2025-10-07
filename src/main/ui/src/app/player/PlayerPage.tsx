@@ -12,6 +12,7 @@ const statTypes = new Map([
   ['countOfCoursesWon', 'Courses won'],
   ['countOfHolesPlayed', 'Holes played'],
   ['countOfHolesWon', 'Holes won'],
+  ['lowest18HoleScore', 'Lowest 18 hole score']
 ]);
 
 function PlayerPage() {

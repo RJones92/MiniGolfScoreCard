@@ -6,4 +6,5 @@ public record PlayerStatsDto(
         long countOfCoursesPlayed,
         long countOfCoursesWon,
         long countOfHolesPlayed,
-        long countOfHolesWon) {}
+        long countOfHolesWon,
+        int lowest18HoleScore) {}
