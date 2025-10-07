@@ -20,6 +20,7 @@ public class CourseCreator {
             case 2022 -> buildCourses_2022();
             case 2023 -> buildCourses_2023();
             case 2024 -> buildCourses_2024();
+            case 2025 -> buildCourses_2025();
             default -> throw new RuntimeException("Uh oh, there's no courses for that year!");
         };
     }
@@ -187,6 +188,20 @@ public class CourseCreator {
                 createCourse("Kings Crazy Golf, RH19 3DJ",
                         createHoles(List.of(3,2,3,3,3,3,3,3,3,3,3,2,2,3,3,3,3,3)))
         ).toList();
+    }
+
+    private List<Course> buildCourses_2025() {
+        return List.of(
+                createCourse("Dynamite Adventure Golf, BA3 2SY", createHolesForCourseWithNoPar(18)),
+                createCourse("Cheddar Crazy Golf, BS27 3QE", createHolesForCourseWithNoPar(18)),
+                createCourse("Revo Glo Golf, BS23 1BE", createHolesForCourseWithNoPar(18)),
+                createCourse("Crazy Hills Putting, BS23 2BD", createHolesForCourseWithNoPar(18)),
+                createCourse("Congo Falls Adventure Golf, BS31 2ER", createHolesForCourseWithNoPar(18)),
+                createCourse("Treetop Golf Bristol (Tropical Trail course), BS1 3BQ", createHolesForCourseWithNoPar(18)),
+                createCourse("Treetop Golf Bristol (Ancient Explorer course), BS1 3BQ",createHolesForCourseWithNoPar(18)),
+                createCourse("Kong Adventure Golf, Caddy Gilmores, BS16 1QQ", createHolesForCourseWithNoPar(18)),
+                createCourse("Around The World in 18 Holes, Caddy Gilmores, BS16 1QQ", createHolesForCourseWithNoPar(18))
+        );
     }
     
     private Course createCourse(String courseName, List<Hole> holesForCourse) {

@@ -23,7 +23,7 @@ function HomePage() {
 			});
 
 		function createRows(tournaments: Array<Tournament>) {
-      		let formattedRows : Array<TableRow> = [];
+			let formattedRows : Array<TableRow> = [];
 
 			Object.keys(tournaments).forEach((key) => {
 				let tournament = tournaments[key];
@@ -35,7 +35,7 @@ function HomePage() {
 				formattedRows.push(newRow);
 			})
 
-      		setRows(formattedRows);
+			setRows(formattedRows);
 			
 		}
 		

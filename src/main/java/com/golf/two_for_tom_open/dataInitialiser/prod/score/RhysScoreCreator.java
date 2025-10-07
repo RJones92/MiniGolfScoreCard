@@ -24,6 +24,7 @@ public class RhysScoreCreator extends ScoreCreator {
             case 2022 -> buildScoreRhys2022();
             case 2023 -> buildScoreRhys2023();
             case 2024 -> buildScoreRhys2024();
+            case 2025 -> buildScoreRhys2025();
             default -> Collections.emptyList();
         };
 
@@ -158,6 +159,22 @@ public class RhysScoreCreator extends ScoreCreator {
                 course1, course2, course3,
                 course4, course5, course6,
                 course7);
+    }
+
+    private List<List<Integer>> buildScoreRhys2025() {
+        var course1 = List.of(3,2,3,2,3,1,3,5,4,3,3,2,2,2,3,2,3,1);
+        var course2 = List.of(3,3,2,3,4,3,4,3,6,6,2,2,3,2,6,6,3,4);
+        var course3 = List.of(2,3,2,3,2,2,2,2,3,2,5,3,3,2,2,2,2,2);
+        var course4 = List.of(3,3,4,2,4,4,1,2,2,2,2,2,2,3,2,2,2,2);
+        var course5 = List.of(2,2,4,4,3,3,2,3,3,3,2,2,2,2,3,3,2,2);
+        var course6 = List.of(1,2,2,2,2,3,2,2,3,2,2,5,5,3,2,3,2,2);
+        var course7 = List.of(3,1,1,2,1,1,2,3,2,2,2,1,2,2,2,2,3,2);
+        var course8 = List.of(2,4,2,3,2,6,2,3,2,2,2,3,4,2,2,3,2,5);
+        var course9 = List.of(2,2,2,2,3,6,2,2,5,3,2,2,2,2,4,2,3,6);
+        return List.of(
+                course1, course2, course3,
+                course4, course5, course6,
+                course7, course8, course9);
     }
 
 }
